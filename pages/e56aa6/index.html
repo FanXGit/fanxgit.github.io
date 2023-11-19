@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ES详解 - 聚合-聚合查询之Metric聚合详解 | Fanx 知识库</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    <link rel="icon" href="/img/logo.svg">[object Object]
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.6ece31e0.css" as="style"><link rel="preload" href="/assets/js/app.38fd400a.js" as="script"><link rel="preload" href="/assets/js/3.e11db813.js" as="script"><link rel="preload" href="/assets/js/447.7f653483.js" as="script"><link rel="prefetch" href="/assets/js/10.939e2dd4.js"><link rel="prefetch" href="/assets/js/100.4a08f581.js"><link rel="prefetch" href="/assets/js/101.45cd45c9.js"><link rel="prefetch" href="/assets/js/102.ac1359d1.js"><link rel="prefetch" href="/assets/js/103.22344102.js"><link rel="prefetch" href="/assets/js/104.5071cdfd.js"><link rel="prefetch" href="/assets/js/105.7767c121.js"><link rel="prefetch" href="/assets/js/106.809b79f1.js"><link rel="prefetch" href="/assets/js/107.62fd626a.js"><link rel="prefetch" href="/assets/js/108.0583fdc1.js"><link rel="prefetch" href="/assets/js/109.fa127771.js"><link rel="prefetch" href="/assets/js/11.6463adc8.js"><link rel="prefetch" href="/assets/js/110.5cf9f09c.js"><link rel="prefetch" href="/assets/js/111.9d963667.js"><link rel="prefetch" href="/assets/js/112.bc2b8a6e.js"><link rel="prefetch" href="/assets/js/113.2ae29573.js"><link rel="prefetch" href="/assets/js/114.0b2cedfa.js"><link rel="prefetch" href="/assets/js/115.652e433e.js"><link rel="prefetch" href="/assets/js/116.bcc5d64a.js"><link rel="prefetch" href="/assets/js/117.30b02d0d.js"><link rel="prefetch" href="/assets/js/118.87f4f927.js"><link rel="prefetch" href="/assets/js/119.05839492.js"><link rel="prefetch" href="/assets/js/12.a17960e5.js"><link rel="prefetch" href="/assets/js/120.3d772c9c.js"><link rel="prefetch" href="/assets/js/121.bd8fcebf.js"><link rel="prefetch" href="/assets/js/122.e58d2205.js"><link rel="prefetch" href="/assets/js/123.f2c2826d.js"><link rel="prefetch" href="/assets/js/124.12d9ff87.js"><link rel="prefetch" href="/assets/js/125.c7e4bf1c.js"><link rel="prefetch" href="/assets/js/126.71c358fb.js"><link rel="prefetch" href="/assets/js/127.fb1922e5.js"><link rel="prefetch" href="/assets/js/128.25cbf771.js"><link rel="prefetch" href="/assets/js/129.50047ea3.js"><link rel="prefetch" href="/assets/js/13.727ebfda.js"><link rel="prefetch" href="/assets/js/130.a77cfa28.js"><link rel="prefetch" href="/assets/js/131.1618c1f5.js"><link rel="prefetch" href="/assets/js/132.4073573b.js"><link rel="prefetch" href="/assets/js/133.f6e4882f.js"><link rel="prefetch" href="/assets/js/134.1de81973.js"><link rel="prefetch" href="/assets/js/135.43148a0c.js"><link rel="prefetch" href="/assets/js/136.12b3ef34.js"><link rel="prefetch" href="/assets/js/137.accefc34.js"><link rel="prefetch" href="/assets/js/138.8d3115ff.js"><link rel="prefetch" href="/assets/js/139.6e492e2b.js"><link rel="prefetch" href="/assets/js/14.bc6d3062.js"><link rel="prefetch" href="/assets/js/140.3d98f006.js"><link rel="prefetch" href="/assets/js/141.542d08af.js"><link rel="prefetch" href="/assets/js/142.c91a19a2.js"><link rel="prefetch" href="/assets/js/143.0c681ed2.js"><link rel="prefetch" href="/assets/js/144.62e9c646.js"><link rel="prefetch" href="/assets/js/145.ebc34777.js"><link rel="prefetch" href="/assets/js/146.d94a04a7.js"><link rel="prefetch" href="/assets/js/147.b45158de.js"><link rel="prefetch" href="/assets/js/148.5dfa6740.js"><link rel="prefetch" href="/assets/js/149.cb6f2cb0.js"><link rel="prefetch" href="/assets/js/15.a9468bf1.js"><link rel="prefetch" href="/assets/js/150.9f58dbc6.js"><link rel="prefetch" href="/assets/js/151.0a1c07e3.js"><link rel="prefetch" href="/assets/js/152.eafe4843.js"><link rel="prefetch" href="/assets/js/153.fb94cab5.js"><link rel="prefetch" href="/assets/js/154.07f7a11d.js"><link rel="prefetch" href="/assets/js/155.7f6da40b.js"><link rel="prefetch" href="/assets/js/156.2f007ca1.js"><link rel="prefetch" href="/assets/js/157.a35b5249.js"><link rel="prefetch" href="/assets/js/158.540f7a5a.js"><link rel="prefetch" href="/assets/js/159.f62e0315.js"><link rel="prefetch" href="/assets/js/16.ace3b806.js"><link rel="prefetch" href="/assets/js/160.e043c758.js"><link rel="prefetch" href="/assets/js/161.d90141bf.js"><link rel="prefetch" href="/assets/js/162.ddcdbfb9.js"><link rel="prefetch" href="/assets/js/163.f1ba395e.js"><link rel="prefetch" href="/assets/js/164.9f398973.js"><link rel="prefetch" href="/assets/js/165.0db3da51.js"><link rel="prefetch" href="/assets/js/166.b5305797.js"><link rel="prefetch" href="/assets/js/167.e7b2f76b.js"><link rel="prefetch" href="/assets/js/168.a2ecf883.js"><link rel="prefetch" href="/assets/js/169.88bd4d26.js"><link rel="prefetch" href="/assets/js/17.60481837.js"><link rel="prefetch" href="/assets/js/170.fb1699e2.js"><link rel="prefetch" href="/assets/js/171.47268bef.js"><link rel="prefetch" href="/assets/js/172.79002327.js"><link rel="prefetch" href="/assets/js/173.3b1813fb.js"><link rel="prefetch" href="/assets/js/174.362811a9.js"><link rel="prefetch" href="/assets/js/175.bb48bcd7.js"><link rel="prefetch" href="/assets/js/176.97bbf32c.js"><link rel="prefetch" href="/assets/js/177.0717ff7a.js"><link rel="prefetch" href="/assets/js/178.75bff3b7.js"><link rel="prefetch" href="/assets/js/179.3e7db0a2.js"><link rel="prefetch" href="/assets/js/18.dd3c5709.js"><link rel="prefetch" href="/assets/js/180.c81da8dd.js"><link rel="prefetch" href="/assets/js/181.142d6d1c.js"><link rel="prefetch" href="/assets/js/182.fb312040.js"><link rel="prefetch" href="/assets/js/183.3684267e.js"><link rel="prefetch" href="/assets/js/184.ec2a13bc.js"><link rel="prefetch" href="/assets/js/185.a7acace4.js"><link rel="prefetch" href="/assets/js/186.7df28551.js"><link rel="prefetch" href="/assets/js/187.347e9348.js"><link rel="prefetch" href="/assets/js/188.07356026.js"><link rel="prefetch" href="/assets/js/189.0816176d.js"><link rel="prefetch" href="/assets/js/19.cc2d4ad1.js"><link rel="prefetch" href="/assets/js/190.fd5dd8cc.js"><link rel="prefetch" href="/assets/js/191.a938967e.js"><link rel="prefetch" href="/assets/js/192.859b71a1.js"><link rel="prefetch" href="/assets/js/193.adcf2ec3.js"><link rel="prefetch" href="/assets/js/194.69d1169c.js"><link rel="prefetch" href="/assets/js/195.ad7cbcc4.js"><link rel="prefetch" href="/assets/js/196.b65138da.js"><link rel="prefetch" href="/assets/js/197.b4fca73b.js"><link rel="prefetch" href="/assets/js/198.2494a23f.js"><link rel="prefetch" href="/assets/js/199.404b9ce1.js"><link rel="prefetch" href="/assets/js/2.938bab56.js"><link rel="prefetch" href="/assets/js/20.361e2bf6.js"><link rel="prefetch" href="/assets/js/200.42b54eae.js"><link rel="prefetch" href="/assets/js/201.ab495eb8.js"><link rel="prefetch" href="/assets/js/202.2cbc5c9a.js"><link rel="prefetch" href="/assets/js/203.abf3fde5.js"><link rel="prefetch" href="/assets/js/204.4fdd4cfb.js"><link rel="prefetch" href="/assets/js/205.411987d7.js"><link rel="prefetch" href="/assets/js/206.dbcab3ae.js"><link rel="prefetch" href="/assets/js/207.f1429354.js"><link rel="prefetch" href="/assets/js/208.f763286c.js"><link rel="prefetch" href="/assets/js/209.c1edbca5.js"><link rel="prefetch" href="/assets/js/21.ae1e88a3.js"><link rel="prefetch" href="/assets/js/210.b2a1501d.js"><link rel="prefetch" href="/assets/js/211.fe1fd5f7.js"><link rel="prefetch" href="/assets/js/212.0fd39a8f.js"><link rel="prefetch" href="/assets/js/213.bb3fc163.js"><link rel="prefetch" href="/assets/js/214.c42e1ef3.js"><link rel="prefetch" href="/assets/js/215.4f0fa915.js"><link rel="prefetch" href="/assets/js/216.07c485c9.js"><link rel="prefetch" href="/assets/js/217.ada25e7a.js"><link rel="prefetch" href="/assets/js/218.2f761d3c.js"><link rel="prefetch" href="/assets/js/219.32d1a663.js"><link rel="prefetch" href="/assets/js/22.0b09d67f.js"><link rel="prefetch" href="/assets/js/220.36c56cf4.js"><link rel="prefetch" href="/assets/js/221.3e0431e2.js"><link rel="prefetch" href="/assets/js/222.90aa0ff7.js"><link rel="prefetch" href="/assets/js/223.5966d7df.js"><link rel="prefetch" href="/assets/js/224.7e2329e1.js"><link rel="prefetch" href="/assets/js/225.2ed3675d.js"><link rel="prefetch" href="/assets/js/226.fa3cef02.js"><link rel="prefetch" href="/assets/js/227.07bf7bca.js"><link rel="prefetch" href="/assets/js/228.9ac2589a.js"><link rel="prefetch" href="/assets/js/229.b980e141.js"><link rel="prefetch" href="/assets/js/23.31ed5c2f.js"><link rel="prefetch" href="/assets/js/230.2c32e874.js"><link rel="prefetch" href="/assets/js/231.723e20cb.js"><link rel="prefetch" href="/assets/js/232.1f94511c.js"><link rel="prefetch" href="/assets/js/233.2d477f71.js"><link rel="prefetch" href="/assets/js/234.10141c75.js"><link rel="prefetch" href="/assets/js/235.a328b127.js"><link rel="prefetch" href="/assets/js/236.42419c3b.js"><link rel="prefetch" href="/assets/js/237.648ca44e.js"><link rel="prefetch" href="/assets/js/238.4b363b75.js"><link rel="prefetch" href="/assets/js/239.fe711a73.js"><link rel="prefetch" href="/assets/js/24.fe75e3fa.js"><link rel="prefetch" href="/assets/js/240.6baa12bf.js"><link rel="prefetch" href="/assets/js/241.6f375dc4.js"><link rel="prefetch" href="/assets/js/242.aee8e39d.js"><link rel="prefetch" href="/assets/js/243.bfc7f6e1.js"><link rel="prefetch" href="/assets/js/244.c73a14a7.js"><link rel="prefetch" href="/assets/js/245.a2352aa1.js"><link rel="prefetch" href="/assets/js/246.b12c3ae6.js"><link rel="prefetch" href="/assets/js/247.2f768275.js"><link rel="prefetch" href="/assets/js/248.3f79dfb1.js"><link rel="prefetch" href="/assets/js/249.7fd0cb75.js"><link rel="prefetch" href="/assets/js/25.f2e379df.js"><link rel="prefetch" href="/assets/js/250.df3f1d0a.js"><link rel="prefetch" href="/assets/js/251.a3865750.js"><link rel="prefetch" href="/assets/js/252.d62542df.js"><link rel="prefetch" href="/assets/js/253.59b2f200.js"><link rel="prefetch" href="/assets/js/254.522d17b5.js"><link rel="prefetch" href="/assets/js/255.0f95a196.js"><link rel="prefetch" href="/assets/js/256.31b37cbe.js"><link rel="prefetch" href="/assets/js/257.ff22ad12.js"><link rel="prefetch" href="/assets/js/258.15205e0b.js"><link rel="prefetch" href="/assets/js/259.f3b7c5aa.js"><link rel="prefetch" href="/assets/js/26.45264b04.js"><link rel="prefetch" href="/assets/js/260.fec3c7aa.js"><link rel="prefetch" href="/assets/js/261.d965ee56.js"><link rel="prefetch" href="/assets/js/262.76a7105b.js"><link rel="prefetch" href="/assets/js/263.e684cc46.js"><link rel="prefetch" href="/assets/js/264.59297da0.js"><link rel="prefetch" href="/assets/js/265.66182ed2.js"><link rel="prefetch" href="/assets/js/266.eec50d90.js"><link rel="prefetch" href="/assets/js/267.c85bce12.js"><link rel="prefetch" href="/assets/js/268.ef544f0c.js"><link rel="prefetch" href="/assets/js/269.8cfb5c6a.js"><link rel="prefetch" href="/assets/js/27.4e065810.js"><link rel="prefetch" href="/assets/js/270.b66cab3c.js"><link rel="prefetch" href="/assets/js/271.c1b7d136.js"><link rel="prefetch" href="/assets/js/272.0d7950c3.js"><link rel="prefetch" href="/assets/js/273.06349cca.js"><link rel="prefetch" href="/assets/js/274.9b442c09.js"><link rel="prefetch" href="/assets/js/275.11082d81.js"><link rel="prefetch" href="/assets/js/276.ce0abe31.js"><link rel="prefetch" href="/assets/js/277.4b7fcc53.js"><link rel="prefetch" href="/assets/js/278.129d0397.js"><link rel="prefetch" href="/assets/js/279.5c021f7c.js"><link rel="prefetch" href="/assets/js/28.126ecd33.js"><link rel="prefetch" href="/assets/js/280.d183c9e3.js"><link rel="prefetch" href="/assets/js/281.0df67750.js"><link rel="prefetch" href="/assets/js/282.8fdd2372.js"><link rel="prefetch" href="/assets/js/283.dae956df.js"><link rel="prefetch" href="/assets/js/284.c5dc7189.js"><link rel="prefetch" href="/assets/js/285.7f5a7367.js"><link rel="prefetch" href="/assets/js/286.d9bfcef5.js"><link rel="prefetch" href="/assets/js/287.4fa6a5c5.js"><link rel="prefetch" href="/assets/js/288.57904d2d.js"><link rel="prefetch" href="/assets/js/289.b96d7c2f.js"><link rel="prefetch" href="/assets/js/29.8f5db82a.js"><link rel="prefetch" href="/assets/js/290.8dda9646.js"><link rel="prefetch" href="/assets/js/291.ab433493.js"><link rel="prefetch" href="/assets/js/292.e2d59796.js"><link rel="prefetch" href="/assets/js/293.30f9fcc4.js"><link rel="prefetch" href="/assets/js/294.158492dc.js"><link rel="prefetch" href="/assets/js/295.33e3a53d.js"><link rel="prefetch" href="/assets/js/296.49d7a2de.js"><link rel="prefetch" href="/assets/js/297.1b7572ac.js"><link rel="prefetch" href="/assets/js/298.00e4586a.js"><link rel="prefetch" href="/assets/js/299.d8fb6ff9.js"><link rel="prefetch" href="/assets/js/30.ef97cb8e.js"><link rel="prefetch" href="/assets/js/300.90e9dadf.js"><link rel="prefetch" href="/assets/js/301.d5592ea1.js"><link rel="prefetch" href="/assets/js/302.b08dc1ea.js"><link rel="prefetch" href="/assets/js/303.bef541c8.js"><link rel="prefetch" href="/assets/js/304.be3f7081.js"><link rel="prefetch" href="/assets/js/305.13718421.js"><link rel="prefetch" href="/assets/js/306.41685aa2.js"><link rel="prefetch" href="/assets/js/307.6d569102.js"><link rel="prefetch" href="/assets/js/308.aaabab89.js"><link rel="prefetch" href="/assets/js/309.910ecc42.js"><link rel="prefetch" href="/assets/js/31.795b3334.js"><link rel="prefetch" href="/assets/js/310.104b7753.js"><link rel="prefetch" href="/assets/js/311.45f4a7da.js"><link rel="prefetch" href="/assets/js/312.180c7e45.js"><link rel="prefetch" href="/assets/js/313.87d3a801.js"><link rel="prefetch" href="/assets/js/314.7739b1ef.js"><link rel="prefetch" href="/assets/js/315.54a1fac0.js"><link rel="prefetch" href="/assets/js/316.a978a787.js"><link rel="prefetch" href="/assets/js/317.84f65f2c.js"><link rel="prefetch" href="/assets/js/318.7f8caff8.js"><link rel="prefetch" href="/assets/js/319.0b5276f3.js"><link rel="prefetch" href="/assets/js/32.e65c7229.js"><link rel="prefetch" href="/assets/js/320.ba90589a.js"><link rel="prefetch" href="/assets/js/321.b6810c5a.js"><link rel="prefetch" href="/assets/js/322.2eaa727d.js"><link rel="prefetch" href="/assets/js/323.17573ee3.js"><link rel="prefetch" href="/assets/js/324.806fd6ca.js"><link rel="prefetch" href="/assets/js/325.4cd65079.js"><link rel="prefetch" href="/assets/js/326.fe0e2e22.js"><link rel="prefetch" href="/assets/js/327.a64d0209.js"><link rel="prefetch" href="/assets/js/328.aca1c89a.js"><link rel="prefetch" href="/assets/js/329.53ccf1dd.js"><link rel="prefetch" href="/assets/js/33.9a57aab8.js"><link rel="prefetch" href="/assets/js/330.92822a09.js"><link rel="prefetch" href="/assets/js/331.6b82baff.js"><link rel="prefetch" href="/assets/js/332.fc20f585.js"><link rel="prefetch" href="/assets/js/333.005ba8e3.js"><link rel="prefetch" href="/assets/js/334.9d3309b8.js"><link rel="prefetch" href="/assets/js/335.0e938f19.js"><link rel="prefetch" href="/assets/js/336.01fe9903.js"><link rel="prefetch" href="/assets/js/337.e207d67c.js"><link rel="prefetch" href="/assets/js/338.bfcf6bc8.js"><link rel="prefetch" href="/assets/js/339.a502aa64.js"><link rel="prefetch" href="/assets/js/34.3835d35c.js"><link rel="prefetch" href="/assets/js/340.3888b147.js"><link rel="prefetch" href="/assets/js/341.20297f95.js"><link rel="prefetch" href="/assets/js/342.9cd149e9.js"><link rel="prefetch" href="/assets/js/343.faac8369.js"><link rel="prefetch" href="/assets/js/344.da8cd079.js"><link rel="prefetch" href="/assets/js/345.78303b88.js"><link rel="prefetch" href="/assets/js/346.d8eaca82.js"><link rel="prefetch" href="/assets/js/347.edd389a1.js"><link rel="prefetch" href="/assets/js/348.21ee9617.js"><link rel="prefetch" href="/assets/js/349.0251471a.js"><link rel="prefetch" href="/assets/js/35.76dc7096.js"><link rel="prefetch" href="/assets/js/350.710b7d30.js"><link rel="prefetch" href="/assets/js/351.535f8d60.js"><link rel="prefetch" href="/assets/js/352.c66fe42e.js"><link rel="prefetch" href="/assets/js/353.ebbcd333.js"><link rel="prefetch" href="/assets/js/354.7cbba2f1.js"><link rel="prefetch" href="/assets/js/355.0106db16.js"><link rel="prefetch" href="/assets/js/356.7debf350.js"><link rel="prefetch" href="/assets/js/357.a43eb887.js"><link rel="prefetch" href="/assets/js/358.28e5d2ed.js"><link rel="prefetch" href="/assets/js/359.956fc3b8.js"><link rel="prefetch" href="/assets/js/36.fc54452c.js"><link rel="prefetch" href="/assets/js/360.13fb600a.js"><link rel="prefetch" href="/assets/js/361.d100f85b.js"><link rel="prefetch" href="/assets/js/362.35277df2.js"><link rel="prefetch" href="/assets/js/363.d993a7fc.js"><link rel="prefetch" href="/assets/js/364.0168c2b0.js"><link rel="prefetch" href="/assets/js/365.bc8af0bb.js"><link rel="prefetch" href="/assets/js/366.2645dc0d.js"><link rel="prefetch" href="/assets/js/367.87368acb.js"><link rel="prefetch" href="/assets/js/368.0b7d41fc.js"><link rel="prefetch" href="/assets/js/369.4bf3f46e.js"><link rel="prefetch" href="/assets/js/37.5a47cee9.js"><link rel="prefetch" href="/assets/js/370.ea5f965e.js"><link rel="prefetch" href="/assets/js/371.1af764ef.js"><link rel="prefetch" href="/assets/js/372.bf6c68e2.js"><link rel="prefetch" href="/assets/js/373.1a605cc8.js"><link rel="prefetch" href="/assets/js/374.34a41a4a.js"><link rel="prefetch" href="/assets/js/375.1d2d3776.js"><link rel="prefetch" href="/assets/js/376.4b7b0b10.js"><link rel="prefetch" href="/assets/js/377.b3d9748a.js"><link rel="prefetch" href="/assets/js/378.7f00fa88.js"><link rel="prefetch" href="/assets/js/379.adcd298a.js"><link rel="prefetch" href="/assets/js/38.6614c565.js"><link rel="prefetch" href="/assets/js/380.6d08bb56.js"><link rel="prefetch" href="/assets/js/381.164bb4e3.js"><link rel="prefetch" href="/assets/js/382.f71f0ca4.js"><link rel="prefetch" href="/assets/js/383.01ba70ad.js"><link rel="prefetch" href="/assets/js/384.22b98cde.js"><link rel="prefetch" href="/assets/js/385.5f1298a9.js"><link rel="prefetch" href="/assets/js/386.01a912bc.js"><link rel="prefetch" href="/assets/js/387.3db4713f.js"><link rel="prefetch" href="/assets/js/388.4cde7d0f.js"><link rel="prefetch" href="/assets/js/389.d96bafad.js"><link rel="prefetch" href="/assets/js/39.1a09ed15.js"><link rel="prefetch" href="/assets/js/390.343bbc06.js"><link rel="prefetch" href="/assets/js/391.68b3e72a.js"><link rel="prefetch" href="/assets/js/392.f4f15e43.js"><link rel="prefetch" href="/assets/js/393.82475934.js"><link rel="prefetch" href="/assets/js/394.3101ea10.js"><link rel="prefetch" href="/assets/js/395.34083342.js"><link rel="prefetch" href="/assets/js/396.780d6efe.js"><link rel="prefetch" href="/assets/js/397.cb686f39.js"><link rel="prefetch" href="/assets/js/398.c4ad669f.js"><link rel="prefetch" href="/assets/js/399.ee8d28ad.js"><link rel="prefetch" href="/assets/js/4.c1dcb1a7.js"><link rel="prefetch" href="/assets/js/40.4216f4f9.js"><link rel="prefetch" href="/assets/js/400.23d48a38.js"><link rel="prefetch" href="/assets/js/401.319d7a68.js"><link rel="prefetch" href="/assets/js/402.25b27bd0.js"><link rel="prefetch" href="/assets/js/403.9a898a40.js"><link rel="prefetch" href="/assets/js/404.e3b49b79.js"><link rel="prefetch" href="/assets/js/405.7695b9f1.js"><link rel="prefetch" href="/assets/js/406.edb801f7.js"><link rel="prefetch" href="/assets/js/407.03c3f725.js"><link rel="prefetch" href="/assets/js/408.4345ef1f.js"><link rel="prefetch" href="/assets/js/409.77c34447.js"><link rel="prefetch" href="/assets/js/41.f035663a.js"><link rel="prefetch" href="/assets/js/410.7f6c0744.js"><link rel="prefetch" href="/assets/js/411.cb19323e.js"><link rel="prefetch" href="/assets/js/412.4b16959d.js"><link rel="prefetch" href="/assets/js/413.ff4f1ca2.js"><link rel="prefetch" href="/assets/js/414.b1ca1298.js"><link rel="prefetch" href="/assets/js/415.c2111593.js"><link rel="prefetch" href="/assets/js/416.a6d18039.js"><link rel="prefetch" href="/assets/js/417.dc36c66d.js"><link rel="prefetch" href="/assets/js/418.e7eba879.js"><link rel="prefetch" href="/assets/js/419.57673b9e.js"><link rel="prefetch" href="/assets/js/42.9c8cf569.js"><link rel="prefetch" href="/assets/js/420.ccd41fe0.js"><link rel="prefetch" href="/assets/js/421.ea69f0b0.js"><link rel="prefetch" href="/assets/js/422.093448e2.js"><link rel="prefetch" href="/assets/js/423.ae003f31.js"><link rel="prefetch" href="/assets/js/424.f670cd2b.js"><link rel="prefetch" href="/assets/js/425.6e814335.js"><link rel="prefetch" href="/assets/js/426.faf45206.js"><link rel="prefetch" href="/assets/js/427.cf6be942.js"><link rel="prefetch" href="/assets/js/428.9ff6199c.js"><link rel="prefetch" href="/assets/js/429.b6ef4678.js"><link rel="prefetch" href="/assets/js/43.717fe06b.js"><link rel="prefetch" href="/assets/js/430.e9575d07.js"><link rel="prefetch" href="/assets/js/431.8bf26a3e.js"><link rel="prefetch" href="/assets/js/432.5eaa2162.js"><link rel="prefetch" href="/assets/js/433.6dab12a1.js"><link rel="prefetch" href="/assets/js/434.fca918e8.js"><link rel="prefetch" href="/assets/js/435.4c8f9ad9.js"><link rel="prefetch" href="/assets/js/436.0f0de1a8.js"><link rel="prefetch" href="/assets/js/437.2221ab9f.js"><link rel="prefetch" href="/assets/js/438.37f28cfb.js"><link rel="prefetch" href="/assets/js/439.1e3f3611.js"><link rel="prefetch" href="/assets/js/44.705dc411.js"><link rel="prefetch" href="/assets/js/440.28ab35e8.js"><link rel="prefetch" href="/assets/js/441.8d006af8.js"><link rel="prefetch" href="/assets/js/442.2618a6e3.js"><link rel="prefetch" href="/assets/js/443.a7723674.js"><link rel="prefetch" href="/assets/js/444.18f23e7c.js"><link rel="prefetch" href="/assets/js/445.f4807c5a.js"><link rel="prefetch" href="/assets/js/446.77a5afc2.js"><link rel="prefetch" href="/assets/js/448.1143c566.js"><link rel="prefetch" href="/assets/js/449.b788a288.js"><link rel="prefetch" href="/assets/js/45.6a225373.js"><link rel="prefetch" href="/assets/js/450.b6463ba3.js"><link rel="prefetch" href="/assets/js/451.fd4d46b9.js"><link rel="prefetch" href="/assets/js/452.e8de4fc2.js"><link rel="prefetch" href="/assets/js/453.4125e5e6.js"><link rel="prefetch" href="/assets/js/454.30af5d0a.js"><link rel="prefetch" href="/assets/js/455.9c919e58.js"><link rel="prefetch" href="/assets/js/456.22dbfa8f.js"><link rel="prefetch" href="/assets/js/457.e9c5248a.js"><link rel="prefetch" href="/assets/js/458.c0a9cf1d.js"><link rel="prefetch" href="/assets/js/459.b5e96042.js"><link rel="prefetch" href="/assets/js/46.515d085a.js"><link rel="prefetch" href="/assets/js/460.b4097efb.js"><link rel="prefetch" href="/assets/js/461.5d545741.js"><link rel="prefetch" href="/assets/js/462.402d4cdd.js"><link rel="prefetch" href="/assets/js/463.e6d6ea07.js"><link rel="prefetch" href="/assets/js/464.df817445.js"><link rel="prefetch" href="/assets/js/465.18a6bc2b.js"><link rel="prefetch" href="/assets/js/466.da313c0c.js"><link rel="prefetch" href="/assets/js/467.41294182.js"><link rel="prefetch" href="/assets/js/468.41c59467.js"><link rel="prefetch" href="/assets/js/469.d55da13c.js"><link rel="prefetch" href="/assets/js/47.a41193df.js"><link rel="prefetch" href="/assets/js/470.7457a92e.js"><link rel="prefetch" href="/assets/js/471.ed739bdf.js"><link rel="prefetch" href="/assets/js/472.83882459.js"><link rel="prefetch" href="/assets/js/473.fe2df51c.js"><link rel="prefetch" href="/assets/js/474.d40797b8.js"><link rel="prefetch" href="/assets/js/475.a00992a2.js"><link rel="prefetch" href="/assets/js/476.c7687189.js"><link rel="prefetch" href="/assets/js/477.fd4fd227.js"><link rel="prefetch" href="/assets/js/478.1ae08c3b.js"><link rel="prefetch" href="/assets/js/479.04a246c6.js"><link rel="prefetch" href="/assets/js/48.fe693306.js"><link rel="prefetch" href="/assets/js/480.36acb4ff.js"><link rel="prefetch" href="/assets/js/481.05d3129e.js"><link rel="prefetch" href="/assets/js/482.1741a02c.js"><link rel="prefetch" href="/assets/js/483.44cf2d25.js"><link rel="prefetch" href="/assets/js/484.9c14e5c6.js"><link rel="prefetch" href="/assets/js/485.ea0c1de1.js"><link rel="prefetch" href="/assets/js/486.8c683697.js"><link rel="prefetch" href="/assets/js/487.8b1eb604.js"><link rel="prefetch" href="/assets/js/488.ae16fca6.js"><link rel="prefetch" href="/assets/js/489.7f674a0d.js"><link rel="prefetch" href="/assets/js/49.a7d05a3d.js"><link rel="prefetch" href="/assets/js/490.52983854.js"><link rel="prefetch" href="/assets/js/491.968e7af4.js"><link rel="prefetch" href="/assets/js/492.e7f58bac.js"><link rel="prefetch" href="/assets/js/493.55afbb68.js"><link rel="prefetch" href="/assets/js/494.ac17d05b.js"><link rel="prefetch" href="/assets/js/495.d1ca2a12.js"><link rel="prefetch" href="/assets/js/496.d6841a0e.js"><link rel="prefetch" href="/assets/js/497.99431b4b.js"><link rel="prefetch" href="/assets/js/498.cacac1d8.js"><link rel="prefetch" href="/assets/js/499.c6b7fab0.js"><link rel="prefetch" href="/assets/js/5.f74a04c4.js"><link rel="prefetch" href="/assets/js/50.f59b29ea.js"><link rel="prefetch" href="/assets/js/500.abba24c7.js"><link rel="prefetch" href="/assets/js/501.e9496674.js"><link rel="prefetch" href="/assets/js/502.3ece0e86.js"><link rel="prefetch" href="/assets/js/503.974421d1.js"><link rel="prefetch" href="/assets/js/504.6e8d8539.js"><link rel="prefetch" href="/assets/js/505.b8161483.js"><link rel="prefetch" href="/assets/js/506.a6a6f2de.js"><link rel="prefetch" href="/assets/js/507.9c6955ee.js"><link rel="prefetch" href="/assets/js/508.223e145d.js"><link rel="prefetch" href="/assets/js/509.553e6f2c.js"><link rel="prefetch" href="/assets/js/51.428c5495.js"><link rel="prefetch" href="/assets/js/510.46e2eab7.js"><link rel="prefetch" href="/assets/js/511.24962b3f.js"><link rel="prefetch" href="/assets/js/512.a29fe236.js"><link rel="prefetch" href="/assets/js/513.8729b339.js"><link rel="prefetch" href="/assets/js/514.41199019.js"><link rel="prefetch" href="/assets/js/515.b1a71e99.js"><link rel="prefetch" href="/assets/js/516.001e3634.js"><link rel="prefetch" href="/assets/js/517.4de05581.js"><link rel="prefetch" href="/assets/js/518.57697c31.js"><link rel="prefetch" href="/assets/js/519.e962365e.js"><link rel="prefetch" href="/assets/js/52.c97c3911.js"><link rel="prefetch" href="/assets/js/520.e7775961.js"><link rel="prefetch" href="/assets/js/521.05b0ce57.js"><link rel="prefetch" href="/assets/js/522.49f7412e.js"><link rel="prefetch" href="/assets/js/523.b3d821b2.js"><link rel="prefetch" href="/assets/js/524.ab2395b7.js"><link rel="prefetch" href="/assets/js/525.25559bb4.js"><link rel="prefetch" href="/assets/js/526.23111d2a.js"><link rel="prefetch" href="/assets/js/527.c61f6e86.js"><link rel="prefetch" href="/assets/js/528.032fa7b6.js"><link rel="prefetch" href="/assets/js/529.3953f346.js"><link rel="prefetch" href="/assets/js/53.77f22b1a.js"><link rel="prefetch" href="/assets/js/530.b882066e.js"><link rel="prefetch" href="/assets/js/531.62dddf23.js"><link rel="prefetch" href="/assets/js/532.1826fe1a.js"><link rel="prefetch" href="/assets/js/533.a2e014bb.js"><link rel="prefetch" href="/assets/js/534.d5d89c00.js"><link rel="prefetch" href="/assets/js/535.4e5d7739.js"><link rel="prefetch" href="/assets/js/536.f2c700db.js"><link rel="prefetch" href="/assets/js/537.80aa278c.js"><link rel="prefetch" href="/assets/js/538.95e2f471.js"><link rel="prefetch" href="/assets/js/539.4e4ecfe8.js"><link rel="prefetch" href="/assets/js/54.d85b2f2e.js"><link rel="prefetch" href="/assets/js/540.00bd44e5.js"><link rel="prefetch" href="/assets/js/541.d740df14.js"><link rel="prefetch" href="/assets/js/542.5aadeaee.js"><link rel="prefetch" href="/assets/js/543.d42c9d9a.js"><link rel="prefetch" href="/assets/js/544.29704685.js"><link rel="prefetch" href="/assets/js/545.7fdb1a83.js"><link rel="prefetch" href="/assets/js/546.6b5655ea.js"><link rel="prefetch" href="/assets/js/547.c98e27c4.js"><link rel="prefetch" href="/assets/js/548.8edec06f.js"><link rel="prefetch" href="/assets/js/549.33b8eae3.js"><link rel="prefetch" href="/assets/js/55.80a4fa71.js"><link rel="prefetch" href="/assets/js/550.cb706b0e.js"><link rel="prefetch" href="/assets/js/551.79598cc6.js"><link rel="prefetch" href="/assets/js/552.69aa5f8b.js"><link rel="prefetch" href="/assets/js/553.7ccb8831.js"><link rel="prefetch" href="/assets/js/554.954013b2.js"><link rel="prefetch" href="/assets/js/555.960d7f8b.js"><link rel="prefetch" href="/assets/js/556.5c054c14.js"><link rel="prefetch" href="/assets/js/557.890045ea.js"><link rel="prefetch" href="/assets/js/558.f72f6668.js"><link rel="prefetch" href="/assets/js/559.452d8ff3.js"><link rel="prefetch" href="/assets/js/56.009b0340.js"><link rel="prefetch" href="/assets/js/560.1656e33f.js"><link rel="prefetch" href="/assets/js/561.bb4650eb.js"><link rel="prefetch" href="/assets/js/562.7322fd81.js"><link rel="prefetch" href="/assets/js/563.a34a68ea.js"><link rel="prefetch" href="/assets/js/564.6da92e18.js"><link rel="prefetch" href="/assets/js/565.01d288e5.js"><link rel="prefetch" href="/assets/js/566.6a3459a1.js"><link rel="prefetch" href="/assets/js/567.e3eb8e54.js"><link rel="prefetch" href="/assets/js/568.f95e0fba.js"><link rel="prefetch" href="/assets/js/569.a42d134c.js"><link rel="prefetch" href="/assets/js/57.25e8dd1c.js"><link rel="prefetch" href="/assets/js/570.87887d15.js"><link rel="prefetch" href="/assets/js/571.ce4b478b.js"><link rel="prefetch" href="/assets/js/572.634418a6.js"><link rel="prefetch" href="/assets/js/573.cd4cf02b.js"><link rel="prefetch" href="/assets/js/574.8bf073fa.js"><link rel="prefetch" href="/assets/js/575.c194dddb.js"><link rel="prefetch" href="/assets/js/576.7750193f.js"><link rel="prefetch" href="/assets/js/577.5daa388a.js"><link rel="prefetch" href="/assets/js/578.54bb0029.js"><link rel="prefetch" href="/assets/js/579.92f58c76.js"><link rel="prefetch" href="/assets/js/58.9c1eb9e5.js"><link rel="prefetch" href="/assets/js/580.0e543efb.js"><link rel="prefetch" href="/assets/js/581.4e0b0b47.js"><link rel="prefetch" href="/assets/js/582.8c172f83.js"><link rel="prefetch" href="/assets/js/583.c91c43e0.js"><link rel="prefetch" href="/assets/js/584.ca68d52b.js"><link rel="prefetch" href="/assets/js/585.663b17d3.js"><link rel="prefetch" href="/assets/js/586.9494847d.js"><link rel="prefetch" href="/assets/js/587.f3805773.js"><link rel="prefetch" href="/assets/js/588.8ae14be1.js"><link rel="prefetch" href="/assets/js/589.b4af88be.js"><link rel="prefetch" href="/assets/js/59.2a730e41.js"><link rel="prefetch" href="/assets/js/590.fb77fea8.js"><link rel="prefetch" href="/assets/js/591.a3aaa57c.js"><link rel="prefetch" href="/assets/js/592.54ec5f32.js"><link rel="prefetch" href="/assets/js/593.96eab5cb.js"><link rel="prefetch" href="/assets/js/594.e356725c.js"><link rel="prefetch" href="/assets/js/595.0a2c4ad4.js"><link rel="prefetch" href="/assets/js/596.2c075cd8.js"><link rel="prefetch" href="/assets/js/597.e904811b.js"><link rel="prefetch" href="/assets/js/598.f6ca8b71.js"><link rel="prefetch" href="/assets/js/599.ae3d12c4.js"><link rel="prefetch" href="/assets/js/6.451e012f.js"><link rel="prefetch" href="/assets/js/60.e6b60343.js"><link rel="prefetch" href="/assets/js/600.e71a0062.js"><link rel="prefetch" href="/assets/js/601.2571a19d.js"><link rel="prefetch" href="/assets/js/602.0f4fa961.js"><link rel="prefetch" href="/assets/js/603.d8387c37.js"><link rel="prefetch" href="/assets/js/604.69433906.js"><link rel="prefetch" href="/assets/js/605.1bc7d87a.js"><link rel="prefetch" href="/assets/js/606.ec419517.js"><link rel="prefetch" href="/assets/js/607.b473fb0b.js"><link rel="prefetch" href="/assets/js/608.a361b48c.js"><link rel="prefetch" href="/assets/js/609.9186f226.js"><link rel="prefetch" href="/assets/js/61.d50a156d.js"><link rel="prefetch" href="/assets/js/610.ff3cf241.js"><link rel="prefetch" href="/assets/js/611.c3c7e648.js"><link rel="prefetch" href="/assets/js/612.2a520ebd.js"><link rel="prefetch" href="/assets/js/613.42936ffc.js"><link rel="prefetch" href="/assets/js/614.3ca0de21.js"><link rel="prefetch" href="/assets/js/615.ecf60a47.js"><link rel="prefetch" href="/assets/js/616.17185e83.js"><link rel="prefetch" href="/assets/js/617.769d4cdf.js"><link rel="prefetch" href="/assets/js/618.015c6376.js"><link rel="prefetch" href="/assets/js/619.3af186d0.js"><link rel="prefetch" href="/assets/js/62.e24b7811.js"><link rel="prefetch" href="/assets/js/620.f8ff3784.js"><link rel="prefetch" href="/assets/js/621.4c21311f.js"><link rel="prefetch" href="/assets/js/622.355178df.js"><link rel="prefetch" href="/assets/js/623.45a30695.js"><link rel="prefetch" href="/assets/js/624.61e89d34.js"><link rel="prefetch" href="/assets/js/625.49e0d1ce.js"><link rel="prefetch" href="/assets/js/626.1b7ae767.js"><link rel="prefetch" href="/assets/js/627.b8c507cf.js"><link rel="prefetch" href="/assets/js/628.c5a43517.js"><link rel="prefetch" href="/assets/js/629.274eb0fd.js"><link rel="prefetch" href="/assets/js/63.b804baab.js"><link rel="prefetch" href="/assets/js/630.69e055ce.js"><link rel="prefetch" href="/assets/js/631.0892fc51.js"><link rel="prefetch" href="/assets/js/632.6a68e9a2.js"><link rel="prefetch" href="/assets/js/633.d536fe74.js"><link rel="prefetch" href="/assets/js/634.24695f39.js"><link rel="prefetch" href="/assets/js/635.3aeede9c.js"><link rel="prefetch" href="/assets/js/636.3628d8a6.js"><link rel="prefetch" href="/assets/js/637.40af5a79.js"><link rel="prefetch" href="/assets/js/638.15e257ae.js"><link rel="prefetch" href="/assets/js/639.31e6597c.js"><link rel="prefetch" href="/assets/js/64.eb5699ff.js"><link rel="prefetch" href="/assets/js/640.a071f6df.js"><link rel="prefetch" href="/assets/js/641.f9edd7bf.js"><link rel="prefetch" href="/assets/js/642.adcb583f.js"><link rel="prefetch" href="/assets/js/643.7c98a990.js"><link rel="prefetch" href="/assets/js/644.fb1213d8.js"><link rel="prefetch" href="/assets/js/645.220a5034.js"><link rel="prefetch" href="/assets/js/646.d66a419b.js"><link rel="prefetch" href="/assets/js/647.12ef89ab.js"><link rel="prefetch" href="/assets/js/648.a3112300.js"><link rel="prefetch" href="/assets/js/649.f457dfa5.js"><link rel="prefetch" href="/assets/js/65.0d8501b5.js"><link rel="prefetch" href="/assets/js/650.cc63d03b.js"><link rel="prefetch" href="/assets/js/651.16d1bbd6.js"><link rel="prefetch" href="/assets/js/652.0f5343f0.js"><link rel="prefetch" href="/assets/js/653.28f7710a.js"><link rel="prefetch" href="/assets/js/654.b343d473.js"><link rel="prefetch" href="/assets/js/655.215fe67b.js"><link rel="prefetch" href="/assets/js/656.79aa1653.js"><link rel="prefetch" href="/assets/js/657.c57f2b5c.js"><link rel="prefetch" href="/assets/js/658.d0aa0b95.js"><link rel="prefetch" href="/assets/js/659.2dfaed93.js"><link rel="prefetch" href="/assets/js/66.8361cc16.js"><link rel="prefetch" href="/assets/js/660.c00b347e.js"><link rel="prefetch" href="/assets/js/661.ecc4f968.js"><link rel="prefetch" href="/assets/js/662.06f83919.js"><link rel="prefetch" href="/assets/js/663.67d8849e.js"><link rel="prefetch" href="/assets/js/664.74dba1a9.js"><link rel="prefetch" href="/assets/js/665.28b450f0.js"><link rel="prefetch" href="/assets/js/666.0f4bb6ba.js"><link rel="prefetch" href="/assets/js/667.586074e3.js"><link rel="prefetch" href="/assets/js/668.b13c0e70.js"><link rel="prefetch" href="/assets/js/669.9d0d4cbc.js"><link rel="prefetch" href="/assets/js/67.37f46ba2.js"><link rel="prefetch" href="/assets/js/670.6b36ca72.js"><link rel="prefetch" href="/assets/js/671.33b2e754.js"><link rel="prefetch" href="/assets/js/672.3b02c287.js"><link rel="prefetch" href="/assets/js/673.3f274929.js"><link rel="prefetch" href="/assets/js/674.7d75584f.js"><link rel="prefetch" href="/assets/js/675.0de52334.js"><link rel="prefetch" href="/assets/js/676.6734133e.js"><link rel="prefetch" href="/assets/js/677.c6f4a973.js"><link rel="prefetch" href="/assets/js/678.1344b6be.js"><link rel="prefetch" href="/assets/js/679.23fed56f.js"><link rel="prefetch" href="/assets/js/68.27dbce5b.js"><link rel="prefetch" href="/assets/js/680.c49329d6.js"><link rel="prefetch" href="/assets/js/681.8df66615.js"><link rel="prefetch" href="/assets/js/682.77b4bff8.js"><link rel="prefetch" href="/assets/js/683.6cf41cf4.js"><link rel="prefetch" href="/assets/js/684.58deecd5.js"><link rel="prefetch" href="/assets/js/685.d2f7480e.js"><link rel="prefetch" href="/assets/js/686.0b77a241.js"><link rel="prefetch" href="/assets/js/687.2cc04b4f.js"><link rel="prefetch" href="/assets/js/688.da24cbae.js"><link rel="prefetch" href="/assets/js/689.a9961f74.js"><link rel="prefetch" href="/assets/js/69.8052a977.js"><link rel="prefetch" href="/assets/js/690.cb736269.js"><link rel="prefetch" href="/assets/js/691.21c13be1.js"><link rel="prefetch" href="/assets/js/692.3ed557d0.js"><link rel="prefetch" href="/assets/js/693.066efe93.js"><link rel="prefetch" href="/assets/js/694.5368f98a.js"><link rel="prefetch" href="/assets/js/695.4fdb93d5.js"><link rel="prefetch" href="/assets/js/696.9c055ac6.js"><link rel="prefetch" href="/assets/js/697.51e0c47c.js"><link rel="prefetch" href="/assets/js/698.08ca1dbd.js"><link rel="prefetch" href="/assets/js/699.ce7e9e2a.js"><link rel="prefetch" href="/assets/js/7.7e21c947.js"><link rel="prefetch" href="/assets/js/70.19faeb78.js"><link rel="prefetch" href="/assets/js/700.3676fa7f.js"><link rel="prefetch" href="/assets/js/701.82db4887.js"><link rel="prefetch" href="/assets/js/702.73425f22.js"><link rel="prefetch" href="/assets/js/703.d9391c74.js"><link rel="prefetch" href="/assets/js/704.d6e275cf.js"><link rel="prefetch" href="/assets/js/705.d2f23969.js"><link rel="prefetch" href="/assets/js/706.1c66dcc1.js"><link rel="prefetch" href="/assets/js/707.0fc5a26a.js"><link rel="prefetch" href="/assets/js/708.97471ee6.js"><link rel="prefetch" href="/assets/js/709.9b4d5665.js"><link rel="prefetch" href="/assets/js/71.d1683810.js"><link rel="prefetch" href="/assets/js/710.75fa8103.js"><link rel="prefetch" href="/assets/js/711.43777b40.js"><link rel="prefetch" href="/assets/js/712.5c583e39.js"><link rel="prefetch" href="/assets/js/713.5aa72111.js"><link rel="prefetch" href="/assets/js/714.e8215702.js"><link rel="prefetch" href="/assets/js/715.46614e7c.js"><link rel="prefetch" href="/assets/js/716.eaac6d69.js"><link rel="prefetch" href="/assets/js/717.c344c042.js"><link rel="prefetch" href="/assets/js/718.437bf0b2.js"><link rel="prefetch" href="/assets/js/719.23aa3deb.js"><link rel="prefetch" href="/assets/js/72.9fa783f0.js"><link rel="prefetch" href="/assets/js/720.9456a449.js"><link rel="prefetch" href="/assets/js/721.67fd324a.js"><link rel="prefetch" href="/assets/js/722.fc5e79ca.js"><link rel="prefetch" href="/assets/js/723.46db8115.js"><link rel="prefetch" href="/assets/js/724.31a11b8c.js"><link rel="prefetch" href="/assets/js/725.49cef603.js"><link rel="prefetch" href="/assets/js/726.7d0a2e7f.js"><link rel="prefetch" href="/assets/js/727.a1de6f02.js"><link rel="prefetch" href="/assets/js/728.7e0a727e.js"><link rel="prefetch" href="/assets/js/729.b6bf04fa.js"><link rel="prefetch" href="/assets/js/73.1ac0ac37.js"><link rel="prefetch" href="/assets/js/730.1c102528.js"><link rel="prefetch" href="/assets/js/731.80403e3d.js"><link rel="prefetch" href="/assets/js/732.cf8b4a6d.js"><link rel="prefetch" href="/assets/js/733.aab88d38.js"><link rel="prefetch" href="/assets/js/734.965a0adc.js"><link rel="prefetch" href="/assets/js/735.f9d33608.js"><link rel="prefetch" href="/assets/js/736.d1621f9e.js"><link rel="prefetch" href="/assets/js/737.a12ea0d3.js"><link rel="prefetch" href="/assets/js/738.96e61512.js"><link rel="prefetch" href="/assets/js/739.9bce4dfe.js"><link rel="prefetch" href="/assets/js/74.1913daec.js"><link rel="prefetch" href="/assets/js/740.c1a0bf7b.js"><link rel="prefetch" href="/assets/js/741.0185115e.js"><link rel="prefetch" href="/assets/js/742.21e99d78.js"><link rel="prefetch" href="/assets/js/743.e5f2407e.js"><link rel="prefetch" href="/assets/js/744.53d4e25a.js"><link rel="prefetch" href="/assets/js/745.9fb6722c.js"><link rel="prefetch" href="/assets/js/746.893e3a2f.js"><link rel="prefetch" href="/assets/js/747.ad94fed4.js"><link rel="prefetch" href="/assets/js/748.3421b09b.js"><link rel="prefetch" href="/assets/js/749.15c364e9.js"><link rel="prefetch" href="/assets/js/75.d63a9540.js"><link rel="prefetch" href="/assets/js/750.4e5379b7.js"><link rel="prefetch" href="/assets/js/751.18b0273f.js"><link rel="prefetch" href="/assets/js/752.24717596.js"><link rel="prefetch" href="/assets/js/753.5868bcc4.js"><link rel="prefetch" href="/assets/js/754.77808a6c.js"><link rel="prefetch" href="/assets/js/755.af7f7a71.js"><link rel="prefetch" href="/assets/js/76.342d837c.js"><link rel="prefetch" href="/assets/js/77.466349c3.js"><link rel="prefetch" href="/assets/js/78.886d05b6.js"><link rel="prefetch" href="/assets/js/79.b478bdab.js"><link rel="prefetch" href="/assets/js/8.9f40767d.js"><link rel="prefetch" href="/assets/js/80.9205cc43.js"><link rel="prefetch" href="/assets/js/81.77f831c9.js"><link rel="prefetch" href="/assets/js/82.650475d1.js"><link rel="prefetch" href="/assets/js/83.aa7e3d4b.js"><link rel="prefetch" href="/assets/js/84.2fc92fb4.js"><link rel="prefetch" href="/assets/js/85.0f633e10.js"><link rel="prefetch" href="/assets/js/86.e862f4bc.js"><link rel="prefetch" href="/assets/js/87.8a869468.js"><link rel="prefetch" href="/assets/js/88.6c584051.js"><link rel="prefetch" href="/assets/js/89.3ab84e02.js"><link rel="prefetch" href="/assets/js/9.7ed864ce.js"><link rel="prefetch" href="/assets/js/90.41e6925d.js"><link rel="prefetch" href="/assets/js/91.55055993.js"><link rel="prefetch" href="/assets/js/92.ced7b439.js"><link rel="prefetch" href="/assets/js/93.41cc8a7f.js"><link rel="prefetch" href="/assets/js/94.6d2b144f.js"><link rel="prefetch" href="/assets/js/95.399a7909.js"><link rel="prefetch" href="/assets/js/96.556f8f9f.js"><link rel="prefetch" href="/assets/js/97.47ecdf46.js"><link rel="prefetch" href="/assets/js/98.fdbe6822.js"><link rel="prefetch" href="/assets/js/99.db8442e4.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.6ece31e0.css">
+  </head>
+  <body class="theme-mode-light">
+    <div id="app" data-server-rendered="true"><div class="theme-container sidebar-open have-rightmenu"><header class="navbar blur"><div title="目录" class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/img/logo.png" alt="Fanx 知识库" class="logo"> <span class="site-name can-hide">Fanx 知识库</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Java" class="dropdown-title"><!----> <span class="title" style="display:;">Java</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/779590/" class="nav-link">Java基础</a></li><li class="dropdown-item"><!----> <a href="/pages/dc7834/" class="nav-link">Java集合框架</a></li><li class="dropdown-item"><!----> <a href="/pages/f2d7db/" class="nav-link">Java多线程并发</a></li><li class="dropdown-item"><!----> <a href="/pages/dbec4d/" class="nav-link">JavaIo&amp;NIO&amp;AIO</a></li><li class="dropdown-item"><!----> <a href="/pages/b908ce/" class="nav-link">JDK相关特性</a></li><li class="dropdown-item"><!----> <a href="/pages/e59bea/" class="nav-link">JVM相关</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="数据库" class="dropdown-title"><!----> <span class="title" style="display:;">数据库</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/f8c059/" class="nav-link">数据库基础知识</a></li><li class="dropdown-item"><!----> <a href="/pages/d192fd/" class="nav-link">Mysql</a></li><li class="dropdown-item"><!----> <a href="/pages/8aa877/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/pages/077e7c/" class="nav-link">MogoDb</a></li><li class="dropdown-item"><!----> <a href="/pages/68281b/" class="nav-link">ElasticSearch</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用框架" class="dropdown-title"><!----> <span class="title" style="display:;">常用框架</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/commonFrameworks/mybatis/" class="nav-link">mybatis</a></li><li class="dropdown-item"><!----> <a href="/pages/8f6500/" class="nav-link">Spring Framework 5基础</a></li><li class="dropdown-item"><!----> <a href="/pages/7c08d4/" class="nav-link">SpringBoot 2.5.x系列</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="源代码学习" class="dropdown-title"><!----> <span class="title" style="display:;">源代码学习</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/23a632/" class="nav-link">mybatis源码学习</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/java/" class="nav-link">java源代码</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/spring/" class="nav-link">Spring源码</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="面试相关" class="dropdown-title"><!----> <span class="title" style="display:;">面试相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/2cef48/" class="nav-link">Java 基础</a></li><li class="dropdown-item"><!----> <a href="/pages/ad2692/" class="nav-link">Spring 框架</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用的技术工具" class="dropdown-title"><!----> <span class="title" style="display:;">开发工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tool/git/" class="nav-link">Git</a></li><li class="dropdown-item"><!----> <a href="/linux/common/" class="nav-link">linux常用命令实践</a></li><li class="dropdown-item"><!----> <a href="/tool/maven/" class="nav-link">Mavan</a></li><li class="dropdown-item"><!----> <a href="/pages/b25802/" class="nav-link">开发工具详解</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其它语言" class="dropdown-title"><!----> <span class="title" style="display:;">其它语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/fc414d/" class="nav-link">Python基础</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="问题总结" class="dropdown-title"><!----> <span class="title" style="display:;">问题总结</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/question/redis/" class="nav-link">redis</a></li><li class="dropdown-item"><!----> <a href="/pages/4d0fa7/" class="nav-link">团队相关</a></li><li class="dropdown-item"><!----> <a href="/pages/75c3d7/" class="nav-link">fanx</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="算法" class="dropdown-title"><!----> <span class="title" style="display:;">算法</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/caf303/" class="nav-link">数据结构基础</a></li><li class="dropdown-item"><!----> <a href="/pages/395e23/" class="nav-link">常见排序算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fa3dd3/" class="nav-link">算法思想</a></li><li class="dropdown-item"><!----> <a href="/pages/79d342/" class="nav-link">一些领域算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fdb54d/" class="nav-link">其它算法相关</a></li></ul></div></div> <a href="https://fanxgit.github.io/fanxNotes/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar-hover-trigger"></div> <aside class="sidebar" style="display:none;"><!----> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Java" class="dropdown-title"><!----> <span class="title" style="display:;">Java</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/779590/" class="nav-link">Java基础</a></li><li class="dropdown-item"><!----> <a href="/pages/dc7834/" class="nav-link">Java集合框架</a></li><li class="dropdown-item"><!----> <a href="/pages/f2d7db/" class="nav-link">Java多线程并发</a></li><li class="dropdown-item"><!----> <a href="/pages/dbec4d/" class="nav-link">JavaIo&amp;NIO&amp;AIO</a></li><li class="dropdown-item"><!----> <a href="/pages/b908ce/" class="nav-link">JDK相关特性</a></li><li class="dropdown-item"><!----> <a href="/pages/e59bea/" class="nav-link">JVM相关</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="数据库" class="dropdown-title"><!----> <span class="title" style="display:;">数据库</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/f8c059/" class="nav-link">数据库基础知识</a></li><li class="dropdown-item"><!----> <a href="/pages/d192fd/" class="nav-link">Mysql</a></li><li class="dropdown-item"><!----> <a href="/pages/8aa877/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/pages/077e7c/" class="nav-link">MogoDb</a></li><li class="dropdown-item"><!----> <a href="/pages/68281b/" class="nav-link">ElasticSearch</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用框架" class="dropdown-title"><!----> <span class="title" style="display:;">常用框架</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/commonFrameworks/mybatis/" class="nav-link">mybatis</a></li><li class="dropdown-item"><!----> <a href="/pages/8f6500/" class="nav-link">Spring Framework 5基础</a></li><li class="dropdown-item"><!----> <a href="/pages/7c08d4/" class="nav-link">SpringBoot 2.5.x系列</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="源代码学习" class="dropdown-title"><!----> <span class="title" style="display:;">源代码学习</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/23a632/" class="nav-link">mybatis源码学习</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/java/" class="nav-link">java源代码</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/spring/" class="nav-link">Spring源码</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="面试相关" class="dropdown-title"><!----> <span class="title" style="display:;">面试相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/2cef48/" class="nav-link">Java 基础</a></li><li class="dropdown-item"><!----> <a href="/pages/ad2692/" class="nav-link">Spring 框架</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用的技术工具" class="dropdown-title"><!----> <span class="title" style="display:;">开发工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tool/git/" class="nav-link">Git</a></li><li class="dropdown-item"><!----> <a href="/linux/common/" class="nav-link">linux常用命令实践</a></li><li class="dropdown-item"><!----> <a href="/tool/maven/" class="nav-link">Mavan</a></li><li class="dropdown-item"><!----> <a href="/pages/b25802/" class="nav-link">开发工具详解</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其它语言" class="dropdown-title"><!----> <span class="title" style="display:;">其它语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/fc414d/" class="nav-link">Python基础</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="问题总结" class="dropdown-title"><!----> <span class="title" style="display:;">问题总结</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/question/redis/" class="nav-link">redis</a></li><li class="dropdown-item"><!----> <a href="/pages/4d0fa7/" class="nav-link">团队相关</a></li><li class="dropdown-item"><!----> <a href="/pages/75c3d7/" class="nav-link">fanx</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="算法" class="dropdown-title"><!----> <span class="title" style="display:;">算法</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/caf303/" class="nav-link">数据结构基础</a></li><li class="dropdown-item"><!----> <a href="/pages/395e23/" class="nav-link">常见排序算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fa3dd3/" class="nav-link">算法思想</a></li><li class="dropdown-item"><!----> <a href="/pages/79d342/" class="nav-link">一些领域算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fdb54d/" class="nav-link">其它算法相关</a></li></ul></div></div> <a href="https://fanxgit.github.io/fanxNotes/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库基础和原理</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>SQL 语言</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>SQL - MySQL</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>NoSQL - Redis</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>NoSQL - MongoDB</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>NoSQL - ElasticSearch</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/pages/68281b/" class="sidebar-link">♥ElasticSearch知识体系详解♥</a></li><li><a href="/pages/0f4ae1/" class="sidebar-link">ES详解 - 认知-ElasticSearch基础概念</a></li><li><a href="/pages/34773d/" class="sidebar-link">ES详解 - 认知-Elastic Stack生态和场景方案</a></li><li><a href="/pages/26395b/" class="sidebar-link">ES详解 - 安装-ElasticSearch和Kibana安装</a></li><li><a href="/pages/1a2c2d/" class="sidebar-link">ES详解 - 入门-查询和聚合的基础使用</a></li><li><a href="/pages/8619f4/" class="sidebar-link">ES详解 - 索引-索引管理详解</a></li><li><a href="/pages/f5722e/" class="sidebar-link">ES详解 - 索引-索引模板(Index Template)详解</a></li><li><a href="/pages/22600b/" class="sidebar-link">ES详解 - 查询-DSL查询之复合查询详解</a></li><li><a href="/pages/ca6096/" class="sidebar-link">ES详解 - 查询-DSL查询之全文搜索详解</a></li><li><a href="/pages/be5113/" class="sidebar-link">ES详解 - 查询-DSL查询之Term详解</a></li><li><a href="/pages/cd972b/" class="sidebar-link">ES详解 - 聚合-聚合查询之Bucket聚合详解</a></li><li><a href="/pages/e56aa6/" aria-current="page" class="active sidebar-link">ES详解 - 聚合-聚合查询之Metric聚合详解</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/pages/af13d0/" class="sidebar-link">ES详解 - 聚合-聚合查询之Pipline聚合详解</a></li><li><a href="/pages/23c4ab/" class="sidebar-link">ES详解 - 原理-从图解构筑对ES原理的初步认知</a></li><li><a href="/pages/3f7859/" class="sidebar-link">ES详解 - 原理-ES原理知识点补充和整体结构</a></li><li><a href="/pages/ecc207/" class="sidebar-link">ES详解 - 原理-ES原理之索引文档流程详解</a></li><li><a href="/pages/a75ec4/" class="sidebar-link">ES详解 - 原理-ES原理之读取文档流程详解</a></li><li><a href="/pages/eaf4de/" class="sidebar-link">ES详解 - 优化-ElasticSearch性能优化详解</a></li><li><a href="/pages/ea48fb/" class="sidebar-link">大厂实践 - 哈啰-记录一次ElasticSearch的查询性能优化</a></li><li><a href="/pages/da50d6/" class="sidebar-link">大厂实践 - 腾讯-腾讯万亿级 Elasticsearch 技术实践</a></li><li><a href="/pages/05fe86/" class="sidebar-link">大厂实践 - 美团-美团外卖搜索基于Elasticsearch的优化实践</a></li><li><a href="/pages/bf681e/" class="sidebar-link">ES详解 - 资料-Awesome Elasticsearch</a></li><li><a href="/pages/eae483/" class="sidebar-link">ElasticSearch - WrapperQuery</a></li><li><a href="/pages/f3a293/" class="sidebar-link">ElasticSearch - 备份和迁移</a></li></ul></section></li></ul> </aside> <div><main class="page"><div class="theme-vdoing-wrapper "><div class="articleInfo-wrap" data-v-06225672><div class="articleInfo" data-v-06225672><ul class="breadcrumbs" data-v-06225672><li data-v-06225672><a href="/" title="首页" class="iconfont icon-home router-link-active" data-v-06225672></a></li> <li data-v-06225672><a href="/categories/?category=database" title="分类" data-v-06225672>database</a></li><li data-v-06225672><a href="/categories/?category=NoSQL%20-%20ElasticSearch" title="分类" data-v-06225672>NoSQL - ElasticSearch</a></li></ul> <div class="info" data-v-06225672><div title="作者" class="author iconfont icon-touxiang" data-v-06225672><a href="https://github.com/FanXGit" target="_blank" title="作者" class="beLink" data-v-06225672>fanx</a></div> <div title="创建时间" class="date iconfont icon-riqi" data-v-06225672><a href="javascript:;" data-v-06225672>2023-08-07</a></div> <!----></div></div></div> <!----> <div class="content-wrapper"><div class="right-menu-wrapper"><div class="right-menu-margin"><div class="right-menu-title">目录</div> <div class="right-menu-content"></div></div></div> <h1><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAABGpJREFUSA3tVVtoXFUU3fvOI53UlmCaKIFmwEhsE7QK0ipFEdHEKpXaZGrp15SINsXUWvBDpBgQRKi0+KKoFeJHfZA+ED9KKoIU2gYD9UejTW4rVIzm0VSTziPzuNu1z507dibTTjL4U/DAzLn3nL3X2o91ziX6f9wMFdh6Jvbm9nNSV0msViVO6tN1Rm7NMu2OpeJ9lWBUTDxrJbYTS0hInuwciu9eLHlFxCLCZEk3MegsJmZ5K/JD6t7FkFdEvGUo1g7qJoG3MHImqRIn8/nzY1K9UPKKiJmtnUqHVE3Gbuay6vJE/N2FEmuxFjW2nUuE0yQXRRxLiTUAzs36zhZvOXJPdX850EVnnLZkB8prodQoM5JGj7Xk2mvC7JB8tG04Ef5PiXtG0UtxupRQSfTnBoCy554x18yJHI6I+G5Eru4LHmPJZEQsrvPUbMiA8G/WgMK7w7I+ez7++o2ANfbrjvaOl1tFMs+htG3IrZH9/hDX1Pr8Tc0UvH8tcX29KzAgIGcEkINyW5BF9x891hw6VYqgJHEk0huccS7vh3C6gTiODL+26huuBtbct8eZnqLML8PkxGYpuPZBqtqwkSjgc4mB5gbgig5i+y0UDK35LMxXisn9xQtK+nd26gTIHsHe/oblK/b29fUmN/8Y+9jAQrnBp56m1LcDlDp9irKTExSKduXJVWSqdBMA08pEJnEIOB3FPPMybu/oeV8zFeYN3xx576Q6RH+VmplE4ncQV5v+5rzSoyOU7PuEAg8g803PwBJ0CExno/jcMbN8tONYeOmHiuUNryvm3fRUy4tMPVLdAGkUhNWuggGrJcXPv+ouCjz0MKUHz1J2/E8IC9nqTabcxgaBYM0hPhD5Y65FsbxRQKxCQrDjDctW7PUM3HuZunFyifSAqEfuzCp48Il24luWUWZoyJCaPR82jE0+kFA643wRFVni4RYSq3ohJO2pZ7B5dO4xkDWbEpossJPLSrPjYID8rS2UHTlvyNxqIGsg674XJJ7vnh5L7PNwC4hh2sjCI96mzszOTpxLF0T7l88Yz7lAuK6OnL8gXLOnTvpzSb22YG8W7us3jSebFHeeqnXRG1vt+MoUM84LQIBmMsCTAcOauTh0T0l0neQK7m2bLMt2mGxU3HYssS0J2cdv5wljlPsrIuZLAG/2DOZIXgCYT8uMGZN+e2kSirfxZOPCsC0f24nTZzspnVn9VePS1Z5vubmAGGXG8ZFno9Hel0yfA5ZPhF7Dh972BQJ2qCpgH67lmWtBYbvk6sz02wjky2vXyz0XErP/kFB619js1BtwfOV4OPRqOQBjy3Qbk18vigUPPSD5ceHnwck7W9bhAqZdd7SuG7w4/P2F/GaJh8c7e9qgow+Q7cGBo+98WsLkuktFqiZabtXuQTu/Y5ETbR0v7tNSFnvrmu6pjdoan2KjMu8q/Hmj1EfCO2ZGfEIbIXKUlw8qaX9/b2oeSJmFksSeT/Fn0V3nSypChh4Gjh74ybO9aeZ/AN2dwciu2/MhAAAAAElFTkSuQmCC">ES详解 - 聚合-聚合查询之Metric聚合详解<!----></h1> <!----> <div class="theme-vdoing-content content__default"><h1 id="es详解-聚合-聚合查询之metric聚合详解"><a href="#es详解-聚合-聚合查询之metric聚合详解" class="header-anchor">#</a> ES详解 - 聚合：聚合查询之Metric聚合详解</h1> <p>=======================================================</p> <blockquote><p>前文主要讲了 ElasticSearch提供的三种聚合方式之<strong>桶聚合（Bucket Aggregation)</strong>，本文主要讲讲<strong>指标聚合（Metric Aggregation)</strong>。@pdai</p></blockquote> <ul><li><a href="#es%E8%AF%A6%E8%A7%A3---%E8%81%9A%E5%90%88%E8%81%9A%E5%90%88%E6%9F%A5%E8%AF%A2%E4%B9%8Bmetric%E8%81%9A%E5%90%88%E8%AF%A6%E8%A7%A3">ES详解 - 聚合：聚合查询之Metric聚合详解</a> <ul><li><a href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3metric%E8%81%9A%E5%90%88">如何理解metric聚合</a></li> <li><a href="#%E5%8D%95%E5%80%BC%E5%88%86%E6%9E%90-%E6%A0%87%E5%87%86stat%E7%B1%BB%E5%9E%8B">单值分析: 标准stat类型</a> <ul><li><a href="#avg-%E5%B9%B3%E5%9D%87%E5%80%BC"><code>avg</code> 平均值</a></li> <li><a href="#max-%E6%9C%80%E5%A4%A7%E5%80%BC"><code>max</code> 最大值</a></li> <li><a href="#min-%E6%9C%80%E5%B0%8F%E5%80%BC"><code>min</code> 最小值</a></li> <li><a href="#sum-%E5%92%8C"><code>sum</code> 和</a></li> <li><a href="#value_count-%E6%95%B0%E9%87%8F"><code>value_count</code> 数量</a></li></ul></li> <li><a href="#%E5%8D%95%E5%80%BC%E5%88%86%E6%9E%90-%E5%85%B6%E5%AE%83%E7%B1%BB%E5%9E%8B">单值分析: 其它类型</a> <ul><li><a href="#weighted_avg-%E5%B8%A6%E6%9D%83%E9%87%8D%E7%9A%84avg"><code>weighted_avg</code> 带权重的avg</a></li> <li><a href="#cardinality-%E5%9F%BA%E6%95%B0distinct%E5%8E%BB%E9%87%8D"><code>cardinality</code> 基数（distinct去重）</a></li> <li><a href="#median_absolute_deviation-%E4%B8%AD%E4%BD%8D%E5%80%BC"><code>median_absolute_deviation</code> 中位值</a></li></ul></li> <li><a href="#%E9%9D%9E%E5%8D%95%E5%80%BC%E5%88%86%E6%9E%90stats%E5%9E%8B">非单值分析：stats型</a> <ul><li><a href="#stats-%E5%8C%85%E5%90%ABavgmaxminsum%E5%92%8Ccount"><code>stats</code> 包含avg,max,min,sum和count</a></li> <li><a href="#matrix_stats-%E9%92%88%E5%AF%B9%E7%9F%A9%E9%98%B5%E6%A8%A1%E5%9E%8B"><code>matrix_stats</code> 针对矩阵模型</a></li> <li><a href="#extended_stats"><code>extended_stats</code></a></li> <li><a href="#string_stats-%E9%92%88%E5%AF%B9%E5%AD%97%E7%AC%A6%E4%B8%B2"><code>string_stats</code> 针对字符串</a></li></ul></li> <li><a href="#%E9%9D%9E%E5%8D%95%E5%80%BC%E5%88%86%E6%9E%90%E7%99%BE%E5%88%86%E6%95%B0%E5%9E%8B">非单值分析：百分数型</a> <ul><li><a href="#percentiles-%E7%99%BE%E5%88%86%E6%95%B0%E8%8C%83%E5%9B%B4"><code>percentiles</code> 百分数范围</a></li> <li><a href="#percentile_ranks-%E7%99%BE%E5%88%86%E6%95%B0%E6%8E%92%E8%A1%8C"><code>percentile_ranks</code> 百分数排行</a></li></ul></li> <li><a href="#%E9%9D%9E%E5%8D%95%E5%80%BC%E5%88%86%E6%9E%90%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE%E5%9E%8B">非单值分析：地理位置型</a> <ul><li><a href="#geo_bounds-geo-bounds"><code>geo_bounds</code> Geo bounds</a></li> <li><a href="#geo_centroid-geo-centroid"><code>geo_centroid</code> Geo-centroid</a></li> <li><a href="#geo_line-geo-line"><code>geo_line</code> Geo-Line</a></li></ul></li> <li><a href="#%E9%9D%9E%E5%8D%95%E5%80%BC%E5%88%86%E6%9E%90top%E5%9E%8B">非单值分析：Top型</a> <ul><li><a href="#top_hits-%E5%88%86%E6%A1%B6%E5%90%8E%E7%9A%84top-hits"><code>top_hits</code> 分桶后的top hits</a></li> <li><a href="#top_metrics"><code>top_metrics</code></a></li></ul></li> <li><a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0">参考文章</a></li></ul></li></ul> <h1 id="如何理解metric聚合"><a href="#如何理解metric聚合" class="header-anchor">#</a> 如何理解metric聚合</h1> <hr> <blockquote><p>在<a href="https://pdai.tech/md/db/nosql-es/elasticsearch-x-agg-bucket.html" target="_blank" rel="noopener noreferrer">bucket聚合<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>中，我画了一张图辅助你构筑体系，那么metric聚合又如何理解呢？</p></blockquote> <p>如果你直接去看官方文档，大概也有十几种：</p> <p><img src="/assets/img/es-agg-metric-1.21990407.png" alt=""></p> <blockquote><p>那么metric聚合又如何理解呢？我认为从两个角度：</p></blockquote> <ul><li><strong>从分类看</strong>：Metric聚合分析分为<strong>单值分析</strong>和<strong>多值分析</strong>两类</li> <li><strong>从功能看</strong>：根据具体的应用场景设计了一些分析api, 比如地理位置，百分数等等</li></ul> <blockquote><p>融合上述两个方面，我们可以梳理出大致的一个mind图：</p></blockquote> <ul><li><strong>单值分析</strong>: 只输出一个分析结果
+<ul><li>标准stat型
+<ul><li><code>avg</code> 平均值</li> <li><code>max</code> 最大值</li> <li><code>min</code> 最小值</li> <li><code>sum</code> 和</li> <li><code>value_count</code> 数量</li></ul></li> <li>其它类型
+<ul><li><code>cardinality</code> 基数（distinct去重）</li> <li><code>weighted_avg</code> 带权重的avg</li> <li><code>median_absolute_deviation</code> 中位值</li></ul></li></ul></li> <li><strong>多值分析</strong>: 单值之外的
+<ul><li>stats型
+<ul><li><code>stats</code> 包含avg,max,min,sum和count</li> <li><code>matrix_stats</code> 针对矩阵模型</li> <li><code>extended_stats</code></li> <li><code>string_stats</code> 针对字符串</li></ul></li> <li>百分数型
+<ul><li><code>percentiles</code> 百分数范围</li> <li><code>percentile_ranks</code> 百分数排行</li></ul></li> <li>地理位置型
+<ul><li><code>geo_bounds</code> Geo bounds</li> <li><code>geo_centroid</code> Geo-centroid</li> <li><code>geo_line</code> Geo-Line</li></ul></li> <li>Top型
+<ul><li><code>top_hits</code> 分桶后的top hits</li> <li><code>top_metrics</code></li></ul></li></ul></li></ul> <blockquote><p><strong>通过上述列表（我就不画图了），我们构筑的体系是基于<code>分类</code>和<code>功能</code>，而不是具体的项（比如avg,percentiles...)；这是不同的认知维度: 具体的项是碎片化，分类和功能这种是你需要构筑的体系</strong>。@pdai</p></blockquote> <h1 id="单值分析-标准stat类型"><a href="#单值分析-标准stat类型" class="header-anchor">#</a> 单值分析: 标准stat类型</h1> <hr> <h3 id="avg-平均值"><a href="#avg-平均值" class="header-anchor">#</a> <code>avg</code> 平均值</h3> <p>计算班级的平均分</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /exams/_search?size=0
+{
+  &quot;aggs&quot;: {
+    &quot;avg_grade&quot;: { &quot;avg&quot;: { &quot;field&quot;: &quot;grade&quot; } }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+  &quot;aggregations&quot;: {
+    &quot;avg_grade&quot;: {
+      &quot;value&quot;: 75.0
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="max-最大值"><a href="#max-最大值" class="header-anchor">#</a> <code>max</code> 最大值</h3> <p>计算销售最高价</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /sales/_search?size=0
+{
+  &quot;aggs&quot;: {
+    &quot;max_price&quot;: { &quot;max&quot;: { &quot;field&quot;: &quot;price&quot; } }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+  &quot;aggregations&quot;: {
+      &quot;max_price&quot;: {
+          &quot;value&quot;: 200.0
+      }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="min-最小值"><a href="#min-最小值" class="header-anchor">#</a> <code>min</code> 最小值</h3> <p>计算销售最低价</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /sales/_search?size=0
+{
+  &quot;aggs&quot;: {
+    &quot;min_price&quot;: { &quot;min&quot;: { &quot;field&quot;: &quot;price&quot; } }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+
+  &quot;aggregations&quot;: {
+    &quot;min_price&quot;: {
+      &quot;value&quot;: 10.0
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><h3 id="sum-和"><a href="#sum-和" class="header-anchor">#</a> <code>sum</code> 和</h3> <p>计算销售总价</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /sales/_search?size=0
+{
+  &quot;query&quot;: {
+    &quot;constant_score&quot;: {
+      &quot;filter&quot;: {
+        &quot;match&quot;: { &quot;type&quot;: &quot;hat&quot; }
+      }
+    }
+  },
+  &quot;aggs&quot;: {
+    &quot;hat_prices&quot;: { &quot;sum&quot;: { &quot;field&quot;: &quot;price&quot; } }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+  &quot;aggregations&quot;: {
+    &quot;hat_prices&quot;: {
+      &quot;value&quot;: 450.0
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="value-count-数量"><a href="#value-count-数量" class="header-anchor">#</a> <code>value_count</code> 数量</h3> <p>销售数量统计</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /sales/_search?size=0
+{
+  &quot;aggs&quot; : {
+    &quot;types_count&quot; : { &quot;value_count&quot; : { &quot;field&quot; : &quot;type&quot; } }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+  &quot;aggregations&quot;: {
+    &quot;types_count&quot;: {
+      &quot;value&quot;: 7
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h1 id="单值分析-其它类型"><a href="#单值分析-其它类型" class="header-anchor">#</a> 单值分析: 其它类型</h1> <hr> <h3 id="weighted-avg-带权重的avg"><a href="#weighted-avg-带权重的avg" class="header-anchor">#</a> <code>weighted_avg</code> 带权重的avg</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /exams/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;weighted_grade&quot;: {
+      &quot;weighted_avg&quot;: {
+        &quot;value&quot;: {
+          &quot;field&quot;: &quot;grade&quot;
+        },
+        &quot;weight&quot;: {
+          &quot;field&quot;: &quot;weight&quot;
+        }
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+  &quot;aggregations&quot;: {
+    &quot;weighted_grade&quot;: {
+      &quot;value&quot;: 70.0
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="cardinality-基数-distinct去重"><a href="#cardinality-基数-distinct去重" class="header-anchor">#</a> <code>cardinality</code> 基数（distinct去重）</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /sales/_search?size=0
+{
+  &quot;aggs&quot;: {
+    &quot;type_count&quot;: {
+      &quot;cardinality&quot;: {
+        &quot;field&quot;: &quot;type&quot;
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+  &quot;aggregations&quot;: {
+    &quot;type_count&quot;: {
+      &quot;value&quot;: 3
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="median-absolute-deviation-中位值"><a href="#median-absolute-deviation-中位值" class="header-anchor">#</a> <code>median_absolute_deviation</code> 中位值</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>GET reviews/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;review_average&quot;: {
+      &quot;avg&quot;: {
+        &quot;field&quot;: &quot;rating&quot;
+      }
+    },
+    &quot;review_variability&quot;: {
+      &quot;median_absolute_deviation&quot;: {
+        &quot;field&quot;: &quot;rating&quot; 
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+  &quot;aggregations&quot;: {
+    &quot;review_average&quot;: {
+      &quot;value&quot;: 3.0
+    },
+    &quot;review_variability&quot;: {
+      &quot;value&quot;: 2.0
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><h1 id="非单值分析-stats型"><a href="#非单值分析-stats型" class="header-anchor">#</a> 非单值分析：stats型</h1> <hr> <h3 id="stats-包含avg-max-min-sum和count"><a href="#stats-包含avg-max-min-sum和count" class="header-anchor">#</a> <code>stats</code> 包含avg,max,min,sum和count</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /exams/_search?size=0
+{
+  &quot;aggs&quot;: {
+    &quot;grades_stats&quot;: { &quot;stats&quot;: { &quot;field&quot;: &quot;grade&quot; } }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+
+  &quot;aggregations&quot;: {
+    &quot;grades_stats&quot;: {
+      &quot;count&quot;: 2,
+      &quot;min&quot;: 50.0,
+      &quot;max&quot;: 100.0,
+      &quot;avg&quot;: 75.0,
+      &quot;sum&quot;: 150.0
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><h3 id="matrix-stats-针对矩阵模型"><a href="#matrix-stats-针对矩阵模型" class="header-anchor">#</a> <code>matrix_stats</code> 针对矩阵模型</h3> <p>以下示例说明了使用矩阵统计量来描述收入与贫困之间的关系。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>GET /_search
+{
+  &quot;aggs&quot;: {
+    &quot;statistics&quot;: {
+      &quot;matrix_stats&quot;: {
+        &quot;fields&quot;: [ &quot;poverty&quot;, &quot;income&quot; ]
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+  &quot;aggregations&quot;: {
+    &quot;statistics&quot;: {
+      &quot;doc_count&quot;: 50,
+      &quot;fields&quot;: [ {
+          &quot;name&quot;: &quot;income&quot;,
+          &quot;count&quot;: 50,
+          &quot;mean&quot;: 51985.1,
+          &quot;variance&quot;: 7.383377037755103E7,
+          &quot;skewness&quot;: 0.5595114003506483,
+          &quot;kurtosis&quot;: 2.5692365287787124,
+          &quot;covariance&quot;: {
+            &quot;income&quot;: 7.383377037755103E7,
+            &quot;poverty&quot;: -21093.65836734694
+          },
+          &quot;correlation&quot;: {
+            &quot;income&quot;: 1.0,
+            &quot;poverty&quot;: -0.8352655256272504
+          }
+        }, {
+          &quot;name&quot;: &quot;poverty&quot;,
+          &quot;count&quot;: 50,
+          &quot;mean&quot;: 12.732000000000001,
+          &quot;variance&quot;: 8.637730612244896,
+          &quot;skewness&quot;: 0.4516049811903419,
+          &quot;kurtosis&quot;: 2.8615929677997767,
+          &quot;covariance&quot;: {
+            &quot;income&quot;: -21093.65836734694,
+            &quot;poverty&quot;: 8.637730612244896
+          },
+          &quot;correlation&quot;: {
+            &quot;income&quot;: -0.8352655256272504,
+            &quot;poverty&quot;: 1.0
+          }
+        } ]
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br></div></div><h3 id="extended-stats"><a href="#extended-stats" class="header-anchor">#</a> <code>extended_stats</code></h3> <p>根据从汇总文档中提取的数值计算统计信息。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>GET /exams/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;grades_stats&quot;: { &quot;extended_stats&quot;: { &quot;field&quot;: &quot;grade&quot; } }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><p>上面的汇总计算了所有文档的成绩统计信息。聚合类型为extended_stats，并且字段设置定义将在其上计算统计信息的文档的数字字段。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+
+  &quot;aggregations&quot;: {
+    &quot;grades_stats&quot;: {
+      &quot;count&quot;: 2,
+      &quot;min&quot;: 50.0,
+      &quot;max&quot;: 100.0,
+      &quot;avg&quot;: 75.0,
+      &quot;sum&quot;: 150.0,
+      &quot;sum_of_squares&quot;: 12500.0,
+      &quot;variance&quot;: 625.0,
+      &quot;variance_population&quot;: 625.0,
+      &quot;variance_sampling&quot;: 1250.0,
+      &quot;std_deviation&quot;: 25.0,
+      &quot;std_deviation_population&quot;: 25.0,
+      &quot;std_deviation_sampling&quot;: 35.35533905932738,
+      &quot;std_deviation_bounds&quot;: {
+        &quot;upper&quot;: 125.0,
+        &quot;lower&quot;: 25.0,
+        &quot;upper_population&quot;: 125.0,
+        &quot;lower_population&quot;: 25.0,
+        &quot;upper_sampling&quot;: 145.71067811865476,
+        &quot;lower_sampling&quot;: 4.289321881345245
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br></div></div><h3 id="string-stats-针对字符串"><a href="#string-stats-针对字符串" class="header-anchor">#</a> <code>string_stats</code> 针对字符串</h3> <p>用于计算从聚合文档中提取的字符串值的统计信息。这些值可以从特定的关键字字段中检索。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /my-index-000001/_search?size=0
+{
+  &quot;aggs&quot;: {
+    &quot;message_stats&quot;: { &quot;string_stats&quot;: { &quot;field&quot;: &quot;message.keyword&quot; } }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+
+  &quot;aggregations&quot;: {
+    &quot;message_stats&quot;: {
+      &quot;count&quot;: 5,
+      &quot;min_length&quot;: 24,
+      &quot;max_length&quot;: 30,
+      &quot;avg_length&quot;: 28.8,
+      &quot;entropy&quot;: 3.94617750050791
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><h1 id="非单值分析-百分数型"><a href="#非单值分析-百分数型" class="header-anchor">#</a> 非单值分析：百分数型</h1> <hr> <h3 id="percentiles-百分数范围"><a href="#percentiles-百分数范围" class="header-anchor">#</a> <code>percentiles</code> 百分数范围</h3> <p>针对从聚合文档中提取的数值计算一个或多个百分位数。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>GET latency/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;load_time_outlier&quot;: {
+      &quot;percentiles&quot;: {
+        &quot;field&quot;: &quot;load_time&quot; 
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><p>默认情况下，百分位度量标准将生成一定范围的百分位：[1，5，25，50，75，95，99]。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+
+ &quot;aggregations&quot;: {
+    &quot;load_time_outlier&quot;: {
+      &quot;values&quot;: {
+        &quot;1.0&quot;: 5.0,
+        &quot;5.0&quot;: 25.0,
+        &quot;25.0&quot;: 165.0,
+        &quot;50.0&quot;: 445.0,
+        &quot;75.0&quot;: 725.0,
+        &quot;95.0&quot;: 945.0,
+        &quot;99.0&quot;: 985.0
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><h3 id="percentile-ranks-百分数排行"><a href="#percentile-ranks-百分数排行" class="header-anchor">#</a> <code>percentile_ranks</code> 百分数排行</h3> <p>根据从汇总文档中提取的数值计算一个或多个百分位等级。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>GET latency/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;load_time_ranks&quot;: {
+      &quot;percentile_ranks&quot;: {
+        &quot;field&quot;: &quot;load_time&quot;,   
+        &quot;values&quot;: [ 500, 600 ]
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+
+ &quot;aggregations&quot;: {
+    &quot;load_time_ranks&quot;: {
+      &quot;values&quot;: {
+        &quot;500.0&quot;: 90.01,
+        &quot;600.0&quot;: 100.0
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><p>上述结果表示90.01％的页面加载在500ms内完成，而100％的页面加载在600ms内完成。</p> <h1 id="非单值分析-地理位置型"><a href="#非单值分析-地理位置型" class="header-anchor">#</a> 非单值分析：地理位置型</h1> <hr> <h3 id="geo-bounds-geo-bounds"><a href="#geo-bounds-geo-bounds" class="header-anchor">#</a> <code>geo_bounds</code> Geo bounds</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>PUT /museums
+{
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;location&quot;: {
+        &quot;type&quot;: &quot;geo_point&quot;
+      }
+    }
+  }
+}
+
+POST /museums/_bulk?refresh
+{&quot;index&quot;:{&quot;_id&quot;:1}}
+{&quot;location&quot;: &quot;52.374081,4.912350&quot;, &quot;name&quot;: &quot;NEMO Science Museum&quot;}
+{&quot;index&quot;:{&quot;_id&quot;:2}}
+{&quot;location&quot;: &quot;52.369219,4.901618&quot;, &quot;name&quot;: &quot;Museum Het Rembrandthuis&quot;}
+{&quot;index&quot;:{&quot;_id&quot;:3}}
+{&quot;location&quot;: &quot;52.371667,4.914722&quot;, &quot;name&quot;: &quot;Nederlands Scheepvaartmuseum&quot;}
+{&quot;index&quot;:{&quot;_id&quot;:4}}
+{&quot;location&quot;: &quot;51.222900,4.405200&quot;, &quot;name&quot;: &quot;Letterenhuis&quot;}
+{&quot;index&quot;:{&quot;_id&quot;:5}}
+{&quot;location&quot;: &quot;48.861111,2.336389&quot;, &quot;name&quot;: &quot;Musée du Louvre&quot;}
+{&quot;index&quot;:{&quot;_id&quot;:6}}
+{&quot;location&quot;: &quot;48.860000,2.327000&quot;, &quot;name&quot;: &quot;Musée d'Orsay&quot;}
+
+POST /museums/_search?size=0
+{
+  &quot;query&quot;: {
+    &quot;match&quot;: { &quot;name&quot;: &quot;musée&quot; }
+  },
+  &quot;aggs&quot;: {
+    &quot;viewport&quot;: {
+      &quot;geo_bounds&quot;: {
+        &quot;field&quot;: &quot;location&quot;,    
+        &quot;wrap_longitude&quot;: true  
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br></div></div><p>上面的汇总展示了如何针对具有商店业务类型的所有文档计算位置字段的边界框</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+  &quot;aggregations&quot;: {
+    &quot;viewport&quot;: {
+      &quot;bounds&quot;: {
+        &quot;top_left&quot;: {
+          &quot;lat&quot;: 48.86111099738628,
+          &quot;lon&quot;: 2.3269999679178
+        },
+        &quot;bottom_right&quot;: {
+          &quot;lat&quot;: 48.85999997612089,
+          &quot;lon&quot;: 2.3363889567553997
+        }
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><h3 id="geo-centroid-geo-centroid"><a href="#geo-centroid-geo-centroid" class="header-anchor">#</a> <code>geo_centroid</code> Geo-centroid</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>PUT /museums
+{
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;location&quot;: {
+        &quot;type&quot;: &quot;geo_point&quot;
+      }
+    }
+  }
+}
+
+POST /museums/_bulk?refresh
+{&quot;index&quot;:{&quot;_id&quot;:1}}
+{&quot;location&quot;: &quot;52.374081,4.912350&quot;, &quot;city&quot;: &quot;Amsterdam&quot;, &quot;name&quot;: &quot;NEMO Science Museum&quot;}
+{&quot;index&quot;:{&quot;_id&quot;:2}}
+{&quot;location&quot;: &quot;52.369219,4.901618&quot;, &quot;city&quot;: &quot;Amsterdam&quot;, &quot;name&quot;: &quot;Museum Het Rembrandthuis&quot;}
+{&quot;index&quot;:{&quot;_id&quot;:3}}
+{&quot;location&quot;: &quot;52.371667,4.914722&quot;, &quot;city&quot;: &quot;Amsterdam&quot;, &quot;name&quot;: &quot;Nederlands Scheepvaartmuseum&quot;}
+{&quot;index&quot;:{&quot;_id&quot;:4}}
+{&quot;location&quot;: &quot;51.222900,4.405200&quot;, &quot;city&quot;: &quot;Antwerp&quot;, &quot;name&quot;: &quot;Letterenhuis&quot;}
+{&quot;index&quot;:{&quot;_id&quot;:5}}
+{&quot;location&quot;: &quot;48.861111,2.336389&quot;, &quot;city&quot;: &quot;Paris&quot;, &quot;name&quot;: &quot;Musée du Louvre&quot;}
+{&quot;index&quot;:{&quot;_id&quot;:6}}
+{&quot;location&quot;: &quot;48.860000,2.327000&quot;, &quot;city&quot;: &quot;Paris&quot;, &quot;name&quot;: &quot;Musée d'Orsay&quot;}
+
+POST /museums/_search?size=0
+{
+  &quot;aggs&quot;: {
+    &quot;centroid&quot;: {
+      &quot;geo_centroid&quot;: {
+        &quot;field&quot;: &quot;location&quot; 
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br></div></div><p>上面的汇总显示了如何针对所有具有犯罪类型的盗窃文件计算位置字段的质心。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+  &quot;aggregations&quot;: {
+    &quot;centroid&quot;: {
+      &quot;location&quot;: {
+        &quot;lat&quot;: 51.00982965203002,
+        &quot;lon&quot;: 3.9662131341174245
+      },
+      &quot;count&quot;: 6
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><h3 id="geo-line-geo-line"><a href="#geo-line-geo-line" class="header-anchor">#</a> <code>geo_line</code> Geo-Line</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>PUT test
+{
+    &quot;mappings&quot;: {
+        &quot;dynamic&quot;: &quot;strict&quot;,
+        &quot;_source&quot;: {
+            &quot;enabled&quot;: false
+        },
+        &quot;properties&quot;: {
+            &quot;my_location&quot;: {
+                &quot;type&quot;: &quot;geo_point&quot;
+            },
+            &quot;group&quot;: {
+                &quot;type&quot;: &quot;keyword&quot;
+            },
+            &quot;@timestamp&quot;: {
+                &quot;type&quot;: &quot;date&quot;
+            }
+        }
+    }
+}
+
+POST /test/_bulk?refresh
+{&quot;index&quot;: {}}
+{&quot;my_location&quot;: {&quot;lat&quot;:37.3450570, &quot;lon&quot;: -122.0499820}, &quot;@timestamp&quot;: &quot;2013-09-06T16:00:36&quot;}
+{&quot;index&quot;: {}}
+{&quot;my_location&quot;: {&quot;lat&quot;: 37.3451320, &quot;lon&quot;: -122.0499820}, &quot;@timestamp&quot;: &quot;2013-09-06T16:00:37Z&quot;}
+{&quot;index&quot;: {}}
+{&quot;my_location&quot;: {&quot;lat&quot;: 37.349283, &quot;lon&quot;: -122.0505010}, &quot;@timestamp&quot;: &quot;2013-09-06T16:00:37Z&quot;}
+
+POST /test/_search?filter_path=aggregations
+{
+  &quot;aggs&quot;: {
+    &quot;line&quot;: {
+      &quot;geo_line&quot;: {
+        &quot;point&quot;: {&quot;field&quot;: &quot;my_location&quot;},
+        &quot;sort&quot;: {&quot;field&quot;: &quot;@timestamp&quot;}
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br></div></div><p>将存储桶中的所有geo_point值聚合到由所选排序字段排序的LineString中。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;aggregations&quot;: {
+    &quot;line&quot;: {
+      &quot;type&quot; : &quot;Feature&quot;,
+      &quot;geometry&quot; : {
+        &quot;type&quot; : &quot;LineString&quot;,
+        &quot;coordinates&quot; : [
+          [
+            -122.049982,
+            37.345057
+          ],
+          [
+            -122.050501,
+            37.349283
+          ],
+          [
+            -122.049982,
+            37.345132
+          ]
+        ]
+      },
+      &quot;properties&quot; : {
+        &quot;complete&quot; : true
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div><h1 id="非单值分析-top型"><a href="#非单值分析-top型" class="header-anchor">#</a> 非单值分析：Top型</h1> <hr> <h3 id="top-hits-分桶后的top-hits"><a href="#top-hits-分桶后的top-hits" class="header-anchor">#</a> <code>top_hits</code> 分桶后的top hits</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /sales/_search?size=0
+{
+  &quot;aggs&quot;: {
+    &quot;top_tags&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;type&quot;,
+        &quot;size&quot;: 3
+      },
+      &quot;aggs&quot;: {
+        &quot;top_sales_hits&quot;: {
+          &quot;top_hits&quot;: {
+            &quot;sort&quot;: [
+              {
+                &quot;date&quot;: {
+                  &quot;order&quot;: &quot;desc&quot;
+                }
+              }
+            ],
+            &quot;_source&quot;: {
+              &quot;includes&quot;: [ &quot;date&quot;, &quot;price&quot; ]
+            },
+            &quot;size&quot;: 1
+          }
+        }
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  ...
+  &quot;aggregations&quot;: {
+    &quot;top_tags&quot;: {
+       &quot;doc_count_error_upper_bound&quot;: 0,
+       &quot;sum_other_doc_count&quot;: 0,
+       &quot;buckets&quot;: [
+          {
+             &quot;key&quot;: &quot;hat&quot;,
+             &quot;doc_count&quot;: 3,
+             &quot;top_sales_hits&quot;: {
+                &quot;hits&quot;: {
+                   &quot;total&quot; : {
+                       &quot;value&quot;: 3,
+                       &quot;relation&quot;: &quot;eq&quot;
+                   },
+                   &quot;max_score&quot;: null,
+                   &quot;hits&quot;: [
+                      {
+                         &quot;_index&quot;: &quot;sales&quot;,
+                         &quot;_type&quot;: &quot;_doc&quot;,
+                         &quot;_id&quot;: &quot;AVnNBmauCQpcRyxw6ChK&quot;,
+                         &quot;_source&quot;: {
+                            &quot;date&quot;: &quot;2015/03/01 00:00:00&quot;,
+                            &quot;price&quot;: 200
+                         },
+                         &quot;sort&quot;: [
+                            1425168000000
+                         ],
+                         &quot;_score&quot;: null
+                      }
+                   ]
+                }
+             }
+          },
+          {
+             &quot;key&quot;: &quot;t-shirt&quot;,
+             &quot;doc_count&quot;: 3,
+             &quot;top_sales_hits&quot;: {
+                &quot;hits&quot;: {
+                   &quot;total&quot; : {
+                       &quot;value&quot;: 3,
+                       &quot;relation&quot;: &quot;eq&quot;
+                   },
+                   &quot;max_score&quot;: null,
+                   &quot;hits&quot;: [
+                      {
+                         &quot;_index&quot;: &quot;sales&quot;,
+                         &quot;_type&quot;: &quot;_doc&quot;,
+                         &quot;_id&quot;: &quot;AVnNBmauCQpcRyxw6ChL&quot;,
+                         &quot;_source&quot;: {
+                            &quot;date&quot;: &quot;2015/03/01 00:00:00&quot;,
+                            &quot;price&quot;: 175
+                         },
+                         &quot;sort&quot;: [
+                            1425168000000
+                         ],
+                         &quot;_score&quot;: null
+                      }
+                   ]
+                }
+             }
+          },
+          {
+             &quot;key&quot;: &quot;bag&quot;,
+             &quot;doc_count&quot;: 1,
+             &quot;top_sales_hits&quot;: {
+                &quot;hits&quot;: {
+                   &quot;total&quot; : {
+                       &quot;value&quot;: 1,
+                       &quot;relation&quot;: &quot;eq&quot;
+                   },
+                   &quot;max_score&quot;: null,
+                   &quot;hits&quot;: [
+                      {
+                         &quot;_index&quot;: &quot;sales&quot;,
+                         &quot;_type&quot;: &quot;_doc&quot;,
+                         &quot;_id&quot;: &quot;AVnNBmatCQpcRyxw6ChH&quot;,
+                         &quot;_source&quot;: {
+                            &quot;date&quot;: &quot;2015/01/01 00:00:00&quot;,
+                            &quot;price&quot;: 150
+                         },
+                         &quot;sort&quot;: [
+                            1420070400000
+                         ],
+                         &quot;_score&quot;: null
+                      }
+                   ]
+                }
+             }
+          }
+       ]
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br></div></div><h3 id="top-metrics"><a href="#top-metrics" class="header-anchor">#</a> <code>top_metrics</code></h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>POST /test/_bulk?refresh
+{&quot;index&quot;: {}}
+{&quot;s&quot;: 1, &quot;m&quot;: 3.1415}
+{&quot;index&quot;: {}}
+{&quot;s&quot;: 2, &quot;m&quot;: 1.0}
+{&quot;index&quot;: {}}
+{&quot;s&quot;: 3, &quot;m&quot;: 2.71828}
+POST /test/_search?filter_path=aggregations
+{
+  &quot;aggs&quot;: {
+    &quot;tm&quot;: {
+      &quot;top_metrics&quot;: {
+        &quot;metrics&quot;: {&quot;field&quot;: &quot;m&quot;},
+        &quot;sort&quot;: {&quot;s&quot;: &quot;desc&quot;}
+      }
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br></div></div><p>返回</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;aggregations&quot;: {
+    &quot;tm&quot;: {
+      &quot;top&quot;: [ {&quot;sort&quot;: [3], &quot;metrics&quot;: {&quot;m&quot;: 2.718280076980591 } } ]
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><h1 id="参考文章"><a href="#参考文章" class="header-anchor">#</a> 参考文章</h1> <hr> <p>https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics.html)</p></div></div> <!----> <div class="page-edit"><div class="edit-link"><a href="https://fanxgit.github.io/fanxNotes/edit/master/docs/database/06.NoSQL - ElasticSearch/12.ES详解 - 聚合-聚合查询之Metric聚合详解.md" target="_blank" rel="noopener noreferrer">编辑</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">8/17/2023, 5:04:28 PM</span></div></div> <div class="page-nav-wapper"><div class="page-nav-centre-wrap"><a href="/pages/cd972b/" class="page-nav-centre page-nav-centre-prev"><div class="tooltip">ES详解 - 聚合-聚合查询之Bucket聚合详解</div></a> <a href="/pages/af13d0/" class="page-nav-centre page-nav-centre-next"><div class="tooltip">ES详解 - 聚合-聚合查询之Pipline聚合详解</div></a></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/pages/cd972b/" class="prev">ES详解 - 聚合-聚合查询之Bucket聚合详解</a></span> <span class="next"><a href="/pages/af13d0/">ES详解 - 聚合-聚合查询之Pipline聚合详解</a>→
+      </span></p></div></div></div> <div class="article-list"><div class="article-title"><a href="/archives/" class="iconfont icon-bi">最近更新</a></div> <div class="article-wrapper"><dl><dd>01</dd> <dt><a href="/pages/797621/"><div>
+            VuePress+GithubPages教程
+            <!----></div></a> <span class="date">11-19</span></dt></dl><dl><dd>02</dd> <dt><a href="/pages/016620/"><div>
+            java打jar包整理
+            <!----></div></a> <span class="date">11-19</span></dt></dl><dl><dd>03</dd> <dt><a href="/pages/b23a10/"><div>
+            多线程问题总结
+            <!----></div></a> <span class="date">11-14</span></dt></dl> <dl><dd></dd> <dt><a href="/archives/" class="more">更多文章&gt;</a></dt></dl></div></div></main></div> <div class="footer"><!----> 
+  Theme by
+  <a href="https://github.com/xugaoyi/vuepress-theme-vdoing" target="_blank" title="本站主题">Vdoing</a> <!----></div> <div class="buttons"><div title="返回顶部" class="button blur go-to-top iconfont icon-fanhuidingbu" style="display:none;"></div> <div title="去评论" class="button blur go-to-comment iconfont icon-pinglun" style="display:none;"></div> <div title="主题模式" class="button blur theme-mode-but iconfont icon-zhuti"><ul class="select-box" style="display:none;"><li class="iconfont icon-zidong">
+          跟随系统
+        </li><li class="iconfont icon-rijianmoshi">
+          浅色模式
+        </li><li class="iconfont icon-yejianmoshi">
+          深色模式
+        </li><li class="iconfont icon-yuedu">
+          阅读模式
+        </li></ul></div></div> <!----> <!----> <!----></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.38fd400a.js" defer></script><script src="/assets/js/3.e11db813.js" defer></script><script src="/assets/js/447.7f653483.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>SPI机制详解 | Fanx 知识库</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    <link rel="icon" href="/img/logo.svg">[object Object]
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.6ece31e0.css" as="style"><link rel="preload" href="/assets/js/app.38fd400a.js" as="script"><link rel="preload" href="/assets/js/3.e11db813.js" as="script"><link rel="preload" href="/assets/js/208.f763286c.js" as="script"><link rel="prefetch" href="/assets/js/10.939e2dd4.js"><link rel="prefetch" href="/assets/js/100.4a08f581.js"><link rel="prefetch" href="/assets/js/101.45cd45c9.js"><link rel="prefetch" href="/assets/js/102.ac1359d1.js"><link rel="prefetch" href="/assets/js/103.22344102.js"><link rel="prefetch" href="/assets/js/104.5071cdfd.js"><link rel="prefetch" href="/assets/js/105.7767c121.js"><link rel="prefetch" href="/assets/js/106.809b79f1.js"><link rel="prefetch" href="/assets/js/107.62fd626a.js"><link rel="prefetch" href="/assets/js/108.0583fdc1.js"><link rel="prefetch" href="/assets/js/109.fa127771.js"><link rel="prefetch" href="/assets/js/11.6463adc8.js"><link rel="prefetch" href="/assets/js/110.5cf9f09c.js"><link rel="prefetch" href="/assets/js/111.9d963667.js"><link rel="prefetch" href="/assets/js/112.bc2b8a6e.js"><link rel="prefetch" href="/assets/js/113.2ae29573.js"><link rel="prefetch" href="/assets/js/114.0b2cedfa.js"><link rel="prefetch" href="/assets/js/115.652e433e.js"><link rel="prefetch" href="/assets/js/116.bcc5d64a.js"><link rel="prefetch" href="/assets/js/117.30b02d0d.js"><link rel="prefetch" href="/assets/js/118.87f4f927.js"><link rel="prefetch" href="/assets/js/119.05839492.js"><link rel="prefetch" href="/assets/js/12.a17960e5.js"><link rel="prefetch" href="/assets/js/120.3d772c9c.js"><link rel="prefetch" href="/assets/js/121.bd8fcebf.js"><link rel="prefetch" href="/assets/js/122.e58d2205.js"><link rel="prefetch" href="/assets/js/123.f2c2826d.js"><link rel="prefetch" href="/assets/js/124.12d9ff87.js"><link rel="prefetch" href="/assets/js/125.c7e4bf1c.js"><link rel="prefetch" href="/assets/js/126.71c358fb.js"><link rel="prefetch" href="/assets/js/127.fb1922e5.js"><link rel="prefetch" href="/assets/js/128.25cbf771.js"><link rel="prefetch" href="/assets/js/129.50047ea3.js"><link rel="prefetch" href="/assets/js/13.727ebfda.js"><link rel="prefetch" href="/assets/js/130.a77cfa28.js"><link rel="prefetch" href="/assets/js/131.1618c1f5.js"><link rel="prefetch" href="/assets/js/132.4073573b.js"><link rel="prefetch" href="/assets/js/133.f6e4882f.js"><link rel="prefetch" href="/assets/js/134.1de81973.js"><link rel="prefetch" href="/assets/js/135.43148a0c.js"><link rel="prefetch" href="/assets/js/136.12b3ef34.js"><link rel="prefetch" href="/assets/js/137.accefc34.js"><link rel="prefetch" href="/assets/js/138.8d3115ff.js"><link rel="prefetch" href="/assets/js/139.6e492e2b.js"><link rel="prefetch" href="/assets/js/14.bc6d3062.js"><link rel="prefetch" href="/assets/js/140.3d98f006.js"><link rel="prefetch" href="/assets/js/141.542d08af.js"><link rel="prefetch" href="/assets/js/142.c91a19a2.js"><link rel="prefetch" href="/assets/js/143.0c681ed2.js"><link rel="prefetch" href="/assets/js/144.62e9c646.js"><link rel="prefetch" href="/assets/js/145.ebc34777.js"><link rel="prefetch" href="/assets/js/146.d94a04a7.js"><link rel="prefetch" href="/assets/js/147.b45158de.js"><link rel="prefetch" href="/assets/js/148.5dfa6740.js"><link rel="prefetch" href="/assets/js/149.cb6f2cb0.js"><link rel="prefetch" href="/assets/js/15.a9468bf1.js"><link rel="prefetch" href="/assets/js/150.9f58dbc6.js"><link rel="prefetch" href="/assets/js/151.0a1c07e3.js"><link rel="prefetch" href="/assets/js/152.eafe4843.js"><link rel="prefetch" href="/assets/js/153.fb94cab5.js"><link rel="prefetch" href="/assets/js/154.07f7a11d.js"><link rel="prefetch" href="/assets/js/155.7f6da40b.js"><link rel="prefetch" href="/assets/js/156.2f007ca1.js"><link rel="prefetch" href="/assets/js/157.a35b5249.js"><link rel="prefetch" href="/assets/js/158.540f7a5a.js"><link rel="prefetch" href="/assets/js/159.f62e0315.js"><link rel="prefetch" href="/assets/js/16.ace3b806.js"><link rel="prefetch" href="/assets/js/160.e043c758.js"><link rel="prefetch" href="/assets/js/161.d90141bf.js"><link rel="prefetch" href="/assets/js/162.ddcdbfb9.js"><link rel="prefetch" href="/assets/js/163.f1ba395e.js"><link rel="prefetch" href="/assets/js/164.9f398973.js"><link rel="prefetch" href="/assets/js/165.0db3da51.js"><link rel="prefetch" href="/assets/js/166.b5305797.js"><link rel="prefetch" href="/assets/js/167.e7b2f76b.js"><link rel="prefetch" href="/assets/js/168.a2ecf883.js"><link rel="prefetch" href="/assets/js/169.88bd4d26.js"><link rel="prefetch" href="/assets/js/17.60481837.js"><link rel="prefetch" href="/assets/js/170.fb1699e2.js"><link rel="prefetch" href="/assets/js/171.47268bef.js"><link rel="prefetch" href="/assets/js/172.79002327.js"><link rel="prefetch" href="/assets/js/173.3b1813fb.js"><link rel="prefetch" href="/assets/js/174.362811a9.js"><link rel="prefetch" href="/assets/js/175.bb48bcd7.js"><link rel="prefetch" href="/assets/js/176.97bbf32c.js"><link rel="prefetch" href="/assets/js/177.0717ff7a.js"><link rel="prefetch" href="/assets/js/178.75bff3b7.js"><link rel="prefetch" href="/assets/js/179.3e7db0a2.js"><link rel="prefetch" href="/assets/js/18.dd3c5709.js"><link rel="prefetch" href="/assets/js/180.c81da8dd.js"><link rel="prefetch" href="/assets/js/181.142d6d1c.js"><link rel="prefetch" href="/assets/js/182.fb312040.js"><link rel="prefetch" href="/assets/js/183.3684267e.js"><link rel="prefetch" href="/assets/js/184.ec2a13bc.js"><link rel="prefetch" href="/assets/js/185.a7acace4.js"><link rel="prefetch" href="/assets/js/186.7df28551.js"><link rel="prefetch" href="/assets/js/187.347e9348.js"><link rel="prefetch" href="/assets/js/188.07356026.js"><link rel="prefetch" href="/assets/js/189.0816176d.js"><link rel="prefetch" href="/assets/js/19.cc2d4ad1.js"><link rel="prefetch" href="/assets/js/190.fd5dd8cc.js"><link rel="prefetch" href="/assets/js/191.a938967e.js"><link rel="prefetch" href="/assets/js/192.859b71a1.js"><link rel="prefetch" href="/assets/js/193.adcf2ec3.js"><link rel="prefetch" href="/assets/js/194.69d1169c.js"><link rel="prefetch" href="/assets/js/195.ad7cbcc4.js"><link rel="prefetch" href="/assets/js/196.b65138da.js"><link rel="prefetch" href="/assets/js/197.b4fca73b.js"><link rel="prefetch" href="/assets/js/198.2494a23f.js"><link rel="prefetch" href="/assets/js/199.404b9ce1.js"><link rel="prefetch" href="/assets/js/2.938bab56.js"><link rel="prefetch" href="/assets/js/20.361e2bf6.js"><link rel="prefetch" href="/assets/js/200.42b54eae.js"><link rel="prefetch" href="/assets/js/201.ab495eb8.js"><link rel="prefetch" href="/assets/js/202.2cbc5c9a.js"><link rel="prefetch" href="/assets/js/203.abf3fde5.js"><link rel="prefetch" href="/assets/js/204.4fdd4cfb.js"><link rel="prefetch" href="/assets/js/205.411987d7.js"><link rel="prefetch" href="/assets/js/206.dbcab3ae.js"><link rel="prefetch" href="/assets/js/207.f1429354.js"><link rel="prefetch" href="/assets/js/209.c1edbca5.js"><link rel="prefetch" href="/assets/js/21.ae1e88a3.js"><link rel="prefetch" href="/assets/js/210.b2a1501d.js"><link rel="prefetch" href="/assets/js/211.fe1fd5f7.js"><link rel="prefetch" href="/assets/js/212.0fd39a8f.js"><link rel="prefetch" href="/assets/js/213.bb3fc163.js"><link rel="prefetch" href="/assets/js/214.c42e1ef3.js"><link rel="prefetch" href="/assets/js/215.4f0fa915.js"><link rel="prefetch" href="/assets/js/216.07c485c9.js"><link rel="prefetch" href="/assets/js/217.ada25e7a.js"><link rel="prefetch" href="/assets/js/218.2f761d3c.js"><link rel="prefetch" href="/assets/js/219.32d1a663.js"><link rel="prefetch" href="/assets/js/22.0b09d67f.js"><link rel="prefetch" href="/assets/js/220.36c56cf4.js"><link rel="prefetch" href="/assets/js/221.3e0431e2.js"><link rel="prefetch" href="/assets/js/222.90aa0ff7.js"><link rel="prefetch" href="/assets/js/223.5966d7df.js"><link rel="prefetch" href="/assets/js/224.7e2329e1.js"><link rel="prefetch" href="/assets/js/225.2ed3675d.js"><link rel="prefetch" href="/assets/js/226.fa3cef02.js"><link rel="prefetch" href="/assets/js/227.07bf7bca.js"><link rel="prefetch" href="/assets/js/228.9ac2589a.js"><link rel="prefetch" href="/assets/js/229.b980e141.js"><link rel="prefetch" href="/assets/js/23.31ed5c2f.js"><link rel="prefetch" href="/assets/js/230.2c32e874.js"><link rel="prefetch" href="/assets/js/231.723e20cb.js"><link rel="prefetch" href="/assets/js/232.1f94511c.js"><link rel="prefetch" href="/assets/js/233.2d477f71.js"><link rel="prefetch" href="/assets/js/234.10141c75.js"><link rel="prefetch" href="/assets/js/235.a328b127.js"><link rel="prefetch" href="/assets/js/236.42419c3b.js"><link rel="prefetch" href="/assets/js/237.648ca44e.js"><link rel="prefetch" href="/assets/js/238.4b363b75.js"><link rel="prefetch" href="/assets/js/239.fe711a73.js"><link rel="prefetch" href="/assets/js/24.fe75e3fa.js"><link rel="prefetch" href="/assets/js/240.6baa12bf.js"><link rel="prefetch" href="/assets/js/241.6f375dc4.js"><link rel="prefetch" href="/assets/js/242.aee8e39d.js"><link rel="prefetch" href="/assets/js/243.bfc7f6e1.js"><link rel="prefetch" href="/assets/js/244.c73a14a7.js"><link rel="prefetch" href="/assets/js/245.a2352aa1.js"><link rel="prefetch" href="/assets/js/246.b12c3ae6.js"><link rel="prefetch" href="/assets/js/247.2f768275.js"><link rel="prefetch" href="/assets/js/248.3f79dfb1.js"><link rel="prefetch" href="/assets/js/249.7fd0cb75.js"><link rel="prefetch" href="/assets/js/25.f2e379df.js"><link rel="prefetch" href="/assets/js/250.df3f1d0a.js"><link rel="prefetch" href="/assets/js/251.a3865750.js"><link rel="prefetch" href="/assets/js/252.d62542df.js"><link rel="prefetch" href="/assets/js/253.59b2f200.js"><link rel="prefetch" href="/assets/js/254.522d17b5.js"><link rel="prefetch" href="/assets/js/255.0f95a196.js"><link rel="prefetch" href="/assets/js/256.31b37cbe.js"><link rel="prefetch" href="/assets/js/257.ff22ad12.js"><link rel="prefetch" href="/assets/js/258.15205e0b.js"><link rel="prefetch" href="/assets/js/259.f3b7c5aa.js"><link rel="prefetch" href="/assets/js/26.45264b04.js"><link rel="prefetch" href="/assets/js/260.fec3c7aa.js"><link rel="prefetch" href="/assets/js/261.d965ee56.js"><link rel="prefetch" href="/assets/js/262.76a7105b.js"><link rel="prefetch" href="/assets/js/263.e684cc46.js"><link rel="prefetch" href="/assets/js/264.59297da0.js"><link rel="prefetch" href="/assets/js/265.66182ed2.js"><link rel="prefetch" href="/assets/js/266.eec50d90.js"><link rel="prefetch" href="/assets/js/267.c85bce12.js"><link rel="prefetch" href="/assets/js/268.ef544f0c.js"><link rel="prefetch" href="/assets/js/269.8cfb5c6a.js"><link rel="prefetch" href="/assets/js/27.4e065810.js"><link rel="prefetch" href="/assets/js/270.b66cab3c.js"><link rel="prefetch" href="/assets/js/271.c1b7d136.js"><link rel="prefetch" href="/assets/js/272.0d7950c3.js"><link rel="prefetch" href="/assets/js/273.06349cca.js"><link rel="prefetch" href="/assets/js/274.9b442c09.js"><link rel="prefetch" href="/assets/js/275.11082d81.js"><link rel="prefetch" href="/assets/js/276.ce0abe31.js"><link rel="prefetch" href="/assets/js/277.4b7fcc53.js"><link rel="prefetch" href="/assets/js/278.129d0397.js"><link rel="prefetch" href="/assets/js/279.5c021f7c.js"><link rel="prefetch" href="/assets/js/28.126ecd33.js"><link rel="prefetch" href="/assets/js/280.d183c9e3.js"><link rel="prefetch" href="/assets/js/281.0df67750.js"><link rel="prefetch" href="/assets/js/282.8fdd2372.js"><link rel="prefetch" href="/assets/js/283.dae956df.js"><link rel="prefetch" href="/assets/js/284.c5dc7189.js"><link rel="prefetch" href="/assets/js/285.7f5a7367.js"><link rel="prefetch" href="/assets/js/286.d9bfcef5.js"><link rel="prefetch" href="/assets/js/287.4fa6a5c5.js"><link rel="prefetch" href="/assets/js/288.57904d2d.js"><link rel="prefetch" href="/assets/js/289.b96d7c2f.js"><link rel="prefetch" href="/assets/js/29.8f5db82a.js"><link rel="prefetch" href="/assets/js/290.8dda9646.js"><link rel="prefetch" href="/assets/js/291.ab433493.js"><link rel="prefetch" href="/assets/js/292.e2d59796.js"><link rel="prefetch" href="/assets/js/293.30f9fcc4.js"><link rel="prefetch" href="/assets/js/294.158492dc.js"><link rel="prefetch" href="/assets/js/295.33e3a53d.js"><link rel="prefetch" href="/assets/js/296.49d7a2de.js"><link rel="prefetch" href="/assets/js/297.1b7572ac.js"><link rel="prefetch" href="/assets/js/298.00e4586a.js"><link rel="prefetch" href="/assets/js/299.d8fb6ff9.js"><link rel="prefetch" href="/assets/js/30.ef97cb8e.js"><link rel="prefetch" href="/assets/js/300.90e9dadf.js"><link rel="prefetch" href="/assets/js/301.d5592ea1.js"><link rel="prefetch" href="/assets/js/302.b08dc1ea.js"><link rel="prefetch" href="/assets/js/303.bef541c8.js"><link rel="prefetch" href="/assets/js/304.be3f7081.js"><link rel="prefetch" href="/assets/js/305.13718421.js"><link rel="prefetch" href="/assets/js/306.41685aa2.js"><link rel="prefetch" href="/assets/js/307.6d569102.js"><link rel="prefetch" href="/assets/js/308.aaabab89.js"><link rel="prefetch" href="/assets/js/309.910ecc42.js"><link rel="prefetch" href="/assets/js/31.795b3334.js"><link rel="prefetch" href="/assets/js/310.104b7753.js"><link rel="prefetch" href="/assets/js/311.45f4a7da.js"><link rel="prefetch" href="/assets/js/312.180c7e45.js"><link rel="prefetch" href="/assets/js/313.87d3a801.js"><link rel="prefetch" href="/assets/js/314.7739b1ef.js"><link rel="prefetch" href="/assets/js/315.54a1fac0.js"><link rel="prefetch" href="/assets/js/316.a978a787.js"><link rel="prefetch" href="/assets/js/317.84f65f2c.js"><link rel="prefetch" href="/assets/js/318.7f8caff8.js"><link rel="prefetch" href="/assets/js/319.0b5276f3.js"><link rel="prefetch" href="/assets/js/32.e65c7229.js"><link rel="prefetch" href="/assets/js/320.ba90589a.js"><link rel="prefetch" href="/assets/js/321.b6810c5a.js"><link rel="prefetch" href="/assets/js/322.2eaa727d.js"><link rel="prefetch" href="/assets/js/323.17573ee3.js"><link rel="prefetch" href="/assets/js/324.806fd6ca.js"><link rel="prefetch" href="/assets/js/325.4cd65079.js"><link rel="prefetch" href="/assets/js/326.fe0e2e22.js"><link rel="prefetch" href="/assets/js/327.a64d0209.js"><link rel="prefetch" href="/assets/js/328.aca1c89a.js"><link rel="prefetch" href="/assets/js/329.53ccf1dd.js"><link rel="prefetch" href="/assets/js/33.9a57aab8.js"><link rel="prefetch" href="/assets/js/330.92822a09.js"><link rel="prefetch" href="/assets/js/331.6b82baff.js"><link rel="prefetch" href="/assets/js/332.fc20f585.js"><link rel="prefetch" href="/assets/js/333.005ba8e3.js"><link rel="prefetch" href="/assets/js/334.9d3309b8.js"><link rel="prefetch" href="/assets/js/335.0e938f19.js"><link rel="prefetch" href="/assets/js/336.01fe9903.js"><link rel="prefetch" href="/assets/js/337.e207d67c.js"><link rel="prefetch" href="/assets/js/338.bfcf6bc8.js"><link rel="prefetch" href="/assets/js/339.a502aa64.js"><link rel="prefetch" href="/assets/js/34.3835d35c.js"><link rel="prefetch" href="/assets/js/340.3888b147.js"><link rel="prefetch" href="/assets/js/341.20297f95.js"><link rel="prefetch" href="/assets/js/342.9cd149e9.js"><link rel="prefetch" href="/assets/js/343.faac8369.js"><link rel="prefetch" href="/assets/js/344.da8cd079.js"><link rel="prefetch" href="/assets/js/345.78303b88.js"><link rel="prefetch" href="/assets/js/346.d8eaca82.js"><link rel="prefetch" href="/assets/js/347.edd389a1.js"><link rel="prefetch" href="/assets/js/348.21ee9617.js"><link rel="prefetch" href="/assets/js/349.0251471a.js"><link rel="prefetch" href="/assets/js/35.76dc7096.js"><link rel="prefetch" href="/assets/js/350.710b7d30.js"><link rel="prefetch" href="/assets/js/351.535f8d60.js"><link rel="prefetch" href="/assets/js/352.c66fe42e.js"><link rel="prefetch" href="/assets/js/353.ebbcd333.js"><link rel="prefetch" href="/assets/js/354.7cbba2f1.js"><link rel="prefetch" href="/assets/js/355.0106db16.js"><link rel="prefetch" href="/assets/js/356.7debf350.js"><link rel="prefetch" href="/assets/js/357.a43eb887.js"><link rel="prefetch" href="/assets/js/358.28e5d2ed.js"><link rel="prefetch" href="/assets/js/359.956fc3b8.js"><link rel="prefetch" href="/assets/js/36.fc54452c.js"><link rel="prefetch" href="/assets/js/360.13fb600a.js"><link rel="prefetch" href="/assets/js/361.d100f85b.js"><link rel="prefetch" href="/assets/js/362.35277df2.js"><link rel="prefetch" href="/assets/js/363.d993a7fc.js"><link rel="prefetch" href="/assets/js/364.0168c2b0.js"><link rel="prefetch" href="/assets/js/365.bc8af0bb.js"><link rel="prefetch" href="/assets/js/366.2645dc0d.js"><link rel="prefetch" href="/assets/js/367.87368acb.js"><link rel="prefetch" href="/assets/js/368.0b7d41fc.js"><link rel="prefetch" href="/assets/js/369.4bf3f46e.js"><link rel="prefetch" href="/assets/js/37.5a47cee9.js"><link rel="prefetch" href="/assets/js/370.ea5f965e.js"><link rel="prefetch" href="/assets/js/371.1af764ef.js"><link rel="prefetch" href="/assets/js/372.bf6c68e2.js"><link rel="prefetch" href="/assets/js/373.1a605cc8.js"><link rel="prefetch" href="/assets/js/374.34a41a4a.js"><link rel="prefetch" href="/assets/js/375.1d2d3776.js"><link rel="prefetch" href="/assets/js/376.4b7b0b10.js"><link rel="prefetch" href="/assets/js/377.b3d9748a.js"><link rel="prefetch" href="/assets/js/378.7f00fa88.js"><link rel="prefetch" href="/assets/js/379.adcd298a.js"><link rel="prefetch" href="/assets/js/38.6614c565.js"><link rel="prefetch" href="/assets/js/380.6d08bb56.js"><link rel="prefetch" href="/assets/js/381.164bb4e3.js"><link rel="prefetch" href="/assets/js/382.f71f0ca4.js"><link rel="prefetch" href="/assets/js/383.01ba70ad.js"><link rel="prefetch" href="/assets/js/384.22b98cde.js"><link rel="prefetch" href="/assets/js/385.5f1298a9.js"><link rel="prefetch" href="/assets/js/386.01a912bc.js"><link rel="prefetch" href="/assets/js/387.3db4713f.js"><link rel="prefetch" href="/assets/js/388.4cde7d0f.js"><link rel="prefetch" href="/assets/js/389.d96bafad.js"><link rel="prefetch" href="/assets/js/39.1a09ed15.js"><link rel="prefetch" href="/assets/js/390.343bbc06.js"><link rel="prefetch" href="/assets/js/391.68b3e72a.js"><link rel="prefetch" href="/assets/js/392.f4f15e43.js"><link rel="prefetch" href="/assets/js/393.82475934.js"><link rel="prefetch" href="/assets/js/394.3101ea10.js"><link rel="prefetch" href="/assets/js/395.34083342.js"><link rel="prefetch" href="/assets/js/396.780d6efe.js"><link rel="prefetch" href="/assets/js/397.cb686f39.js"><link rel="prefetch" href="/assets/js/398.c4ad669f.js"><link rel="prefetch" href="/assets/js/399.ee8d28ad.js"><link rel="prefetch" href="/assets/js/4.c1dcb1a7.js"><link rel="prefetch" href="/assets/js/40.4216f4f9.js"><link rel="prefetch" href="/assets/js/400.23d48a38.js"><link rel="prefetch" href="/assets/js/401.319d7a68.js"><link rel="prefetch" href="/assets/js/402.25b27bd0.js"><link rel="prefetch" href="/assets/js/403.9a898a40.js"><link rel="prefetch" href="/assets/js/404.e3b49b79.js"><link rel="prefetch" href="/assets/js/405.7695b9f1.js"><link rel="prefetch" href="/assets/js/406.edb801f7.js"><link rel="prefetch" href="/assets/js/407.03c3f725.js"><link rel="prefetch" href="/assets/js/408.4345ef1f.js"><link rel="prefetch" href="/assets/js/409.77c34447.js"><link rel="prefetch" href="/assets/js/41.f035663a.js"><link rel="prefetch" href="/assets/js/410.7f6c0744.js"><link rel="prefetch" href="/assets/js/411.cb19323e.js"><link rel="prefetch" href="/assets/js/412.4b16959d.js"><link rel="prefetch" href="/assets/js/413.ff4f1ca2.js"><link rel="prefetch" href="/assets/js/414.b1ca1298.js"><link rel="prefetch" href="/assets/js/415.c2111593.js"><link rel="prefetch" href="/assets/js/416.a6d18039.js"><link rel="prefetch" href="/assets/js/417.dc36c66d.js"><link rel="prefetch" href="/assets/js/418.e7eba879.js"><link rel="prefetch" href="/assets/js/419.57673b9e.js"><link rel="prefetch" href="/assets/js/42.9c8cf569.js"><link rel="prefetch" href="/assets/js/420.ccd41fe0.js"><link rel="prefetch" href="/assets/js/421.ea69f0b0.js"><link rel="prefetch" href="/assets/js/422.093448e2.js"><link rel="prefetch" href="/assets/js/423.ae003f31.js"><link rel="prefetch" href="/assets/js/424.f670cd2b.js"><link rel="prefetch" href="/assets/js/425.6e814335.js"><link rel="prefetch" href="/assets/js/426.faf45206.js"><link rel="prefetch" href="/assets/js/427.cf6be942.js"><link rel="prefetch" href="/assets/js/428.9ff6199c.js"><link rel="prefetch" href="/assets/js/429.b6ef4678.js"><link rel="prefetch" href="/assets/js/43.717fe06b.js"><link rel="prefetch" href="/assets/js/430.e9575d07.js"><link rel="prefetch" href="/assets/js/431.8bf26a3e.js"><link rel="prefetch" href="/assets/js/432.5eaa2162.js"><link rel="prefetch" href="/assets/js/433.6dab12a1.js"><link rel="prefetch" href="/assets/js/434.fca918e8.js"><link rel="prefetch" href="/assets/js/435.4c8f9ad9.js"><link rel="prefetch" href="/assets/js/436.0f0de1a8.js"><link rel="prefetch" href="/assets/js/437.2221ab9f.js"><link rel="prefetch" href="/assets/js/438.37f28cfb.js"><link rel="prefetch" href="/assets/js/439.1e3f3611.js"><link rel="prefetch" href="/assets/js/44.705dc411.js"><link rel="prefetch" href="/assets/js/440.28ab35e8.js"><link rel="prefetch" href="/assets/js/441.8d006af8.js"><link rel="prefetch" href="/assets/js/442.2618a6e3.js"><link rel="prefetch" href="/assets/js/443.a7723674.js"><link rel="prefetch" href="/assets/js/444.18f23e7c.js"><link rel="prefetch" href="/assets/js/445.f4807c5a.js"><link rel="prefetch" href="/assets/js/446.77a5afc2.js"><link rel="prefetch" href="/assets/js/447.7f653483.js"><link rel="prefetch" href="/assets/js/448.1143c566.js"><link rel="prefetch" href="/assets/js/449.b788a288.js"><link rel="prefetch" href="/assets/js/45.6a225373.js"><link rel="prefetch" href="/assets/js/450.b6463ba3.js"><link rel="prefetch" href="/assets/js/451.fd4d46b9.js"><link rel="prefetch" href="/assets/js/452.e8de4fc2.js"><link rel="prefetch" href="/assets/js/453.4125e5e6.js"><link rel="prefetch" href="/assets/js/454.30af5d0a.js"><link rel="prefetch" href="/assets/js/455.9c919e58.js"><link rel="prefetch" href="/assets/js/456.22dbfa8f.js"><link rel="prefetch" href="/assets/js/457.e9c5248a.js"><link rel="prefetch" href="/assets/js/458.c0a9cf1d.js"><link rel="prefetch" href="/assets/js/459.b5e96042.js"><link rel="prefetch" href="/assets/js/46.515d085a.js"><link rel="prefetch" href="/assets/js/460.b4097efb.js"><link rel="prefetch" href="/assets/js/461.5d545741.js"><link rel="prefetch" href="/assets/js/462.402d4cdd.js"><link rel="prefetch" href="/assets/js/463.e6d6ea07.js"><link rel="prefetch" href="/assets/js/464.df817445.js"><link rel="prefetch" href="/assets/js/465.18a6bc2b.js"><link rel="prefetch" href="/assets/js/466.da313c0c.js"><link rel="prefetch" href="/assets/js/467.41294182.js"><link rel="prefetch" href="/assets/js/468.41c59467.js"><link rel="prefetch" href="/assets/js/469.d55da13c.js"><link rel="prefetch" href="/assets/js/47.a41193df.js"><link rel="prefetch" href="/assets/js/470.7457a92e.js"><link rel="prefetch" href="/assets/js/471.ed739bdf.js"><link rel="prefetch" href="/assets/js/472.83882459.js"><link rel="prefetch" href="/assets/js/473.fe2df51c.js"><link rel="prefetch" href="/assets/js/474.d40797b8.js"><link rel="prefetch" href="/assets/js/475.a00992a2.js"><link rel="prefetch" href="/assets/js/476.c7687189.js"><link rel="prefetch" href="/assets/js/477.fd4fd227.js"><link rel="prefetch" href="/assets/js/478.1ae08c3b.js"><link rel="prefetch" href="/assets/js/479.04a246c6.js"><link rel="prefetch" href="/assets/js/48.fe693306.js"><link rel="prefetch" href="/assets/js/480.36acb4ff.js"><link rel="prefetch" href="/assets/js/481.05d3129e.js"><link rel="prefetch" href="/assets/js/482.1741a02c.js"><link rel="prefetch" href="/assets/js/483.44cf2d25.js"><link rel="prefetch" href="/assets/js/484.9c14e5c6.js"><link rel="prefetch" href="/assets/js/485.ea0c1de1.js"><link rel="prefetch" href="/assets/js/486.8c683697.js"><link rel="prefetch" href="/assets/js/487.8b1eb604.js"><link rel="prefetch" href="/assets/js/488.ae16fca6.js"><link rel="prefetch" href="/assets/js/489.7f674a0d.js"><link rel="prefetch" href="/assets/js/49.a7d05a3d.js"><link rel="prefetch" href="/assets/js/490.52983854.js"><link rel="prefetch" href="/assets/js/491.968e7af4.js"><link rel="prefetch" href="/assets/js/492.e7f58bac.js"><link rel="prefetch" href="/assets/js/493.55afbb68.js"><link rel="prefetch" href="/assets/js/494.ac17d05b.js"><link rel="prefetch" href="/assets/js/495.d1ca2a12.js"><link rel="prefetch" href="/assets/js/496.d6841a0e.js"><link rel="prefetch" href="/assets/js/497.99431b4b.js"><link rel="prefetch" href="/assets/js/498.cacac1d8.js"><link rel="prefetch" href="/assets/js/499.c6b7fab0.js"><link rel="prefetch" href="/assets/js/5.f74a04c4.js"><link rel="prefetch" href="/assets/js/50.f59b29ea.js"><link rel="prefetch" href="/assets/js/500.abba24c7.js"><link rel="prefetch" href="/assets/js/501.e9496674.js"><link rel="prefetch" href="/assets/js/502.3ece0e86.js"><link rel="prefetch" href="/assets/js/503.974421d1.js"><link rel="prefetch" href="/assets/js/504.6e8d8539.js"><link rel="prefetch" href="/assets/js/505.b8161483.js"><link rel="prefetch" href="/assets/js/506.a6a6f2de.js"><link rel="prefetch" href="/assets/js/507.9c6955ee.js"><link rel="prefetch" href="/assets/js/508.223e145d.js"><link rel="prefetch" href="/assets/js/509.553e6f2c.js"><link rel="prefetch" href="/assets/js/51.428c5495.js"><link rel="prefetch" href="/assets/js/510.46e2eab7.js"><link rel="prefetch" href="/assets/js/511.24962b3f.js"><link rel="prefetch" href="/assets/js/512.a29fe236.js"><link rel="prefetch" href="/assets/js/513.8729b339.js"><link rel="prefetch" href="/assets/js/514.41199019.js"><link rel="prefetch" href="/assets/js/515.b1a71e99.js"><link rel="prefetch" href="/assets/js/516.001e3634.js"><link rel="prefetch" href="/assets/js/517.4de05581.js"><link rel="prefetch" href="/assets/js/518.57697c31.js"><link rel="prefetch" href="/assets/js/519.e962365e.js"><link rel="prefetch" href="/assets/js/52.c97c3911.js"><link rel="prefetch" href="/assets/js/520.e7775961.js"><link rel="prefetch" href="/assets/js/521.05b0ce57.js"><link rel="prefetch" href="/assets/js/522.49f7412e.js"><link rel="prefetch" href="/assets/js/523.b3d821b2.js"><link rel="prefetch" href="/assets/js/524.ab2395b7.js"><link rel="prefetch" href="/assets/js/525.25559bb4.js"><link rel="prefetch" href="/assets/js/526.23111d2a.js"><link rel="prefetch" href="/assets/js/527.c61f6e86.js"><link rel="prefetch" href="/assets/js/528.032fa7b6.js"><link rel="prefetch" href="/assets/js/529.3953f346.js"><link rel="prefetch" href="/assets/js/53.77f22b1a.js"><link rel="prefetch" href="/assets/js/530.b882066e.js"><link rel="prefetch" href="/assets/js/531.62dddf23.js"><link rel="prefetch" href="/assets/js/532.1826fe1a.js"><link rel="prefetch" href="/assets/js/533.a2e014bb.js"><link rel="prefetch" href="/assets/js/534.d5d89c00.js"><link rel="prefetch" href="/assets/js/535.4e5d7739.js"><link rel="prefetch" href="/assets/js/536.f2c700db.js"><link rel="prefetch" href="/assets/js/537.80aa278c.js"><link rel="prefetch" href="/assets/js/538.95e2f471.js"><link rel="prefetch" href="/assets/js/539.4e4ecfe8.js"><link rel="prefetch" href="/assets/js/54.d85b2f2e.js"><link rel="prefetch" href="/assets/js/540.00bd44e5.js"><link rel="prefetch" href="/assets/js/541.d740df14.js"><link rel="prefetch" href="/assets/js/542.5aadeaee.js"><link rel="prefetch" href="/assets/js/543.d42c9d9a.js"><link rel="prefetch" href="/assets/js/544.29704685.js"><link rel="prefetch" href="/assets/js/545.7fdb1a83.js"><link rel="prefetch" href="/assets/js/546.6b5655ea.js"><link rel="prefetch" href="/assets/js/547.c98e27c4.js"><link rel="prefetch" href="/assets/js/548.8edec06f.js"><link rel="prefetch" href="/assets/js/549.33b8eae3.js"><link rel="prefetch" href="/assets/js/55.80a4fa71.js"><link rel="prefetch" href="/assets/js/550.cb706b0e.js"><link rel="prefetch" href="/assets/js/551.79598cc6.js"><link rel="prefetch" href="/assets/js/552.69aa5f8b.js"><link rel="prefetch" href="/assets/js/553.7ccb8831.js"><link rel="prefetch" href="/assets/js/554.954013b2.js"><link rel="prefetch" href="/assets/js/555.960d7f8b.js"><link rel="prefetch" href="/assets/js/556.5c054c14.js"><link rel="prefetch" href="/assets/js/557.890045ea.js"><link rel="prefetch" href="/assets/js/558.f72f6668.js"><link rel="prefetch" href="/assets/js/559.452d8ff3.js"><link rel="prefetch" href="/assets/js/56.009b0340.js"><link rel="prefetch" href="/assets/js/560.1656e33f.js"><link rel="prefetch" href="/assets/js/561.bb4650eb.js"><link rel="prefetch" href="/assets/js/562.7322fd81.js"><link rel="prefetch" href="/assets/js/563.a34a68ea.js"><link rel="prefetch" href="/assets/js/564.6da92e18.js"><link rel="prefetch" href="/assets/js/565.01d288e5.js"><link rel="prefetch" href="/assets/js/566.6a3459a1.js"><link rel="prefetch" href="/assets/js/567.e3eb8e54.js"><link rel="prefetch" href="/assets/js/568.f95e0fba.js"><link rel="prefetch" href="/assets/js/569.a42d134c.js"><link rel="prefetch" href="/assets/js/57.25e8dd1c.js"><link rel="prefetch" href="/assets/js/570.87887d15.js"><link rel="prefetch" href="/assets/js/571.ce4b478b.js"><link rel="prefetch" href="/assets/js/572.634418a6.js"><link rel="prefetch" href="/assets/js/573.cd4cf02b.js"><link rel="prefetch" href="/assets/js/574.8bf073fa.js"><link rel="prefetch" href="/assets/js/575.c194dddb.js"><link rel="prefetch" href="/assets/js/576.7750193f.js"><link rel="prefetch" href="/assets/js/577.5daa388a.js"><link rel="prefetch" href="/assets/js/578.54bb0029.js"><link rel="prefetch" href="/assets/js/579.92f58c76.js"><link rel="prefetch" href="/assets/js/58.9c1eb9e5.js"><link rel="prefetch" href="/assets/js/580.0e543efb.js"><link rel="prefetch" href="/assets/js/581.4e0b0b47.js"><link rel="prefetch" href="/assets/js/582.8c172f83.js"><link rel="prefetch" href="/assets/js/583.c91c43e0.js"><link rel="prefetch" href="/assets/js/584.ca68d52b.js"><link rel="prefetch" href="/assets/js/585.663b17d3.js"><link rel="prefetch" href="/assets/js/586.9494847d.js"><link rel="prefetch" href="/assets/js/587.f3805773.js"><link rel="prefetch" href="/assets/js/588.8ae14be1.js"><link rel="prefetch" href="/assets/js/589.b4af88be.js"><link rel="prefetch" href="/assets/js/59.2a730e41.js"><link rel="prefetch" href="/assets/js/590.fb77fea8.js"><link rel="prefetch" href="/assets/js/591.a3aaa57c.js"><link rel="prefetch" href="/assets/js/592.54ec5f32.js"><link rel="prefetch" href="/assets/js/593.96eab5cb.js"><link rel="prefetch" href="/assets/js/594.e356725c.js"><link rel="prefetch" href="/assets/js/595.0a2c4ad4.js"><link rel="prefetch" href="/assets/js/596.2c075cd8.js"><link rel="prefetch" href="/assets/js/597.e904811b.js"><link rel="prefetch" href="/assets/js/598.f6ca8b71.js"><link rel="prefetch" href="/assets/js/599.ae3d12c4.js"><link rel="prefetch" href="/assets/js/6.451e012f.js"><link rel="prefetch" href="/assets/js/60.e6b60343.js"><link rel="prefetch" href="/assets/js/600.e71a0062.js"><link rel="prefetch" href="/assets/js/601.2571a19d.js"><link rel="prefetch" href="/assets/js/602.0f4fa961.js"><link rel="prefetch" href="/assets/js/603.d8387c37.js"><link rel="prefetch" href="/assets/js/604.69433906.js"><link rel="prefetch" href="/assets/js/605.1bc7d87a.js"><link rel="prefetch" href="/assets/js/606.ec419517.js"><link rel="prefetch" href="/assets/js/607.b473fb0b.js"><link rel="prefetch" href="/assets/js/608.a361b48c.js"><link rel="prefetch" href="/assets/js/609.9186f226.js"><link rel="prefetch" href="/assets/js/61.d50a156d.js"><link rel="prefetch" href="/assets/js/610.ff3cf241.js"><link rel="prefetch" href="/assets/js/611.c3c7e648.js"><link rel="prefetch" href="/assets/js/612.2a520ebd.js"><link rel="prefetch" href="/assets/js/613.42936ffc.js"><link rel="prefetch" href="/assets/js/614.3ca0de21.js"><link rel="prefetch" href="/assets/js/615.ecf60a47.js"><link rel="prefetch" href="/assets/js/616.17185e83.js"><link rel="prefetch" href="/assets/js/617.769d4cdf.js"><link rel="prefetch" href="/assets/js/618.015c6376.js"><link rel="prefetch" href="/assets/js/619.3af186d0.js"><link rel="prefetch" href="/assets/js/62.e24b7811.js"><link rel="prefetch" href="/assets/js/620.f8ff3784.js"><link rel="prefetch" href="/assets/js/621.4c21311f.js"><link rel="prefetch" href="/assets/js/622.355178df.js"><link rel="prefetch" href="/assets/js/623.45a30695.js"><link rel="prefetch" href="/assets/js/624.61e89d34.js"><link rel="prefetch" href="/assets/js/625.49e0d1ce.js"><link rel="prefetch" href="/assets/js/626.1b7ae767.js"><link rel="prefetch" href="/assets/js/627.b8c507cf.js"><link rel="prefetch" href="/assets/js/628.c5a43517.js"><link rel="prefetch" href="/assets/js/629.274eb0fd.js"><link rel="prefetch" href="/assets/js/63.b804baab.js"><link rel="prefetch" href="/assets/js/630.69e055ce.js"><link rel="prefetch" href="/assets/js/631.0892fc51.js"><link rel="prefetch" href="/assets/js/632.6a68e9a2.js"><link rel="prefetch" href="/assets/js/633.d536fe74.js"><link rel="prefetch" href="/assets/js/634.24695f39.js"><link rel="prefetch" href="/assets/js/635.3aeede9c.js"><link rel="prefetch" href="/assets/js/636.3628d8a6.js"><link rel="prefetch" href="/assets/js/637.40af5a79.js"><link rel="prefetch" href="/assets/js/638.15e257ae.js"><link rel="prefetch" href="/assets/js/639.31e6597c.js"><link rel="prefetch" href="/assets/js/64.eb5699ff.js"><link rel="prefetch" href="/assets/js/640.a071f6df.js"><link rel="prefetch" href="/assets/js/641.f9edd7bf.js"><link rel="prefetch" href="/assets/js/642.adcb583f.js"><link rel="prefetch" href="/assets/js/643.7c98a990.js"><link rel="prefetch" href="/assets/js/644.fb1213d8.js"><link rel="prefetch" href="/assets/js/645.220a5034.js"><link rel="prefetch" href="/assets/js/646.d66a419b.js"><link rel="prefetch" href="/assets/js/647.12ef89ab.js"><link rel="prefetch" href="/assets/js/648.a3112300.js"><link rel="prefetch" href="/assets/js/649.f457dfa5.js"><link rel="prefetch" href="/assets/js/65.0d8501b5.js"><link rel="prefetch" href="/assets/js/650.cc63d03b.js"><link rel="prefetch" href="/assets/js/651.16d1bbd6.js"><link rel="prefetch" href="/assets/js/652.0f5343f0.js"><link rel="prefetch" href="/assets/js/653.28f7710a.js"><link rel="prefetch" href="/assets/js/654.b343d473.js"><link rel="prefetch" href="/assets/js/655.215fe67b.js"><link rel="prefetch" href="/assets/js/656.79aa1653.js"><link rel="prefetch" href="/assets/js/657.c57f2b5c.js"><link rel="prefetch" href="/assets/js/658.d0aa0b95.js"><link rel="prefetch" href="/assets/js/659.2dfaed93.js"><link rel="prefetch" href="/assets/js/66.8361cc16.js"><link rel="prefetch" href="/assets/js/660.c00b347e.js"><link rel="prefetch" href="/assets/js/661.ecc4f968.js"><link rel="prefetch" href="/assets/js/662.06f83919.js"><link rel="prefetch" href="/assets/js/663.67d8849e.js"><link rel="prefetch" href="/assets/js/664.74dba1a9.js"><link rel="prefetch" href="/assets/js/665.28b450f0.js"><link rel="prefetch" href="/assets/js/666.0f4bb6ba.js"><link rel="prefetch" href="/assets/js/667.586074e3.js"><link rel="prefetch" href="/assets/js/668.b13c0e70.js"><link rel="prefetch" href="/assets/js/669.9d0d4cbc.js"><link rel="prefetch" href="/assets/js/67.37f46ba2.js"><link rel="prefetch" href="/assets/js/670.6b36ca72.js"><link rel="prefetch" href="/assets/js/671.33b2e754.js"><link rel="prefetch" href="/assets/js/672.3b02c287.js"><link rel="prefetch" href="/assets/js/673.3f274929.js"><link rel="prefetch" href="/assets/js/674.7d75584f.js"><link rel="prefetch" href="/assets/js/675.0de52334.js"><link rel="prefetch" href="/assets/js/676.6734133e.js"><link rel="prefetch" href="/assets/js/677.c6f4a973.js"><link rel="prefetch" href="/assets/js/678.1344b6be.js"><link rel="prefetch" href="/assets/js/679.23fed56f.js"><link rel="prefetch" href="/assets/js/68.27dbce5b.js"><link rel="prefetch" href="/assets/js/680.c49329d6.js"><link rel="prefetch" href="/assets/js/681.8df66615.js"><link rel="prefetch" href="/assets/js/682.77b4bff8.js"><link rel="prefetch" href="/assets/js/683.6cf41cf4.js"><link rel="prefetch" href="/assets/js/684.58deecd5.js"><link rel="prefetch" href="/assets/js/685.d2f7480e.js"><link rel="prefetch" href="/assets/js/686.0b77a241.js"><link rel="prefetch" href="/assets/js/687.2cc04b4f.js"><link rel="prefetch" href="/assets/js/688.da24cbae.js"><link rel="prefetch" href="/assets/js/689.a9961f74.js"><link rel="prefetch" href="/assets/js/69.8052a977.js"><link rel="prefetch" href="/assets/js/690.cb736269.js"><link rel="prefetch" href="/assets/js/691.21c13be1.js"><link rel="prefetch" href="/assets/js/692.3ed557d0.js"><link rel="prefetch" href="/assets/js/693.066efe93.js"><link rel="prefetch" href="/assets/js/694.5368f98a.js"><link rel="prefetch" href="/assets/js/695.4fdb93d5.js"><link rel="prefetch" href="/assets/js/696.9c055ac6.js"><link rel="prefetch" href="/assets/js/697.51e0c47c.js"><link rel="prefetch" href="/assets/js/698.08ca1dbd.js"><link rel="prefetch" href="/assets/js/699.ce7e9e2a.js"><link rel="prefetch" href="/assets/js/7.7e21c947.js"><link rel="prefetch" href="/assets/js/70.19faeb78.js"><link rel="prefetch" href="/assets/js/700.3676fa7f.js"><link rel="prefetch" href="/assets/js/701.82db4887.js"><link rel="prefetch" href="/assets/js/702.73425f22.js"><link rel="prefetch" href="/assets/js/703.d9391c74.js"><link rel="prefetch" href="/assets/js/704.d6e275cf.js"><link rel="prefetch" href="/assets/js/705.d2f23969.js"><link rel="prefetch" href="/assets/js/706.1c66dcc1.js"><link rel="prefetch" href="/assets/js/707.0fc5a26a.js"><link rel="prefetch" href="/assets/js/708.97471ee6.js"><link rel="prefetch" href="/assets/js/709.9b4d5665.js"><link rel="prefetch" href="/assets/js/71.d1683810.js"><link rel="prefetch" href="/assets/js/710.75fa8103.js"><link rel="prefetch" href="/assets/js/711.43777b40.js"><link rel="prefetch" href="/assets/js/712.5c583e39.js"><link rel="prefetch" href="/assets/js/713.5aa72111.js"><link rel="prefetch" href="/assets/js/714.e8215702.js"><link rel="prefetch" href="/assets/js/715.46614e7c.js"><link rel="prefetch" href="/assets/js/716.eaac6d69.js"><link rel="prefetch" href="/assets/js/717.c344c042.js"><link rel="prefetch" href="/assets/js/718.437bf0b2.js"><link rel="prefetch" href="/assets/js/719.23aa3deb.js"><link rel="prefetch" href="/assets/js/72.9fa783f0.js"><link rel="prefetch" href="/assets/js/720.9456a449.js"><link rel="prefetch" href="/assets/js/721.67fd324a.js"><link rel="prefetch" href="/assets/js/722.fc5e79ca.js"><link rel="prefetch" href="/assets/js/723.46db8115.js"><link rel="prefetch" href="/assets/js/724.31a11b8c.js"><link rel="prefetch" href="/assets/js/725.49cef603.js"><link rel="prefetch" href="/assets/js/726.7d0a2e7f.js"><link rel="prefetch" href="/assets/js/727.a1de6f02.js"><link rel="prefetch" href="/assets/js/728.7e0a727e.js"><link rel="prefetch" href="/assets/js/729.b6bf04fa.js"><link rel="prefetch" href="/assets/js/73.1ac0ac37.js"><link rel="prefetch" href="/assets/js/730.1c102528.js"><link rel="prefetch" href="/assets/js/731.80403e3d.js"><link rel="prefetch" href="/assets/js/732.cf8b4a6d.js"><link rel="prefetch" href="/assets/js/733.aab88d38.js"><link rel="prefetch" href="/assets/js/734.965a0adc.js"><link rel="prefetch" href="/assets/js/735.f9d33608.js"><link rel="prefetch" href="/assets/js/736.d1621f9e.js"><link rel="prefetch" href="/assets/js/737.a12ea0d3.js"><link rel="prefetch" href="/assets/js/738.96e61512.js"><link rel="prefetch" href="/assets/js/739.9bce4dfe.js"><link rel="prefetch" href="/assets/js/74.1913daec.js"><link rel="prefetch" href="/assets/js/740.c1a0bf7b.js"><link rel="prefetch" href="/assets/js/741.0185115e.js"><link rel="prefetch" href="/assets/js/742.21e99d78.js"><link rel="prefetch" href="/assets/js/743.e5f2407e.js"><link rel="prefetch" href="/assets/js/744.53d4e25a.js"><link rel="prefetch" href="/assets/js/745.9fb6722c.js"><link rel="prefetch" href="/assets/js/746.893e3a2f.js"><link rel="prefetch" href="/assets/js/747.ad94fed4.js"><link rel="prefetch" href="/assets/js/748.3421b09b.js"><link rel="prefetch" href="/assets/js/749.15c364e9.js"><link rel="prefetch" href="/assets/js/75.d63a9540.js"><link rel="prefetch" href="/assets/js/750.4e5379b7.js"><link rel="prefetch" href="/assets/js/751.18b0273f.js"><link rel="prefetch" href="/assets/js/752.24717596.js"><link rel="prefetch" href="/assets/js/753.5868bcc4.js"><link rel="prefetch" href="/assets/js/754.77808a6c.js"><link rel="prefetch" href="/assets/js/755.af7f7a71.js"><link rel="prefetch" href="/assets/js/76.342d837c.js"><link rel="prefetch" href="/assets/js/77.466349c3.js"><link rel="prefetch" href="/assets/js/78.886d05b6.js"><link rel="prefetch" href="/assets/js/79.b478bdab.js"><link rel="prefetch" href="/assets/js/8.9f40767d.js"><link rel="prefetch" href="/assets/js/80.9205cc43.js"><link rel="prefetch" href="/assets/js/81.77f831c9.js"><link rel="prefetch" href="/assets/js/82.650475d1.js"><link rel="prefetch" href="/assets/js/83.aa7e3d4b.js"><link rel="prefetch" href="/assets/js/84.2fc92fb4.js"><link rel="prefetch" href="/assets/js/85.0f633e10.js"><link rel="prefetch" href="/assets/js/86.e862f4bc.js"><link rel="prefetch" href="/assets/js/87.8a869468.js"><link rel="prefetch" href="/assets/js/88.6c584051.js"><link rel="prefetch" href="/assets/js/89.3ab84e02.js"><link rel="prefetch" href="/assets/js/9.7ed864ce.js"><link rel="prefetch" href="/assets/js/90.41e6925d.js"><link rel="prefetch" href="/assets/js/91.55055993.js"><link rel="prefetch" href="/assets/js/92.ced7b439.js"><link rel="prefetch" href="/assets/js/93.41cc8a7f.js"><link rel="prefetch" href="/assets/js/94.6d2b144f.js"><link rel="prefetch" href="/assets/js/95.399a7909.js"><link rel="prefetch" href="/assets/js/96.556f8f9f.js"><link rel="prefetch" href="/assets/js/97.47ecdf46.js"><link rel="prefetch" href="/assets/js/98.fdbe6822.js"><link rel="prefetch" href="/assets/js/99.db8442e4.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.6ece31e0.css">
+  </head>
+  <body class="theme-mode-light">
+    <div id="app" data-server-rendered="true"><div class="theme-container sidebar-open have-rightmenu"><header class="navbar blur"><div title="目录" class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/img/logo.png" alt="Fanx 知识库" class="logo"> <span class="site-name can-hide">Fanx 知识库</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Java" class="dropdown-title"><!----> <span class="title" style="display:;">Java</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/779590/" class="nav-link">Java基础</a></li><li class="dropdown-item"><!----> <a href="/pages/dc7834/" class="nav-link">Java集合框架</a></li><li class="dropdown-item"><!----> <a href="/pages/f2d7db/" class="nav-link">Java多线程并发</a></li><li class="dropdown-item"><!----> <a href="/pages/dbec4d/" class="nav-link">JavaIo&amp;NIO&amp;AIO</a></li><li class="dropdown-item"><!----> <a href="/pages/b908ce/" class="nav-link">JDK相关特性</a></li><li class="dropdown-item"><!----> <a href="/pages/e59bea/" class="nav-link">JVM相关</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="数据库" class="dropdown-title"><!----> <span class="title" style="display:;">数据库</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/f8c059/" class="nav-link">数据库基础知识</a></li><li class="dropdown-item"><!----> <a href="/pages/d192fd/" class="nav-link">Mysql</a></li><li class="dropdown-item"><!----> <a href="/pages/8aa877/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/pages/077e7c/" class="nav-link">MogoDb</a></li><li class="dropdown-item"><!----> <a href="/pages/68281b/" class="nav-link">ElasticSearch</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用框架" class="dropdown-title"><!----> <span class="title" style="display:;">常用框架</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/commonFrameworks/mybatis/" class="nav-link">mybatis</a></li><li class="dropdown-item"><!----> <a href="/pages/8f6500/" class="nav-link">Spring Framework 5基础</a></li><li class="dropdown-item"><!----> <a href="/pages/7c08d4/" class="nav-link">SpringBoot 2.5.x系列</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="源代码学习" class="dropdown-title"><!----> <span class="title" style="display:;">源代码学习</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/23a632/" class="nav-link">mybatis源码学习</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/java/" class="nav-link">java源代码</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/spring/" class="nav-link">Spring源码</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="面试相关" class="dropdown-title"><!----> <span class="title" style="display:;">面试相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/2cef48/" class="nav-link">Java 基础</a></li><li class="dropdown-item"><!----> <a href="/pages/ad2692/" class="nav-link">Spring 框架</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用的技术工具" class="dropdown-title"><!----> <span class="title" style="display:;">开发工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tool/git/" class="nav-link">Git</a></li><li class="dropdown-item"><!----> <a href="/linux/common/" class="nav-link">linux常用命令实践</a></li><li class="dropdown-item"><!----> <a href="/tool/maven/" class="nav-link">Mavan</a></li><li class="dropdown-item"><!----> <a href="/pages/b25802/" class="nav-link">开发工具详解</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其它语言" class="dropdown-title"><!----> <span class="title" style="display:;">其它语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/fc414d/" class="nav-link">Python基础</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="问题总结" class="dropdown-title"><!----> <span class="title" style="display:;">问题总结</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/question/redis/" class="nav-link">redis</a></li><li class="dropdown-item"><!----> <a href="/pages/4d0fa7/" class="nav-link">团队相关</a></li><li class="dropdown-item"><!----> <a href="/pages/75c3d7/" class="nav-link">fanx</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="算法" class="dropdown-title"><!----> <span class="title" style="display:;">算法</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/caf303/" class="nav-link">数据结构基础</a></li><li class="dropdown-item"><!----> <a href="/pages/395e23/" class="nav-link">常见排序算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fa3dd3/" class="nav-link">算法思想</a></li><li class="dropdown-item"><!----> <a href="/pages/79d342/" class="nav-link">一些领域算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fdb54d/" class="nav-link">其它算法相关</a></li></ul></div></div> <a href="https://fanxgit.github.io/fanxNotes/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar-hover-trigger"></div> <aside class="sidebar" style="display:none;"><!----> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Java" class="dropdown-title"><!----> <span class="title" style="display:;">Java</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/779590/" class="nav-link">Java基础</a></li><li class="dropdown-item"><!----> <a href="/pages/dc7834/" class="nav-link">Java集合框架</a></li><li class="dropdown-item"><!----> <a href="/pages/f2d7db/" class="nav-link">Java多线程并发</a></li><li class="dropdown-item"><!----> <a href="/pages/dbec4d/" class="nav-link">JavaIo&amp;NIO&amp;AIO</a></li><li class="dropdown-item"><!----> <a href="/pages/b908ce/" class="nav-link">JDK相关特性</a></li><li class="dropdown-item"><!----> <a href="/pages/e59bea/" class="nav-link">JVM相关</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="数据库" class="dropdown-title"><!----> <span class="title" style="display:;">数据库</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/f8c059/" class="nav-link">数据库基础知识</a></li><li class="dropdown-item"><!----> <a href="/pages/d192fd/" class="nav-link">Mysql</a></li><li class="dropdown-item"><!----> <a href="/pages/8aa877/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/pages/077e7c/" class="nav-link">MogoDb</a></li><li class="dropdown-item"><!----> <a href="/pages/68281b/" class="nav-link">ElasticSearch</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用框架" class="dropdown-title"><!----> <span class="title" style="display:;">常用框架</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/commonFrameworks/mybatis/" class="nav-link">mybatis</a></li><li class="dropdown-item"><!----> <a href="/pages/8f6500/" class="nav-link">Spring Framework 5基础</a></li><li class="dropdown-item"><!----> <a href="/pages/7c08d4/" class="nav-link">SpringBoot 2.5.x系列</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="源代码学习" class="dropdown-title"><!----> <span class="title" style="display:;">源代码学习</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/23a632/" class="nav-link">mybatis源码学习</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/java/" class="nav-link">java源代码</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/spring/" class="nav-link">Spring源码</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="面试相关" class="dropdown-title"><!----> <span class="title" style="display:;">面试相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/2cef48/" class="nav-link">Java 基础</a></li><li class="dropdown-item"><!----> <a href="/pages/ad2692/" class="nav-link">Spring 框架</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用的技术工具" class="dropdown-title"><!----> <span class="title" style="display:;">开发工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tool/git/" class="nav-link">Git</a></li><li class="dropdown-item"><!----> <a href="/linux/common/" class="nav-link">linux常用命令实践</a></li><li class="dropdown-item"><!----> <a href="/tool/maven/" class="nav-link">Mavan</a></li><li class="dropdown-item"><!----> <a href="/pages/b25802/" class="nav-link">开发工具详解</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其它语言" class="dropdown-title"><!----> <span class="title" style="display:;">其它语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/fc414d/" class="nav-link">Python基础</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="问题总结" class="dropdown-title"><!----> <span class="title" style="display:;">问题总结</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/question/redis/" class="nav-link">redis</a></li><li class="dropdown-item"><!----> <a href="/pages/4d0fa7/" class="nav-link">团队相关</a></li><li class="dropdown-item"><!----> <a href="/pages/75c3d7/" class="nav-link">fanx</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="算法" class="dropdown-title"><!----> <span class="title" style="display:;">算法</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/caf303/" class="nav-link">数据结构基础</a></li><li class="dropdown-item"><!----> <a href="/pages/395e23/" class="nav-link">常见排序算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fa3dd3/" class="nav-link">算法思想</a></li><li class="dropdown-item"><!----> <a href="/pages/79d342/" class="nav-link">一些领域算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fdb54d/" class="nav-link">其它算法相关</a></li></ul></div></div> <a href="https://fanxgit.github.io/fanxNotes/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>基础知识</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/pages/779590/" class="sidebar-link">面向对象</a></li><li><a href="/pages/ba8bf0/" class="sidebar-link">知识点</a></li><li><a href="/pages/cde1cc/" class="sidebar-link">图谱&amp;QA</a></li><li><a href="/pages/6eb533/" class="sidebar-link">泛型机制详解</a></li><li><a href="/pages/ff7002/" class="sidebar-link">注解机制详解</a></li><li><a href="/pages/a1acd0/" class="sidebar-link">异常机制详解</a></li><li><a href="/java/reflate/" class="sidebar-link">反射机制详解</a></li><li><a href="/pages/841a76/" aria-current="page" class="active sidebar-link">SPI机制详解</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level2"><a href="/pages/841a76/#java常用机制-spi机制详解" class="sidebar-link">Java常用机制 - SPI机制详解</a></li><li class="sidebar-sub-header level2"><a href="/pages/841a76/#什么是spi机制" class="sidebar-link">什么是SPI机制</a></li><li class="sidebar-sub-header level2"><a href="/pages/841a76/#spi机制的简单示例" class="sidebar-link">SPI机制的简单示例</a></li><li class="sidebar-sub-header level2"><a href="/pages/841a76/#spi机制的广泛应用" class="sidebar-link">SPI机制的广泛应用</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/pages/841a76/#spi机制-jdbc-drivermanager" class="sidebar-link">SPI机制 - JDBC DriverManager</a></li><li class="sidebar-sub-header level4"><a href="/pages/841a76/#jdbc接口定义" class="sidebar-link">JDBC接口定义</a></li><li class="sidebar-sub-header level4"><a href="/pages/841a76/#mysql实现" class="sidebar-link">mysql实现</a></li><li class="sidebar-sub-header level4"><a href="/pages/841a76/#postgresql实现" class="sidebar-link">postgresql实现</a></li><li class="sidebar-sub-header level4"><a href="/pages/841a76/#使用方法" class="sidebar-link">使用方法</a></li><li class="sidebar-sub-header level4"><a href="/pages/841a76/#源码实现" class="sidebar-link">源码实现</a></li><li class="sidebar-sub-header level3"><a href="/pages/841a76/#spi机制-common-logging" class="sidebar-link">SPI机制 - Common-Logging</a></li><li class="sidebar-sub-header level3"><a href="/pages/841a76/#spi机制-插件体系" class="sidebar-link">SPI机制 - 插件体系</a></li><li class="sidebar-sub-header level3"><a href="/pages/841a76/#spi机制-spring中spi机制" class="sidebar-link">SPI机制 - Spring中SPI机制</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/pages/841a76/#spi机制深入理解" class="sidebar-link">SPI机制深入理解</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/pages/841a76/#spi机制通常怎么使用" class="sidebar-link">SPI机制通常怎么使用</a></li><li class="sidebar-sub-header level4"><a href="/pages/841a76/#定义标准" class="sidebar-link">定义标准</a></li><li class="sidebar-sub-header level4"><a href="/pages/841a76/#具体厂商或者框架开发者实现" class="sidebar-link">具体厂商或者框架开发者实现</a></li><li class="sidebar-sub-header level4"><a href="/pages/841a76/#程序猿使用" class="sidebar-link">程序猿使用</a></li><li class="sidebar-sub-header level4"><a href="/pages/841a76/#使用规范" class="sidebar-link">使用规范</a></li><li class="sidebar-sub-header level3"><a href="/pages/841a76/#spi和api的区别是什么" class="sidebar-link">SPI和API的区别是什么</a></li><li class="sidebar-sub-header level3"><a href="/pages/841a76/#spi机制实现原理" class="sidebar-link">SPI机制实现原理</a></li><li class="sidebar-sub-header level3"><a href="/pages/841a76/#spi机制的缺陷" class="sidebar-link">SPI机制的缺陷</a></li><li class="sidebar-sub-header level1"><a href="/pages/841a76/#参考文章" class="sidebar-link">参考文章</a></li></ul></li></ul></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>集合框架</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Java多线程与并发</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Java IO-NIO-AIO</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Java8 特性详解</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Java8各版本特性概述</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>JVM相关</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Java其它相关</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <div><main class="page"><div class="theme-vdoing-wrapper "><div class="articleInfo-wrap" data-v-06225672><div class="articleInfo" data-v-06225672><ul class="breadcrumbs" data-v-06225672><li data-v-06225672><a href="/" title="首页" class="iconfont icon-home router-link-active" data-v-06225672></a></li> <li data-v-06225672><a href="/web/#Java" data-v-06225672>Java</a></li><li data-v-06225672><a href="/web/#基础知识" data-v-06225672>基础知识</a></li></ul> <div class="info" data-v-06225672><div title="作者" class="author iconfont icon-touxiang" data-v-06225672><a href="https://github.com/FanXGit" target="_blank" title="作者" class="beLink" data-v-06225672>fanx</a></div> <div title="创建时间" class="date iconfont icon-riqi" data-v-06225672><a href="javascript:;" data-v-06225672>2023-07-19</a></div> <!----></div></div></div> <!----> <div class="content-wrapper"><div class="right-menu-wrapper"><div class="right-menu-margin"><div class="right-menu-title">目录</div> <div class="right-menu-content"></div></div></div> <h1><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAABH1JREFUSA3tVl1oHFUUPmdmd2ltklqbpJDiNnXFmgbFktho7YMPNiJSSZM0+CAYSkUELVhM6YuwIPpgoOKDqOBDC0XE2CQoNtQXBUFTTcCi+Wlh1V2TQExsUzcltd3M9Tt3ZjZzZ2fT+OJTL8yeM+eee757fmeJbq//KQL8X3DUSFOcfr7cRsRtxNQMWueeVzOkaITIGqQHNg5y8+jNW9ldM7A6nTpAjuolUikAwq7CE3WcM2RRDz+XGVgN3FptU/aUSlvq9Pa3iZ1+sgAqJyyAFqkipd9dqiwHF3P65YycLWc/6sqGrvoEoIp6DOFaX5h6+dnfjkWprwqsPk0dUGq5vySwDImC10KxFHgGL1SWoc92O3eVht09qdXNH11I2SsTsJYqMWzihqGMi+A+Garf3BAuuLI5oGlULyNfyB/HYNujwktOfRrMr5t77NmevqaUopx0grnKAyvVpmwUDB4x6FPXuGvYLTDwWsejwgtgkYKPqRJg8SV6xaiZ3ZTppGneS4yfH5/66fZSDHv+QZci/+h5c5UHtpy67JUqGppM0sh0Nc1dW6/N1W5Yoqat8/TU/VnadmdeW2PLLSyh0cvxBs3KbqTmwYPpxN4do/mzE8nEpvX/UMu2Wbp74zUAK5q6WkHns7V0eWkdPbPzd3rxkTGybadYySumVzhcaJFbs5UrEkQ/+CK8gF5dnh/6ciIZ73gwQ927L1IitoxKLXYP3SjYdOrHHfTZhRRlFyrorafPk20B3HPD1y2G3qKZME5Jcf3t/HUC13/8tSd++vqFveMUTwAUxSUFI1QekR1+bIze3D9MF2aq6cPvG72CgnldWCFqyRw3lwH8ZMerjTD9ElRO7Gv44wNpC90aASqGfVlz/Rx17srQ57/UU26hkhQqUB7dBR71WmzQhHUnblGmVOEw0jhbV1n9OlXUDCIRGaNV5Jp43N516fN7JmnTHdfp7Hgy0luO4aMhtkLL8Bi3bUWYvzh5Mn1dTxrL6QmGuRhGL/TiTTxRoEdTszSaq9GR0NGA3KdkOz3hqSV3MIDhQ5IVX/Ivx3umBti2es2h4eZby7x8br1rkf7Mo90AqC8aQ3sJeNzqFRu+vSANAQe3PL7l0HGOAdwDCeZYvNKeoZp1Qfs6Aipndh86HmFRi0LAnEO47wsqM6cdfjh3jBPUzhZy7nvlUfFsamED1VQt6aISHVymXZ/B2aCtIG8AI8xfobj2d3en1wWVhOeHELKmLQ1s211s88comkv4UCwWyF787mJdYXtNfhKAXVqnKTq8QZvGAGGOfaTo5pGZ/PwbUCr5+DPr/1J92JNHr9aOl/F3iI5+O1nfybsGxoimvZ3ViWSluDITw3P37mypheDIPY0tw7+O/5ApbkYw+zpfaUVu32Pi98+defdUhEpZkRFq0aqyNh9FuL9hpYbEm6iwi0z2REd09ZmyENEbuhjDWzKvZXTqKYaBIr3tt5kuPtQBZFvEUwHt60vfCNu41XsksH9Ij1BMMz1Y0OOunHNShFIP5868g5zeXmuLwL9T4b6Q2+KejgAAAABJRU5ErkJggg==">SPI机制详解<!----></h1> <!----> <div class="theme-vdoing-content content__default"><h2 id="java常用机制-spi机制详解"><a href="#java常用机制-spi机制详解" class="header-anchor">#</a> Java常用机制 - SPI机制详解</h2> <blockquote><p>SPI（Service Provider Interface），是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用。@pdai</p></blockquote> <h2 id="什么是spi机制"><a href="#什么是spi机制" class="header-anchor">#</a> 什么是SPI机制</h2> <hr> <p>SPI（Service Provider Interface），是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用，比如java.sql.Driver接口，其他不同厂商可以针对同一接口做出不同的实现，MySQL和PostgreSQL都有不同的实现提供给用户，而Java的SPI机制可以为某个接口寻找服务实现。Java中SPI机制主要思想是将装配的控制权移到程序之外，在模块化设计中这个机制尤其重要，其核心思想就是 <strong>解耦</strong>。</p> <p>SPI整体机制图如下：</p> <p><img src="/assets/img/java-advanced-spi-8.93564620.jpg" alt=""></p> <p>当服务的提供者提供了一种接口的实现之后，需要在classpath下的<code>META-INF/services/</code>目录里创建一个以服务接口命名的文件，这个文件里的内容就是这个接口的具体的实现类。当其他的程序需要这个服务的时候，就可以通过查找这个jar包（一般都是以jar包做依赖）的<code>META-INF/services/</code>中的配置文件，配置文件中有接口的具体实现类名，可以根据这个类名进行加载实例化，就可以使用该服务了。JDK中查找服务的实现的工具类是：<code>java.util.ServiceLoader</code>。</p> <h2 id="spi机制的简单示例"><a href="#spi机制的简单示例" class="header-anchor">#</a> SPI机制的简单示例</h2> <hr> <blockquote><p>网上找了个例子：<a href="https://zhuanlan.zhihu.com/p/28909673" target="_blank" rel="noopener noreferrer">这里在新窗口打开<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></blockquote> <p>我们现在需要使用一个内容搜索接口，搜索的实现可能是基于文件系统的搜索，也可能是基于数据库的搜索。</p> <ul><li>先定义好接口</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>public interface Search {
+    public List&lt;String&gt; searchDoc(String keyword);   
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><ul><li>文件搜索实现</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>public class FileSearch implements Search{
+    @Override
+    public List&lt;String&gt; searchDoc(String keyword) {
+        System.out.println(&quot;文件搜索 &quot;+keyword);
+        return null;
+    }
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><ul><li>数据库搜索实现</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>public class DatabaseSearch implements Search{
+    @Override
+    public List&lt;String&gt; searchDoc(String keyword) {
+        System.out.println(&quot;数据搜索 &quot;+keyword);
+        return null;
+    }
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><ul><li>resources 接下来可以在resources下新建META-INF/services/目录，然后新建接口全限定名的文件：<code>com.cainiao.ys.spi.learn.Search</code>，里面加上我们需要用到的实现类</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>com.cainiao.ys.spi.learn.FileSearch 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><ul><li>测试方法</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>public class TestCase {
+    public static void main(String[] args) {
+        ServiceLoader&lt;Search&gt; s = ServiceLoader.load(Search.class);
+        Iterator&lt;Search&gt; iterator = s.iterator();
+        while (iterator.hasNext()) {
+           Search search =  iterator.next();
+           search.searchDoc(&quot;hello world&quot;);
+        }
+    }
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><p>可以看到输出结果：文件搜索 hello world</p> <p>如果在<code>com.cainiao.ys.spi.learn.Search</code>文件里写上两个实现类，那最后的输出结果就是两行了。</p> <p>这就是因为<code>ServiceLoader.load(Search.class)</code>在加载某接口时，会去<code>META-INF/services</code>下找接口的全限定名文件，再根据里面的内容加载相应的实现类。</p> <p>这就是spi的思想，接口的实现由provider实现，provider只用在提交的jar包里的<code>META-INF/services</code>下根据平台定义的接口新建文件，并添加进相应的实现类内容就好。</p> <h2 id="spi机制的广泛应用"><a href="#spi机制的广泛应用" class="header-anchor">#</a> SPI机制的广泛应用</h2> <hr> <h3 id="spi机制-jdbc-drivermanager"><a href="#spi机制-jdbc-drivermanager" class="header-anchor">#</a> SPI机制 - JDBC DriverManager</h3> <blockquote><p>在JDBC4.0之前，我们开发有连接数据库的时候，通常会用Class.forName(&quot;com.mysql.jdbc.Driver&quot;)这句先加载数据库相关的驱动，然后再进行获取连接等的操作。<strong>而JDBC4.0之后不需要用Class.forName(&quot;com.mysql.jdbc.Driver&quot;)来加载驱动，直接获取连接就可以了，现在这种方式就是使用了Java的SPI扩展机制来实现</strong>。</p></blockquote> <h4 id="jdbc接口定义"><a href="#jdbc接口定义" class="header-anchor">#</a> JDBC接口定义</h4> <p>首先在java中定义了接口<code>java.sql.Driver</code>，并没有具体的实现，具体的实现都是由不同厂商来提供的。</p> <h4 id="mysql实现"><a href="#mysql实现" class="header-anchor">#</a> mysql实现</h4> <p>在mysql的jar包<code>mysql-connector-java-6.0.6.jar</code>中，可以找到<code>META-INF/services</code>目录，该目录下会有一个名字为<code>java.sql.Driver</code>的文件，文件内容是<code>com.mysql.cj.jdbc.Driver</code>，这里面的内容就是针对Java中定义的接口的实现。</p> <h4 id="postgresql实现"><a href="#postgresql实现" class="header-anchor">#</a> postgresql实现</h4> <p>同样在postgresql的jar包<code>postgresql-42.0.0.jar</code>中，也可以找到同样的配置文件，文件内容是<code>org.postgresql.Driver</code>，这是postgresql对Java的<code>java.sql.Driver</code>的实现。</p> <h4 id="使用方法"><a href="#使用方法" class="header-anchor">#</a> 使用方法</h4> <p>上面说了，现在使用SPI扩展来加载具体的驱动，我们在Java中写连接数据库的代码的时候，不需要再使用<code>Class.forName(&quot;com.mysql.jdbc.Driver&quot;)</code>来加载驱动了，而是直接使用如下代码：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>String url = &quot;jdbc:xxxx://xxxx:xxxx/xxxx&quot;;
+Connection conn = DriverManager.getConnection(url,username,password);
+..... 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>这里并没有涉及到spi的使用，接着看下面的解析。</p> <h4 id="源码实现"><a href="#源码实现" class="header-anchor">#</a> 源码实现</h4> <p>上面的使用方法，就是我们普通的连接数据库的代码，并没有涉及到SPI的东西，但是有一点我们可以确定的是，我们没有写有关具体驱动的硬编码<code>Class.forName(&quot;com.mysql.jdbc.Driver&quot;)</code>！</p> <p>上面的代码可以直接获取数据库连接进行操作，但是跟SPI有啥关系呢？上面代码没有了加载驱动的代码，我们怎么去确定使用哪个数据库连接的驱动呢？这里就涉及到使用Java的SPI扩展机制来查找相关驱动的东西了，关于驱动的查找其实都在<code>DriverManager</code>中，<code>DriverManager</code>是Java中的实现，用来获取数据库连接，在<code>DriverManager</code>中有一个静态代码块如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>static {
+    loadInitialDrivers();
+    println(&quot;JDBC DriverManager initialized&quot;);
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><p>可以看到是加载实例化驱动的，接着看loadInitialDrivers方法：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>private static void loadInitialDrivers() {
+    String drivers;
+    try {
+        drivers = AccessController.doPrivileged(new PrivilegedAction&lt;String&gt;() {
+            public String run() {
+                return System.getProperty(&quot;jdbc.drivers&quot;);
+            }
+        });
+    } catch (Exception ex) {
+        drivers = null;
+    }
+
+    AccessController.doPrivileged(new PrivilegedAction&lt;Void&gt;() {
+        public Void run() {
+			//使用SPI的ServiceLoader来加载接口的实现
+            ServiceLoader&lt;Driver&gt; loadedDrivers = ServiceLoader.load(Driver.class);
+            Iterator&lt;Driver&gt; driversIterator = loadedDrivers.iterator();
+            try{
+                while(driversIterator.hasNext()) {
+                    driversIterator.next();
+                }
+            } catch(Throwable t) {
+            // Do nothing
+            }
+            return null;
+        }
+    });
+
+    println(&quot;DriverManager.initialize: jdbc.drivers = &quot; + drivers);
+
+    if (drivers == null || drivers.equals(&quot;&quot;)) {
+        return;
+    }
+    String[] driversList = drivers.split(&quot;:&quot;);
+    println(&quot;number of Drivers:&quot; + driversList.length);
+    for (String aDriver : driversList) {
+        try {
+            println(&quot;DriverManager.Initialize: loading &quot; + aDriver);
+            Class.forName(aDriver, true,
+                    ClassLoader.getSystemClassLoader());
+        } catch (Exception ex) {
+            println(&quot;DriverManager.Initialize: load failed: &quot; + ex);
+        }
+    }
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br></div></div><p>上面的代码主要步骤是：</p> <ul><li>从系统变量中获取有关驱动的定义。</li> <li>使用SPI来获取驱动的实现。</li> <li>遍历使用SPI获取到的具体实现，实例化各个实现类。</li> <li>根据第一步获取到的驱动列表来实例化具体实现类。</li></ul> <p>我们主要关注2,3步，这两步是SPI的用法，首先看第二步，使用SPI来获取驱动的实现，对应的代码是：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>ServiceLoader&lt;Driver&gt; loadedDrivers = ServiceLoader.load(Driver.class); 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>这里没有去<code>META-INF/services</code>目录下查找配置文件，也没有加载具体实现类，做的事情就是封装了我们的接口类型和类加载器，并初始化了一个迭代器。</p> <p>接着看第三步，遍历使用SPI获取到的具体实现，实例化各个实现类，对应的代码如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>//获取迭代器
+Iterator&lt;Driver&gt; driversIterator = loadedDrivers.iterator();
+//遍历所有的驱动实现
+while(driversIterator.hasNext()) {
+    driversIterator.next();
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>在遍历的时候，首先调用<code>driversIterator.hasNext()</code>方法，这里会搜索classpath下以及jar包中所有的<code>META-INF/services</code>目录下的<code>java.sql.Driver</code>文件，并找到文件中的实现类的名字，此时并没有实例化具体的实现类（ServiceLoader具体的源码实现在下面）。</p> <p>然后是调用<code>driversIterator.next();</code>方法，此时就会根据驱动名字具体实例化各个实现类了。现在驱动就被找到并实例化了。</p> <p>可以看下截图，我在测试项目中添加了两个jar包，<code>mysql-connector-java-6.0.6.jar</code>和<code>postgresql-42.0.0.0.jar</code>，跟踪到DriverManager中之后：</p> <p><img src="/assets/img/java-advanced-spi-1.feb5e825.png" alt=""></p> <p>可以看到此时迭代器中有两个驱动，mysql和postgresql的都被加载了。</p> <h3 id="spi机制-common-logging"><a href="#spi机制-common-logging" class="header-anchor">#</a> SPI机制 - Common-Logging</h3> <blockquote><p>common-logging（也称Jakarta Commons Logging，缩写 JCL）是常用的日志库门面，具体<a href="https://pdai.tech/md/develop/package/dev-package-x-log.html" target="_blank" rel="noopener noreferrer">日志库相关可以看这篇<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>。我们看下它是怎么解耦的。</p></blockquote> <p>首先，日志实例是通过LogFactory的getLog(String)方法创建的：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>public static getLog(Class clazz) throws LogConfigurationException {
+    return getFactory().getInstance(clazz);
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>LogFatory是一个抽象类，它负责加载具体的日志实现，分析其Factory getFactory()方法：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>public static org.apache.commons.logging.LogFactory getFactory() throws LogConfigurationException {
+    // Identify the class loader we will be using
+    ClassLoader contextClassLoader = getContextClassLoaderInternal();
+
+    if (contextClassLoader == null) {
+        // This is an odd enough situation to report about. This
+        // output will be a nuisance on JDK1.1, as the system
+        // classloader is null in that environment.
+        if (isDiagnosticsEnabled()) {
+            logDiagnostic(&quot;Context classloader is null.&quot;);
+        }
+    }
+
+    // Return any previously registered factory for this class loader
+    org.apache.commons.logging.LogFactory factory = getCachedFactory(contextClassLoader);
+    if (factory != null) {
+        return factory;
+    }
+
+    if (isDiagnosticsEnabled()) {
+        logDiagnostic(
+                &quot;[LOOKUP] LogFactory implementation requested for the first time for context classloader &quot; +
+                        objectId(contextClassLoader));
+        logHierarchy(&quot;[LOOKUP] &quot;, contextClassLoader);
+    }
+
+    // Load properties file.
+    //
+    // If the properties file exists, then its contents are used as
+    // &quot;attributes&quot; on the LogFactory implementation class. One particular
+    // property may also control which LogFactory concrete subclass is
+    // used, but only if other discovery mechanisms fail..
+    //
+    // As the properties file (if it exists) will be used one way or
+    // another in the end we may as well look for it first.
+    // classpath根目录下寻找commons-logging.properties
+    Properties props = getConfigurationFile(contextClassLoader, FACTORY_PROPERTIES);
+
+    // Determine whether we will be using the thread context class loader to
+    // load logging classes or not by checking the loaded properties file (if any).
+    // classpath根目录下commons-logging.properties是否配置use_tccl
+    ClassLoader baseClassLoader = contextClassLoader;
+    if (props != null) {
+        String useTCCLStr = props.getProperty(TCCL_KEY);
+        if (useTCCLStr != null) {
+            // The Boolean.valueOf(useTCCLStr).booleanValue() formulation
+            // is required for Java 1.2 compatibility.
+            if (Boolean.valueOf(useTCCLStr).booleanValue() == false) {
+                // Don't use current context classloader when locating any
+                // LogFactory or Log classes, just use the class that loaded
+                // this abstract class. When this class is deployed in a shared
+                // classpath of a container, it means webapps cannot deploy their
+                // own logging implementations. It also means that it is up to the
+                // implementation whether to load library-specific config files
+                // from the TCCL or not.
+                baseClassLoader = thisClassLoader;
+            }
+        }
+    }
+
+    // 这里真正开始决定使用哪个factory
+    // 首先，尝试查找vm系统属性org.apache.commons.logging.LogFactory，其是否指定factory
+    // Determine which concrete LogFactory subclass to use.
+    // First, try a global system property
+    if (isDiagnosticsEnabled()) {
+        logDiagnostic(&quot;[LOOKUP] Looking for system property [&quot; + FACTORY_PROPERTY +
+                &quot;] to define the LogFactory subclass to use...&quot;);
+    }
+
+    try {
+        String factoryClass = getSystemProperty(FACTORY_PROPERTY, null);
+        if (factoryClass != null) {
+            if (isDiagnosticsEnabled()) {
+                logDiagnostic(&quot;[LOOKUP] Creating an instance of LogFactory class '&quot; + factoryClass +
+                        &quot;' as specified by system property &quot; + FACTORY_PROPERTY);
+            }
+            factory = newFactory(factoryClass, baseClassLoader, contextClassLoader);
+        } else {
+            if (isDiagnosticsEnabled()) {
+                logDiagnostic(&quot;[LOOKUP] No system property [&quot; + FACTORY_PROPERTY + &quot;] defined.&quot;);
+            }
+        }
+    } catch (SecurityException e) {
+        if (isDiagnosticsEnabled()) {
+            logDiagnostic(&quot;[LOOKUP] A security exception occurred while trying to create an&quot; +
+                    &quot; instance of the custom factory class&quot; + &quot;: [&quot; + trim(e.getMessage()) +
+                    &quot;]. Trying alternative implementations...&quot;);
+        }
+        // ignore
+    } catch (RuntimeException e) {
+        // This is not consistent with the behaviour when a bad LogFactory class is
+        // specified in a services file.
+        //
+        // One possible exception that can occur here is a ClassCastException when
+        // the specified class wasn't castable to this LogFactory type.
+        if (isDiagnosticsEnabled()) {
+            logDiagnostic(&quot;[LOOKUP] An exception occurred while trying to create an&quot; +
+                    &quot; instance of the custom factory class&quot; + &quot;: [&quot; +
+                    trim(e.getMessage()) +
+                    &quot;] as specified by a system property.&quot;);
+        }
+        throw e;
+    }
+
+    // 第二，尝试使用java spi服务发现机制，载META-INF/services下寻找org.apache.commons.logging.LogFactory实现
+    // Second, try to find a service by using the JDK1.3 class
+    // discovery mechanism, which involves putting a file with the name
+    // of an interface class in the META-INF/services directory, where the
+    // contents of the file is a single line specifying a concrete class
+    // that implements the desired interface.
+
+    if (factory == null) {
+        if (isDiagnosticsEnabled()) {
+            logDiagnostic(&quot;[LOOKUP] Looking for a resource file of name [&quot; + SERVICE_ID +
+                    &quot;] to define the LogFactory subclass to use...&quot;);
+        }
+        try {
+            // META-INF/services/org.apache.commons.logging.LogFactory, SERVICE_ID
+            final InputStream is = getResourceAsStream(contextClassLoader, SERVICE_ID);
+
+            if (is != null) {
+                // This code is needed by EBCDIC and other strange systems.
+                // It's a fix for bugs reported in xerces
+                BufferedReader rd;
+                try {
+                    rd = new BufferedReader(new InputStreamReader(is, &quot;UTF-8&quot;));
+                } catch (java.io.UnsupportedEncodingException e) {
+                    rd = new BufferedReader(new InputStreamReader(is));
+                }
+
+                String factoryClassName = rd.readLine();
+                rd.close();
+
+                if (factoryClassName != null &amp;&amp; !&quot;&quot;.equals(factoryClassName)) {
+                    if (isDiagnosticsEnabled()) {
+                        logDiagnostic(&quot;[LOOKUP]  Creating an instance of LogFactory class &quot; +
+                                factoryClassName +
+                                &quot; as specified by file '&quot; + SERVICE_ID +
+                                &quot;' which was present in the path of the context classloader.&quot;);
+                    }
+                    factory = newFactory(factoryClassName, baseClassLoader, contextClassLoader);
+                }
+            } else {
+                // is == null
+                if (isDiagnosticsEnabled()) {
+                    logDiagnostic(&quot;[LOOKUP] No resource file with name '&quot; + SERVICE_ID + &quot;' found.&quot;);
+                }
+            }
+        } catch (Exception ex) {
+            // note: if the specified LogFactory class wasn't compatible with LogFactory
+            // for some reason, a ClassCastException will be caught here, and attempts will
+            // continue to find a compatible class.
+            if (isDiagnosticsEnabled()) {
+                logDiagnostic(
+                        &quot;[LOOKUP] A security exception occurred while trying to create an&quot; +
+                                &quot; instance of the custom factory class&quot; +
+                                &quot;: [&quot; + trim(ex.getMessage()) +
+                                &quot;]. Trying alternative implementations...&quot;);
+            }
+            // ignore
+        }
+    }
+
+    // 第三，尝试从classpath根目录下的commons-logging.properties中查找org.apache.commons.logging.LogFactory属性指定的factory
+    // Third try looking into the properties file read earlier (if found)
+
+    if (factory == null) {
+        if (props != null) {
+            if (isDiagnosticsEnabled()) {
+                logDiagnostic(
+                        &quot;[LOOKUP] Looking in properties file for entry with key '&quot; + FACTORY_PROPERTY +
+                                &quot;' to define the LogFactory subclass to use...&quot;);
+            }
+            String factoryClass = props.getProperty(FACTORY_PROPERTY);
+            if (factoryClass != null) {
+                if (isDiagnosticsEnabled()) {
+                    logDiagnostic(
+                            &quot;[LOOKUP] Properties file specifies LogFactory subclass '&quot; + factoryClass + &quot;'&quot;);
+                }
+                factory = newFactory(factoryClass, baseClassLoader, contextClassLoader);
+
+                // TODO: think about whether we need to handle exceptions from newFactory
+            } else {
+                if (isDiagnosticsEnabled()) {
+                    logDiagnostic(&quot;[LOOKUP] Properties file has no entry specifying LogFactory subclass.&quot;);
+                }
+            }
+        } else {
+            if (isDiagnosticsEnabled()) {
+                logDiagnostic(&quot;[LOOKUP] No properties file available to determine&quot; + &quot; LogFactory subclass from..&quot;);
+            }
+        }
+    }
+
+    // 最后，使用后备factory实现，org.apache.commons.logging.impl.LogFactoryImpl
+    // Fourth, try the fallback implementation class
+
+    if (factory == null) {
+        if (isDiagnosticsEnabled()) {
+            logDiagnostic(
+                    &quot;[LOOKUP] Loading the default LogFactory implementation '&quot; + FACTORY_DEFAULT +
+                            &quot;' via the same classloader that loaded this LogFactory&quot; +
+                            &quot; class (ie not looking in the context classloader).&quot;);
+        }
+
+        // Note: unlike the above code which can try to load custom LogFactory
+        // implementations via the TCCL, we don't try to load the default LogFactory
+        // implementation via the context classloader because:
+        // * that can cause problems (see comments in newFactory method)
+        // * no-one should be customising the code of the default class
+        // Yes, we do give up the ability for the child to ship a newer
+        // version of the LogFactoryImpl class and have it used dynamically
+        // by an old LogFactory class in the parent, but that isn't
+        // necessarily a good idea anyway.
+        factory = newFactory(FACTORY_DEFAULT, thisClassLoader, contextClassLoader);
+    }
+
+    if (factory != null) {
+        /**
+            * Always cache using context class loader.
+            */
+        cacheFactory(contextClassLoader, factory);
+
+        if (props != null) {
+            Enumeration names = props.propertyNames();
+            while (names.hasMoreElements()) {
+                String name = (String) names.nextElement();
+                String value = props.getProperty(name);
+                factory.setAttribute(name, value);
+            }
+        }
+    }
+
+    return factory;
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br><span class="line-number">148</span><br><span class="line-number">149</span><br><span class="line-number">150</span><br><span class="line-number">151</span><br><span class="line-number">152</span><br><span class="line-number">153</span><br><span class="line-number">154</span><br><span class="line-number">155</span><br><span class="line-number">156</span><br><span class="line-number">157</span><br><span class="line-number">158</span><br><span class="line-number">159</span><br><span class="line-number">160</span><br><span class="line-number">161</span><br><span class="line-number">162</span><br><span class="line-number">163</span><br><span class="line-number">164</span><br><span class="line-number">165</span><br><span class="line-number">166</span><br><span class="line-number">167</span><br><span class="line-number">168</span><br><span class="line-number">169</span><br><span class="line-number">170</span><br><span class="line-number">171</span><br><span class="line-number">172</span><br><span class="line-number">173</span><br><span class="line-number">174</span><br><span class="line-number">175</span><br><span class="line-number">176</span><br><span class="line-number">177</span><br><span class="line-number">178</span><br><span class="line-number">179</span><br><span class="line-number">180</span><br><span class="line-number">181</span><br><span class="line-number">182</span><br><span class="line-number">183</span><br><span class="line-number">184</span><br><span class="line-number">185</span><br><span class="line-number">186</span><br><span class="line-number">187</span><br><span class="line-number">188</span><br><span class="line-number">189</span><br><span class="line-number">190</span><br><span class="line-number">191</span><br><span class="line-number">192</span><br><span class="line-number">193</span><br><span class="line-number">194</span><br><span class="line-number">195</span><br><span class="line-number">196</span><br><span class="line-number">197</span><br><span class="line-number">198</span><br><span class="line-number">199</span><br><span class="line-number">200</span><br><span class="line-number">201</span><br><span class="line-number">202</span><br><span class="line-number">203</span><br><span class="line-number">204</span><br><span class="line-number">205</span><br><span class="line-number">206</span><br><span class="line-number">207</span><br><span class="line-number">208</span><br><span class="line-number">209</span><br><span class="line-number">210</span><br><span class="line-number">211</span><br><span class="line-number">212</span><br><span class="line-number">213</span><br><span class="line-number">214</span><br><span class="line-number">215</span><br><span class="line-number">216</span><br><span class="line-number">217</span><br><span class="line-number">218</span><br><span class="line-number">219</span><br><span class="line-number">220</span><br><span class="line-number">221</span><br><span class="line-number">222</span><br><span class="line-number">223</span><br><span class="line-number">224</span><br><span class="line-number">225</span><br><span class="line-number">226</span><br><span class="line-number">227</span><br><span class="line-number">228</span><br><span class="line-number">229</span><br><span class="line-number">230</span><br><span class="line-number">231</span><br><span class="line-number">232</span><br><span class="line-number">233</span><br><span class="line-number">234</span><br><span class="line-number">235</span><br></div></div><p>可以看出，抽象类LogFactory加载具体实现的步骤如下：</p> <ul><li>从vm系统属性org.apache.commons.logging.LogFactory</li> <li>使用SPI服务发现机制，发现org.apache.commons.logging.LogFactory的实现</li> <li>查找classpath根目录commons-logging.properties的org.apache.commons.logging.LogFactory属性是否指定factory实现</li> <li>使用默认factory实现，org.apache.commons.logging.impl.LogFactoryImpl</li></ul> <blockquote><p>LogFactory的getLog()方法返回类型是org.apache.commons.logging.Log接口，提供了从trace到fatal方法。可以确定，如果日志实现提供者只要实现该接口，并且使用继承自org.apache.commons.logging.LogFactory的子类创建Log，必然可以构建一个松耦合的日志系统。</p></blockquote> <h3 id="spi机制-插件体系"><a href="#spi机制-插件体系" class="header-anchor">#</a> SPI机制 - 插件体系</h3> <blockquote><p>其实最具spi思想的应该属于插件开发，我们项目中也用到的这种思想，后面再说，这里具体说一下eclipse的插件思想。</p></blockquote> <p>Eclipse使用OSGi作为插件系统的基础，动态添加新插件和停止现有插件，以动态的方式管理组件生命周期。</p> <p>一般来说，插件的文件结构必须在指定目录下包含以下三个文件：</p> <ul><li><code>META-INF/MANIFEST.MF</code>: 项目基本配置信息，版本、名称、启动器等</li> <li><code>build.properties</code>: 项目的编译配置信息，包括，源代码路径、输出路径</li> <li><code>plugin.xml</code>：插件的操作配置信息，包含弹出菜单及点击菜单后对应的操作执行类等</li></ul> <p>当eclipse启动时，会遍历plugins文件夹中的目录，扫描每个插件的清单文件<code>MANIFEST.MF</code>，并建立一个内部模型来记录它所找到的每个插件的信息，就实现了动态添加新的插件。</p> <p>这也意味着是eclipse制定了一系列的规则，像是文件结构、类型、参数等。插件开发者遵循这些规则去开发自己的插件，eclipse并不需要知道插件具体是怎样开发的，只需要在启动的时候根据配置文件解析、加载到系统里就好了，是spi思想的一种体现。</p> <h3 id="spi机制-spring中spi机制"><a href="#spi机制-spring中spi机制" class="header-anchor">#</a> SPI机制 - Spring中SPI机制</h3> <p>在springboot的自动装配过程中，最终会加载<code>META-INF/spring.factories</code>文件，而加载的过程是由<code>SpringFactoriesLoader</code>加载的。从CLASSPATH下的每个Jar包中搜寻所有<code>META-INF/spring.factories</code>配置文件，然后将解析properties文件，找到指定名称的配置后返回。需要注意的是，其实这里不仅仅是会去ClassPath路径下查找，会扫描所有路径下的Jar包，只不过这个文件只会在Classpath下的jar包中。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>public static final String FACTORIES_RESOURCE_LOCATION = &quot;META-INF/spring.factories&quot;;
+// spring.factories文件的格式为：key=value1,value2,value3
+// 从所有的jar包中找到META-INF/spring.factories文件
+// 然后从文件中解析出key=factoryClass类名称的所有value值
+public static List&lt;String&gt; loadFactoryNames(Class&lt;?&gt; factoryClass, ClassLoader classLoader) {
+    String factoryClassName = factoryClass.getName();
+    // 取得资源文件的URL
+    Enumeration&lt;URL&gt; urls = (classLoader != null ? classLoader.getResources(FACTORIES_RESOURCE_LOCATION) : ClassLoader.getSystemResources(FACTORIES_RESOURCE_LOCATION));
+    List&lt;String&gt; result = new ArrayList&lt;String&gt;();
+    // 遍历所有的URL
+    while (urls.hasMoreElements()) {
+        URL url = urls.nextElement();
+        // 根据资源文件URL解析properties文件，得到对应的一组@Configuration类
+        Properties properties = PropertiesLoaderUtils.loadProperties(new UrlResource(url));
+        String factoryClassNames = properties.getProperty(factoryClassName);
+        // 组装数据，并返回
+        result.addAll(Arrays.asList(StringUtils.commaDelimitedListToStringArray(factoryClassNames)));
+    }
+    return result;
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br></div></div><h2 id="spi机制深入理解"><a href="#spi机制深入理解" class="header-anchor">#</a> SPI机制深入理解</h2> <hr> <p>提示</p> <p>接下来，我们深入理解下SPI相关内容</p> <h3 id="spi机制通常怎么使用"><a href="#spi机制通常怎么使用" class="header-anchor">#</a> SPI机制通常怎么使用</h3> <p>看完上面的几个例子解析，应该都能知道大概的流程了：</p> <ul><li>有关组织或者公司定义标准。</li> <li>具体厂商或者框架开发者实现。</li> <li>程序猿使用。</li></ul> <h4 id="定义标准"><a href="#定义标准" class="header-anchor">#</a> 定义标准</h4> <p>定义标准，就是定义接口。比如接口<code>java.sql.Driver</code></p> <h4 id="具体厂商或者框架开发者实现"><a href="#具体厂商或者框架开发者实现" class="header-anchor">#</a> 具体厂商或者框架开发者实现</h4> <p>厂商或者框架开发者开发具体的实现：</p> <p>在<code>META-INF/services</code>目录下定义一个名字为接口全限定名的文件，比如<code>java.sql.Driver</code>文件，文件内容是具体的实现名字，比如<code>me.cxis.sql.MyDriver</code>。</p> <p>写具体的实现<code>me.cxis.sql.MyDriver</code>，都是对接口Driver的实现。</p> <h4 id="程序猿使用"><a href="#程序猿使用" class="header-anchor">#</a> 程序猿使用</h4> <p>我们会引用具体厂商的jar包来实现我们的功能：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>ServiceLoader&lt;Driver&gt; loadedDrivers = ServiceLoader.load(Driver.class);
+//获取迭代器
+Iterator&lt;Driver&gt; driversIterator = loadedDrivers.iterator();
+//遍历
+while(driversIterator.hasNext()) {
+    driversIterator.next();
+    //可以做具体的业务逻辑
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h4 id="使用规范"><a href="#使用规范" class="header-anchor">#</a> 使用规范</h4> <p>最后总结一下jdk spi需要遵循的规范</p> <p><img src="/assets/img/java-advanced-spi-2.50b66f96.jpg" alt=""></p> <h3 id="spi和api的区别是什么"><a href="#spi和api的区别是什么" class="header-anchor">#</a> SPI和API的区别是什么</h3> <blockquote><p>这里实际包含两个问题，第一个SPI和API的区别？第二个什么时候用API，什么时候用SPI？</p></blockquote> <blockquote><p>SPI - “接口”位于“调用方”所在的“包”中</p></blockquote> <ul><li>概念上更依赖调用方。</li> <li>组织上位于调用方所在的包中。</li> <li>实现位于独立的包中。</li> <li>常见的例子是：插件模式的插件。</li></ul> <blockquote><p>API - “接口”位于“实现方”所在的“包”中</p></blockquote> <ul><li>概念上更接近实现方。</li> <li>组织上位于实现方所在的包中。</li> <li>实现和接口在一个包中。</li></ul> <p>参考：</p> <ul><li><a href="https://stackoverflow.com/questions/2954372/difference-between-spi-and-api?answertab=votes#tab-top" target="_blank" rel="noopener noreferrer">difference-between-spi-and-api在新窗口打开<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://www.cnblogs.com/happyframework/archive/2013/09/17/3325560.html" target="_blank" rel="noopener noreferrer">设计原则：小议 SPI 和 API在新窗口打开<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <p><img src="/assets/img/java-advanced-spi-7.1a8704b5.png" alt=""></p> <p><img src="/assets/img/java-advanced-spi-6.12bcf6d5.png" alt=""></p> <h3 id="spi机制实现原理"><a href="#spi机制实现原理" class="header-anchor">#</a> SPI机制实现原理</h3> <p>不妨看下JDK中<code>ServiceLoader&lt;S&gt;</code>方法的具体实现：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>//ServiceLoader实现了Iterable接口，可以遍历所有的服务实现者
+public final class ServiceLoader&lt;S&gt;
+    implements Iterable&lt;S&gt;
+{
+
+    //查找配置文件的目录
+    private static final String PREFIX = &quot;META-INF/services/&quot;;
+
+    //表示要被加载的服务的类或接口
+    private final Class&lt;S&gt; service;
+
+    //这个ClassLoader用来定位，加载，实例化服务提供者
+    private final ClassLoader loader;
+
+    // 访问控制上下文
+    private final AccessControlContext acc;
+
+    // 缓存已经被实例化的服务提供者，按照实例化的顺序存储
+    private LinkedHashMap&lt;String,S&gt; providers = new LinkedHashMap&lt;&gt;();
+
+    // 迭代器
+    private LazyIterator lookupIterator;
+
+    //重新加载，就相当于重新创建ServiceLoader了，用于新的服务提供者安装到正在运行的Java虚拟机中的情况。
+    public void reload() {
+        //清空缓存中所有已实例化的服务提供者
+        providers.clear();
+        //新建一个迭代器，该迭代器会从头查找和实例化服务提供者
+        lookupIterator = new LazyIterator(service, loader);
+    }
+
+    //私有构造器
+    //使用指定的类加载器和服务创建服务加载器
+    //如果没有指定类加载器，使用系统类加载器，就是应用类加载器。
+    private ServiceLoader(Class&lt;S&gt; svc, ClassLoader cl) {
+        service = Objects.requireNonNull(svc, &quot;Service interface cannot be null&quot;);
+        loader = (cl == null) ? ClassLoader.getSystemClassLoader() : cl;
+        acc = (System.getSecurityManager() != null) ? AccessController.getContext() : null;
+        reload();
+    }
+
+    //解析失败处理的方法
+    private static void fail(Class&lt;?&gt; service, String msg, Throwable cause)
+        throws ServiceConfigurationError
+    {
+        throw new ServiceConfigurationError(service.getName() + &quot;: &quot; + msg,
+                                            cause);
+    }
+
+    private static void fail(Class&lt;?&gt; service, String msg)
+        throws ServiceConfigurationError
+    {
+        throw new ServiceConfigurationError(service.getName() + &quot;: &quot; + msg);
+    }
+
+    private static void fail(Class&lt;?&gt; service, URL u, int line, String msg)
+        throws ServiceConfigurationError
+    {
+        fail(service, u + &quot;:&quot; + line + &quot;: &quot; + msg);
+    }
+
+    //解析服务提供者配置文件中的一行
+    //首先去掉注释校验，然后保存
+    //返回下一行行号
+    //重复的配置项和已经被实例化的配置项不会被保存
+    private int parseLine(Class&lt;?&gt; service, URL u, BufferedReader r, int lc,
+                          List&lt;String&gt; names)
+        throws IOException, ServiceConfigurationError
+    {
+        //读取一行
+        String ln = r.readLine();
+        if (ln == null) {
+            return -1;
+        }
+        //#号代表注释行
+        int ci = ln.indexOf('#');
+        if (ci &gt;= 0) ln = ln.substring(0, ci);
+        ln = ln.trim();
+        int n = ln.length();
+        if (n != 0) {
+            if ((ln.indexOf(' ') &gt;= 0) || (ln.indexOf('\t') &gt;= 0))
+                fail(service, u, lc, &quot;Illegal configuration-file syntax&quot;);
+            int cp = ln.codePointAt(0);
+            if (!Character.isJavaIdentifierStart(cp))
+                fail(service, u, lc, &quot;Illegal provider-class name: &quot; + ln);
+            for (int i = Character.charCount(cp); i &lt; n; i += Character.charCount(cp)) {
+                cp = ln.codePointAt(i);
+                if (!Character.isJavaIdentifierPart(cp) &amp;&amp; (cp != '.'))
+                    fail(service, u, lc, &quot;Illegal provider-class name: &quot; + ln);
+            }
+            if (!providers.containsKey(ln) &amp;&amp; !names.contains(ln))
+                names.add(ln);
+        }
+        return lc + 1;
+    }
+
+    //解析配置文件，解析指定的url配置文件
+    //使用parseLine方法进行解析，未被实例化的服务提供者会被保存到缓存中去
+    private Iterator&lt;String&gt; parse(Class&lt;?&gt; service, URL u)
+        throws ServiceConfigurationError
+    {
+        InputStream in = null;
+        BufferedReader r = null;
+        ArrayList&lt;String&gt; names = new ArrayList&lt;&gt;();
+        try {
+            in = u.openStream();
+            r = new BufferedReader(new InputStreamReader(in, &quot;utf-8&quot;));
+            int lc = 1;
+            while ((lc = parseLine(service, u, r, lc, names)) &gt;= 0);
+        }
+        return names.iterator();
+    }
+
+    //服务提供者查找的迭代器
+    private class LazyIterator
+        implements Iterator&lt;S&gt;
+    {
+
+        Class&lt;S&gt; service;//服务提供者接口
+        ClassLoader loader;//类加载器
+        Enumeration&lt;URL&gt; configs = null;//保存实现类的url
+        Iterator&lt;String&gt; pending = null;//保存实现类的全名
+        String nextName = null;//迭代器中下一个实现类的全名
+
+        private LazyIterator(Class&lt;S&gt; service, ClassLoader loader) {
+            this.service = service;
+            this.loader = loader;
+        }
+
+        private boolean hasNextService() {
+            if (nextName != null) {
+                return true;
+            }
+            if (configs == null) {
+                try {
+                    String fullName = PREFIX + service.getName();
+                    if (loader == null)
+                        configs = ClassLoader.getSystemResources(fullName);
+                    else
+                        configs = loader.getResources(fullName);
+                }
+            }
+            while ((pending == null) || !pending.hasNext()) {
+                if (!configs.hasMoreElements()) {
+                    return false;
+                }
+                pending = parse(service, configs.nextElement());
+            }
+            nextName = pending.next();
+            return true;
+        }
+
+        private S nextService() {
+            if (!hasNextService())
+                throw new NoSuchElementException();
+            String cn = nextName;
+            nextName = null;
+            Class&lt;?&gt; c = null;
+            try {
+                c = Class.forName(cn, false, loader);
+            }
+            if (!service.isAssignableFrom(c)) {
+                fail(service, &quot;Provider &quot; + cn  + &quot; not a subtype&quot;);
+            }
+            try {
+                S p = service.cast(c.newInstance());
+                providers.put(cn, p);
+                return p;
+            }
+        }
+
+        public boolean hasNext() {
+            if (acc == null) {
+                return hasNextService();
+            } else {
+                PrivilegedAction&lt;Boolean&gt; action = new PrivilegedAction&lt;Boolean&gt;() {
+                    public Boolean run() { return hasNextService(); }
+                };
+                return AccessController.doPrivileged(action, acc);
+            }
+        }
+
+        public S next() {
+            if (acc == null) {
+                return nextService();
+            } else {
+                PrivilegedAction&lt;S&gt; action = new PrivilegedAction&lt;S&gt;() {
+                    public S run() { return nextService(); }
+                };
+                return AccessController.doPrivileged(action, acc);
+            }
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+
+    }
+
+    //获取迭代器
+    //返回遍历服务提供者的迭代器
+    //以懒加载的方式加载可用的服务提供者
+    //懒加载的实现是：解析配置文件和实例化服务提供者的工作由迭代器本身完成
+    public Iterator&lt;S&gt; iterator() {
+        return new Iterator&lt;S&gt;() {
+            //按照实例化顺序返回已经缓存的服务提供者实例
+            Iterator&lt;Map.Entry&lt;String,S&gt;&gt; knownProviders
+                = providers.entrySet().iterator();
+
+            public boolean hasNext() {
+                if (knownProviders.hasNext())
+                    return true;
+                return lookupIterator.hasNext();
+            }
+
+            public S next() {
+                if (knownProviders.hasNext())
+                    return knownProviders.next().getValue();
+                return lookupIterator.next();
+            }
+
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+
+        };
+    }
+
+    //为指定的服务使用指定的类加载器来创建一个ServiceLoader
+    public static &lt;S&gt; ServiceLoader&lt;S&gt; load(Class&lt;S&gt; service,
+                                            ClassLoader loader)
+    {
+        return new ServiceLoader&lt;&gt;(service, loader);
+    }
+
+    //使用线程上下文的类加载器来创建ServiceLoader
+    public static &lt;S&gt; ServiceLoader&lt;S&gt; load(Class&lt;S&gt; service) {
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        return ServiceLoader.load(service, cl);
+    }
+
+    //使用扩展类加载器为指定的服务创建ServiceLoader
+    //只能找到并加载已经安装到当前Java虚拟机中的服务提供者，应用程序类路径中的服务提供者将被忽略
+    public static &lt;S&gt; ServiceLoader&lt;S&gt; loadInstalled(Class&lt;S&gt; service) {
+        ClassLoader cl = ClassLoader.getSystemClassLoader();
+        ClassLoader prev = null;
+        while (cl != null) {
+            prev = cl;
+            cl = cl.getParent();
+        }
+        return ServiceLoader.load(service, prev);
+    }
+
+    public String toString() {
+        return &quot;java.util.ServiceLoader[&quot; + service.getName() + &quot;]&quot;;
+    }
+
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br><span class="line-number">148</span><br><span class="line-number">149</span><br><span class="line-number">150</span><br><span class="line-number">151</span><br><span class="line-number">152</span><br><span class="line-number">153</span><br><span class="line-number">154</span><br><span class="line-number">155</span><br><span class="line-number">156</span><br><span class="line-number">157</span><br><span class="line-number">158</span><br><span class="line-number">159</span><br><span class="line-number">160</span><br><span class="line-number">161</span><br><span class="line-number">162</span><br><span class="line-number">163</span><br><span class="line-number">164</span><br><span class="line-number">165</span><br><span class="line-number">166</span><br><span class="line-number">167</span><br><span class="line-number">168</span><br><span class="line-number">169</span><br><span class="line-number">170</span><br><span class="line-number">171</span><br><span class="line-number">172</span><br><span class="line-number">173</span><br><span class="line-number">174</span><br><span class="line-number">175</span><br><span class="line-number">176</span><br><span class="line-number">177</span><br><span class="line-number">178</span><br><span class="line-number">179</span><br><span class="line-number">180</span><br><span class="line-number">181</span><br><span class="line-number">182</span><br><span class="line-number">183</span><br><span class="line-number">184</span><br><span class="line-number">185</span><br><span class="line-number">186</span><br><span class="line-number">187</span><br><span class="line-number">188</span><br><span class="line-number">189</span><br><span class="line-number">190</span><br><span class="line-number">191</span><br><span class="line-number">192</span><br><span class="line-number">193</span><br><span class="line-number">194</span><br><span class="line-number">195</span><br><span class="line-number">196</span><br><span class="line-number">197</span><br><span class="line-number">198</span><br><span class="line-number">199</span><br><span class="line-number">200</span><br><span class="line-number">201</span><br><span class="line-number">202</span><br><span class="line-number">203</span><br><span class="line-number">204</span><br><span class="line-number">205</span><br><span class="line-number">206</span><br><span class="line-number">207</span><br><span class="line-number">208</span><br><span class="line-number">209</span><br><span class="line-number">210</span><br><span class="line-number">211</span><br><span class="line-number">212</span><br><span class="line-number">213</span><br><span class="line-number">214</span><br><span class="line-number">215</span><br><span class="line-number">216</span><br><span class="line-number">217</span><br><span class="line-number">218</span><br><span class="line-number">219</span><br><span class="line-number">220</span><br><span class="line-number">221</span><br><span class="line-number">222</span><br><span class="line-number">223</span><br><span class="line-number">224</span><br><span class="line-number">225</span><br><span class="line-number">226</span><br><span class="line-number">227</span><br><span class="line-number">228</span><br><span class="line-number">229</span><br><span class="line-number">230</span><br><span class="line-number">231</span><br><span class="line-number">232</span><br><span class="line-number">233</span><br><span class="line-number">234</span><br><span class="line-number">235</span><br><span class="line-number">236</span><br><span class="line-number">237</span><br><span class="line-number">238</span><br><span class="line-number">239</span><br><span class="line-number">240</span><br><span class="line-number">241</span><br><span class="line-number">242</span><br><span class="line-number">243</span><br><span class="line-number">244</span><br><span class="line-number">245</span><br><span class="line-number">246</span><br><span class="line-number">247</span><br><span class="line-number">248</span><br><span class="line-number">249</span><br><span class="line-number">250</span><br><span class="line-number">251</span><br><span class="line-number">252</span><br><span class="line-number">253</span><br><span class="line-number">254</span><br><span class="line-number">255</span><br><span class="line-number">256</span><br><span class="line-number">257</span><br><span class="line-number">258</span><br></div></div><p><strong>首先</strong>，ServiceLoader实现了<code>Iterable</code>接口，所以它有迭代器的属性，这里主要都是实现了迭代器的<code>hasNext</code>和<code>next</code>方法。这里主要都是调用的<code>lookupIterator</code>的相应<code>hasNext</code>和<code>next</code>方法，<code>lookupIterator</code>是懒加载迭代器。</p> <p><strong>其次</strong>，<code>LazyIterator</code>中的<code>hasNext</code>方法，静态变量PREFIX就是<code>”META-INF/services/”</code>目录，这也就是为什么需要在<code>classpath</code>下的<code>META-INF/services/</code>目录里创建一个以服务接口命名的文件。</p> <p><strong>最后</strong>，通过反射方法<code>Class.forName()</code>加载类对象，并用<code>newInstance</code>方法将类实例化，并把实例化后的类缓存到<code>providers</code>对象中，(<code>LinkedHashMap&lt;String,S&gt;</code>类型）然后返回实例对象。</p> <p>所以我们可以看到<code>ServiceLoader</code>不是实例化以后，就去读取配置文件中的具体实现，并进行实例化。而是等到使用迭代器去遍历的时候，才会加载对应的配置文件去解析，调用<code>hasNext</code>方法的时候会去加载配置文件进行解析，调用<code>next</code>方法的时候进行实例化并缓存。</p> <p>所有的配置文件只会加载一次，服务提供者也只会被实例化一次，重新加载配置文件可使用<code>reload</code>方法。</p> <h3 id="spi机制的缺陷"><a href="#spi机制的缺陷" class="header-anchor">#</a> SPI机制的缺陷</h3> <p>通过上面的解析，可以发现，我们使用SPI机制的缺陷：</p> <ul><li><p>不能按需加载，需要遍历所有的实现，并实例化，然后在循环中才能找到我们需要的实现。如果不想用某些实现类，或者某些类实例化很耗时，它也被载入并实例化了，这就造成了浪费。</p></li> <li><p>获取某个实现类的方式不够灵活，只能通过 Iterator 形式获取，不能根据某个参数来获取对应的实现类。</p></li> <li><p>多个并发多线程使用 ServiceLoader 类的实例是不安全的。</p></li></ul> <h1 id="参考文章"><a href="#参考文章" class="header-anchor">#</a> 参考文章</h1> <hr> <ul><li>https://cxis.me/2017/04/17/Java%E4%B8%ADSPI%E6%9C%BA%E5%88%B6%E6%B7%B1%E5%85%A5%E5%8F%8A%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</li> <li>https://stackoverflow.com/questions/2954372/difference-between-spi-and-api?answertab=votes#tab-top</li> <li>https://zhuanlan.zhihu.com/p/28909673</li> <li>http://blog.itpub.net/69912579/viewspace-2656555/</li> <li>https://www.cnblogs.com/happyframework/archive/2013/09/17/3325560.html</li> <li>https://blog.csdn.net/sakurainluojia/article/details/53534949</li> <li>https://www.jianshu.com/p/0d196ad23915</li></ul></div></div> <!----> <div class="page-edit"><div class="edit-link"><a href="https://fanxgit.github.io/fanxNotes/edit/master/docs/Java/01.基础知识/10.SPI机制详解.md" target="_blank" rel="noopener noreferrer">编辑</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">7/29/2023, 2:51:41 PM</span></div></div> <div class="page-nav-wapper"><div class="page-nav-centre-wrap"><a href="/java/reflate/" class="page-nav-centre page-nav-centre-prev"><div class="tooltip">反射机制详解</div></a> <a href="/pages/dc7834/" class="page-nav-centre page-nav-centre-next"><div class="tooltip">Collection 类关系图</div></a></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/java/reflate/" class="prev">反射机制详解</a></span> <span class="next"><a href="/pages/dc7834/">Collection 类关系图</a>→
+      </span></p></div></div></div> <div class="article-list"><div class="article-title"><a href="/archives/" class="iconfont icon-bi">最近更新</a></div> <div class="article-wrapper"><dl><dd>01</dd> <dt><a href="/pages/797621/"><div>
+            VuePress+GithubPages教程
+            <!----></div></a> <span class="date">11-19</span></dt></dl><dl><dd>02</dd> <dt><a href="/pages/016620/"><div>
+            java打jar包整理
+            <!----></div></a> <span class="date">11-19</span></dt></dl><dl><dd>03</dd> <dt><a href="/pages/b23a10/"><div>
+            多线程问题总结
+            <!----></div></a> <span class="date">11-14</span></dt></dl> <dl><dd></dd> <dt><a href="/archives/" class="more">更多文章&gt;</a></dt></dl></div></div></main></div> <div class="footer"><!----> 
+  Theme by
+  <a href="https://github.com/xugaoyi/vuepress-theme-vdoing" target="_blank" title="本站主题">Vdoing</a> <!----></div> <div class="buttons"><div title="返回顶部" class="button blur go-to-top iconfont icon-fanhuidingbu" style="display:none;"></div> <div title="去评论" class="button blur go-to-comment iconfont icon-pinglun" style="display:none;"></div> <div title="主题模式" class="button blur theme-mode-but iconfont icon-zhuti"><ul class="select-box" style="display:none;"><li class="iconfont icon-zidong">
+          跟随系统
+        </li><li class="iconfont icon-rijianmoshi">
+          浅色模式
+        </li><li class="iconfont icon-yejianmoshi">
+          深色模式
+        </li><li class="iconfont icon-yuedu">
+          阅读模式
+        </li></ul></div></div> <!----> <!----> <!----></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.38fd400a.js" defer></script><script src="/assets/js/3.e11db813.js" defer></script><script src="/assets/js/208.f763286c.js" defer></script>
+  </body>
+</html>
