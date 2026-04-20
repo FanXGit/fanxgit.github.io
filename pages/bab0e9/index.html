@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MyBatis详解 - 配置解析过程 | Fanx 知识库</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    <link rel="icon" href="/img/logo.svg">[object Object]
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.6ece31e0.css" as="style"><link rel="preload" href="/assets/js/app.8bade7c0.js" as="script"><link rel="preload" href="/assets/js/3.b586265f.js" as="script"><link rel="preload" href="/assets/js/754.bdb6aedc.js" as="script"><link rel="prefetch" href="/assets/js/10.05e1bda9.js"><link rel="prefetch" href="/assets/js/100.ef78d3c3.js"><link rel="prefetch" href="/assets/js/101.945c56fb.js"><link rel="prefetch" href="/assets/js/102.58968d4d.js"><link rel="prefetch" href="/assets/js/103.4462e7d8.js"><link rel="prefetch" href="/assets/js/104.5f2d8d9e.js"><link rel="prefetch" href="/assets/js/105.8c7056c8.js"><link rel="prefetch" href="/assets/js/106.33ebac67.js"><link rel="prefetch" href="/assets/js/107.8ad2c219.js"><link rel="prefetch" href="/assets/js/108.0334dc8e.js"><link rel="prefetch" href="/assets/js/109.fa4c0485.js"><link rel="prefetch" href="/assets/js/11.0d268475.js"><link rel="prefetch" href="/assets/js/110.4dcfe8da.js"><link rel="prefetch" href="/assets/js/111.35acf193.js"><link rel="prefetch" href="/assets/js/112.a4681726.js"><link rel="prefetch" href="/assets/js/113.40bbc35a.js"><link rel="prefetch" href="/assets/js/114.4209e847.js"><link rel="prefetch" href="/assets/js/115.9e9cdec2.js"><link rel="prefetch" href="/assets/js/116.55ff31d9.js"><link rel="prefetch" href="/assets/js/117.8b569613.js"><link rel="prefetch" href="/assets/js/118.cdcfbe34.js"><link rel="prefetch" href="/assets/js/119.74f05a76.js"><link rel="prefetch" href="/assets/js/12.1c5dedfc.js"><link rel="prefetch" href="/assets/js/120.96fe819b.js"><link rel="prefetch" href="/assets/js/121.21d44400.js"><link rel="prefetch" href="/assets/js/122.b0d0e123.js"><link rel="prefetch" href="/assets/js/123.2c5259b7.js"><link rel="prefetch" href="/assets/js/124.9a1f8103.js"><link rel="prefetch" href="/assets/js/125.af598bd7.js"><link rel="prefetch" href="/assets/js/126.55a21293.js"><link rel="prefetch" href="/assets/js/127.032c1be3.js"><link rel="prefetch" href="/assets/js/128.08ff2ef1.js"><link rel="prefetch" href="/assets/js/129.6d5b3dbf.js"><link rel="prefetch" href="/assets/js/13.234daab9.js"><link rel="prefetch" href="/assets/js/130.f054749d.js"><link rel="prefetch" href="/assets/js/131.a570162d.js"><link rel="prefetch" href="/assets/js/132.b6268fb4.js"><link rel="prefetch" href="/assets/js/133.0ede052a.js"><link rel="prefetch" href="/assets/js/134.a8bcfd88.js"><link rel="prefetch" href="/assets/js/135.07792400.js"><link rel="prefetch" href="/assets/js/136.8993970d.js"><link rel="prefetch" href="/assets/js/137.be6a461c.js"><link rel="prefetch" href="/assets/js/138.5731edb9.js"><link rel="prefetch" href="/assets/js/139.9ced635c.js"><link rel="prefetch" href="/assets/js/14.e81f65eb.js"><link rel="prefetch" href="/assets/js/140.4625bbc9.js"><link rel="prefetch" href="/assets/js/141.2ea00bb3.js"><link rel="prefetch" href="/assets/js/142.c045c309.js"><link rel="prefetch" href="/assets/js/143.ea6139df.js"><link rel="prefetch" href="/assets/js/144.c029a70e.js"><link rel="prefetch" href="/assets/js/145.c8e18815.js"><link rel="prefetch" href="/assets/js/146.cbd765bf.js"><link rel="prefetch" href="/assets/js/147.774e33c1.js"><link rel="prefetch" href="/assets/js/148.4a757580.js"><link rel="prefetch" href="/assets/js/149.e4860af7.js"><link rel="prefetch" href="/assets/js/15.136bd19c.js"><link rel="prefetch" href="/assets/js/150.a6f85ca1.js"><link rel="prefetch" href="/assets/js/151.c836db0e.js"><link rel="prefetch" href="/assets/js/152.5aa82bdf.js"><link rel="prefetch" href="/assets/js/153.10f26518.js"><link rel="prefetch" href="/assets/js/154.b7649af1.js"><link rel="prefetch" href="/assets/js/155.3599ec92.js"><link rel="prefetch" href="/assets/js/156.984381b3.js"><link rel="prefetch" href="/assets/js/157.edb97be1.js"><link rel="prefetch" href="/assets/js/158.9e64bd2a.js"><link rel="prefetch" href="/assets/js/159.99b0c964.js"><link rel="prefetch" href="/assets/js/16.88fd3e04.js"><link rel="prefetch" href="/assets/js/160.e3eccd6a.js"><link rel="prefetch" href="/assets/js/161.167d5361.js"><link rel="prefetch" href="/assets/js/162.4a4f62ba.js"><link rel="prefetch" href="/assets/js/163.97bdc31d.js"><link rel="prefetch" href="/assets/js/164.4dc8e4bf.js"><link rel="prefetch" href="/assets/js/165.77d21214.js"><link rel="prefetch" href="/assets/js/166.98b1b54b.js"><link rel="prefetch" href="/assets/js/167.51c3a2e7.js"><link rel="prefetch" href="/assets/js/168.0082657a.js"><link rel="prefetch" href="/assets/js/169.9957fa4f.js"><link rel="prefetch" href="/assets/js/17.8874eb47.js"><link rel="prefetch" href="/assets/js/170.3b696217.js"><link rel="prefetch" href="/assets/js/171.7b6c57ed.js"><link rel="prefetch" href="/assets/js/172.8579c6ff.js"><link rel="prefetch" href="/assets/js/173.4f7b4483.js"><link rel="prefetch" href="/assets/js/174.e1f403cd.js"><link rel="prefetch" href="/assets/js/175.5f407308.js"><link rel="prefetch" href="/assets/js/176.eb2d02a6.js"><link rel="prefetch" href="/assets/js/177.2995609c.js"><link rel="prefetch" href="/assets/js/178.91ed9f8e.js"><link rel="prefetch" href="/assets/js/179.a87dd5f8.js"><link rel="prefetch" href="/assets/js/18.00915c6c.js"><link rel="prefetch" href="/assets/js/180.bf1e2788.js"><link rel="prefetch" href="/assets/js/181.08b5d9f5.js"><link rel="prefetch" href="/assets/js/182.56a2f4f7.js"><link rel="prefetch" href="/assets/js/183.63aee27c.js"><link rel="prefetch" href="/assets/js/184.6a5761a2.js"><link rel="prefetch" href="/assets/js/185.2456186e.js"><link rel="prefetch" href="/assets/js/186.0d2e71cc.js"><link rel="prefetch" href="/assets/js/187.b5b684d2.js"><link rel="prefetch" href="/assets/js/188.506c1d17.js"><link rel="prefetch" href="/assets/js/189.5e20c2c7.js"><link rel="prefetch" href="/assets/js/19.462b7047.js"><link rel="prefetch" href="/assets/js/190.f1f0aa44.js"><link rel="prefetch" href="/assets/js/191.8f2cd444.js"><link rel="prefetch" href="/assets/js/192.a16196a5.js"><link rel="prefetch" href="/assets/js/193.cbf702fd.js"><link rel="prefetch" href="/assets/js/194.0b8d8e75.js"><link rel="prefetch" href="/assets/js/195.1fc4b095.js"><link rel="prefetch" href="/assets/js/196.f03e17bf.js"><link rel="prefetch" href="/assets/js/197.6d68c5ed.js"><link rel="prefetch" href="/assets/js/198.c57dda82.js"><link rel="prefetch" href="/assets/js/199.a783f7fa.js"><link rel="prefetch" href="/assets/js/2.88af5531.js"><link rel="prefetch" href="/assets/js/20.2cc9acc4.js"><link rel="prefetch" href="/assets/js/200.065e033d.js"><link rel="prefetch" href="/assets/js/201.0c824af5.js"><link rel="prefetch" href="/assets/js/202.b90f94ed.js"><link rel="prefetch" href="/assets/js/203.e7f56605.js"><link rel="prefetch" href="/assets/js/204.0f7d9cb8.js"><link rel="prefetch" href="/assets/js/205.f3ef9be6.js"><link rel="prefetch" href="/assets/js/206.a450c491.js"><link rel="prefetch" href="/assets/js/207.02fab4c8.js"><link rel="prefetch" href="/assets/js/208.c201f0f3.js"><link rel="prefetch" href="/assets/js/209.7e6bd7d2.js"><link rel="prefetch" href="/assets/js/21.4e680a86.js"><link rel="prefetch" href="/assets/js/210.500692cf.js"><link rel="prefetch" href="/assets/js/211.399a837c.js"><link rel="prefetch" href="/assets/js/212.eb2acd6b.js"><link rel="prefetch" href="/assets/js/213.329473f9.js"><link rel="prefetch" href="/assets/js/214.c72e3d20.js"><link rel="prefetch" href="/assets/js/215.3c80dda3.js"><link rel="prefetch" href="/assets/js/216.55722951.js"><link rel="prefetch" href="/assets/js/217.0ddb6440.js"><link rel="prefetch" href="/assets/js/218.2c1c677f.js"><link rel="prefetch" href="/assets/js/219.22a96fc5.js"><link rel="prefetch" href="/assets/js/22.7c6576ee.js"><link rel="prefetch" href="/assets/js/220.e5bf5611.js"><link rel="prefetch" href="/assets/js/221.cc356eaf.js"><link rel="prefetch" href="/assets/js/222.644bce9b.js"><link rel="prefetch" href="/assets/js/223.f7e55f34.js"><link rel="prefetch" href="/assets/js/224.200a4995.js"><link rel="prefetch" href="/assets/js/225.f41daa8d.js"><link rel="prefetch" href="/assets/js/226.50cf0ae4.js"><link rel="prefetch" href="/assets/js/227.d05a7950.js"><link rel="prefetch" href="/assets/js/228.a53d4d8b.js"><link rel="prefetch" href="/assets/js/229.2d1942a7.js"><link rel="prefetch" href="/assets/js/23.a2b492ab.js"><link rel="prefetch" href="/assets/js/230.dd8bc9eb.js"><link rel="prefetch" href="/assets/js/231.7aed3465.js"><link rel="prefetch" href="/assets/js/232.92826391.js"><link rel="prefetch" href="/assets/js/233.0f8f9aaa.js"><link rel="prefetch" href="/assets/js/234.6166cf93.js"><link rel="prefetch" href="/assets/js/235.bea25137.js"><link rel="prefetch" href="/assets/js/236.655e6d3e.js"><link rel="prefetch" href="/assets/js/237.571b4325.js"><link rel="prefetch" href="/assets/js/238.65b40ef3.js"><link rel="prefetch" href="/assets/js/239.6a89d6a9.js"><link rel="prefetch" href="/assets/js/24.84ed880c.js"><link rel="prefetch" href="/assets/js/240.ec4f329f.js"><link rel="prefetch" href="/assets/js/241.35613e56.js"><link rel="prefetch" href="/assets/js/242.37d3663e.js"><link rel="prefetch" href="/assets/js/243.fd331393.js"><link rel="prefetch" href="/assets/js/244.8117f28e.js"><link rel="prefetch" href="/assets/js/245.ece66eff.js"><link rel="prefetch" href="/assets/js/246.c6f08cf2.js"><link rel="prefetch" href="/assets/js/247.787c85d6.js"><link rel="prefetch" href="/assets/js/248.fa0db078.js"><link rel="prefetch" href="/assets/js/249.25bfcf0e.js"><link rel="prefetch" href="/assets/js/25.15b1f1d7.js"><link rel="prefetch" href="/assets/js/250.d0dde8d6.js"><link rel="prefetch" href="/assets/js/251.b3ec8a43.js"><link rel="prefetch" href="/assets/js/252.eaae806e.js"><link rel="prefetch" href="/assets/js/253.9dc64be8.js"><link rel="prefetch" href="/assets/js/254.f196fe4e.js"><link rel="prefetch" href="/assets/js/255.fc627874.js"><link rel="prefetch" href="/assets/js/256.22ae3e03.js"><link rel="prefetch" href="/assets/js/257.0511d7fd.js"><link rel="prefetch" href="/assets/js/258.6e981803.js"><link rel="prefetch" href="/assets/js/259.936aae94.js"><link rel="prefetch" href="/assets/js/26.4ff8aa69.js"><link rel="prefetch" href="/assets/js/260.a9f49e07.js"><link rel="prefetch" href="/assets/js/261.81ba820e.js"><link rel="prefetch" href="/assets/js/262.ad22cb89.js"><link rel="prefetch" href="/assets/js/263.6b095e46.js"><link rel="prefetch" href="/assets/js/264.5c7129be.js"><link rel="prefetch" href="/assets/js/265.76c5f7c0.js"><link rel="prefetch" href="/assets/js/266.8a781b82.js"><link rel="prefetch" href="/assets/js/267.357d570c.js"><link rel="prefetch" href="/assets/js/268.1ee07e46.js"><link rel="prefetch" href="/assets/js/269.9e69cf2d.js"><link rel="prefetch" href="/assets/js/27.c024c10b.js"><link rel="prefetch" href="/assets/js/270.0936cd29.js"><link rel="prefetch" href="/assets/js/271.194362b6.js"><link rel="prefetch" href="/assets/js/272.3394f654.js"><link rel="prefetch" href="/assets/js/273.1a853676.js"><link rel="prefetch" href="/assets/js/274.3b668a7c.js"><link rel="prefetch" href="/assets/js/275.000a0920.js"><link rel="prefetch" href="/assets/js/276.7fc9cbc0.js"><link rel="prefetch" href="/assets/js/277.ecf28522.js"><link rel="prefetch" href="/assets/js/278.3f31bc1f.js"><link rel="prefetch" href="/assets/js/279.f3ee4fad.js"><link rel="prefetch" href="/assets/js/28.c0cfe209.js"><link rel="prefetch" href="/assets/js/280.27ec9f8a.js"><link rel="prefetch" href="/assets/js/281.081e3ef5.js"><link rel="prefetch" href="/assets/js/282.c4e85221.js"><link rel="prefetch" href="/assets/js/283.373ee2f5.js"><link rel="prefetch" href="/assets/js/284.828f176c.js"><link rel="prefetch" href="/assets/js/285.b90f7cde.js"><link rel="prefetch" href="/assets/js/286.af1352e5.js"><link rel="prefetch" href="/assets/js/287.0fb0f148.js"><link rel="prefetch" href="/assets/js/288.f4d0652f.js"><link rel="prefetch" href="/assets/js/289.c417d3da.js"><link rel="prefetch" href="/assets/js/29.7e4a3ea4.js"><link rel="prefetch" href="/assets/js/290.d7fb762c.js"><link rel="prefetch" href="/assets/js/291.86d6a112.js"><link rel="prefetch" href="/assets/js/292.715aeb3c.js"><link rel="prefetch" href="/assets/js/293.e8907b99.js"><link rel="prefetch" href="/assets/js/294.43d3c0db.js"><link rel="prefetch" href="/assets/js/295.3170a999.js"><link rel="prefetch" href="/assets/js/296.c9621850.js"><link rel="prefetch" href="/assets/js/297.355c336c.js"><link rel="prefetch" href="/assets/js/298.512eb2e5.js"><link rel="prefetch" href="/assets/js/299.c346af9a.js"><link rel="prefetch" href="/assets/js/30.dcea5a4e.js"><link rel="prefetch" href="/assets/js/300.66894041.js"><link rel="prefetch" href="/assets/js/301.cb6538b8.js"><link rel="prefetch" href="/assets/js/302.7132fc18.js"><link rel="prefetch" href="/assets/js/303.1d09d8c8.js"><link rel="prefetch" href="/assets/js/304.4414a364.js"><link rel="prefetch" href="/assets/js/305.fc1bb1e7.js"><link rel="prefetch" href="/assets/js/306.c4a444dc.js"><link rel="prefetch" href="/assets/js/307.bfd11e03.js"><link rel="prefetch" href="/assets/js/308.c6dd3ac7.js"><link rel="prefetch" href="/assets/js/309.52c258d0.js"><link rel="prefetch" href="/assets/js/31.55b8ac17.js"><link rel="prefetch" href="/assets/js/310.d26dc696.js"><link rel="prefetch" href="/assets/js/311.0768e13e.js"><link rel="prefetch" href="/assets/js/312.89a4d33b.js"><link rel="prefetch" href="/assets/js/313.b0f9912c.js"><link rel="prefetch" href="/assets/js/314.ac7d0472.js"><link rel="prefetch" href="/assets/js/315.2e173f0b.js"><link rel="prefetch" href="/assets/js/316.92ecaf2e.js"><link rel="prefetch" href="/assets/js/317.06d07b92.js"><link rel="prefetch" href="/assets/js/318.deba2ecb.js"><link rel="prefetch" href="/assets/js/319.a845ff24.js"><link rel="prefetch" href="/assets/js/32.5483fd48.js"><link rel="prefetch" href="/assets/js/320.d8130a40.js"><link rel="prefetch" href="/assets/js/321.fce0bfc7.js"><link rel="prefetch" href="/assets/js/322.43f6fc17.js"><link rel="prefetch" href="/assets/js/323.48ef65d0.js"><link rel="prefetch" href="/assets/js/324.340b6974.js"><link rel="prefetch" href="/assets/js/325.244e61e9.js"><link rel="prefetch" href="/assets/js/326.10a1a723.js"><link rel="prefetch" href="/assets/js/327.ec2db458.js"><link rel="prefetch" href="/assets/js/328.a61c0539.js"><link rel="prefetch" href="/assets/js/329.b04e5a60.js"><link rel="prefetch" href="/assets/js/33.c6a39320.js"><link rel="prefetch" href="/assets/js/330.19586fd8.js"><link rel="prefetch" href="/assets/js/331.704038e2.js"><link rel="prefetch" href="/assets/js/332.5111b6b4.js"><link rel="prefetch" href="/assets/js/333.6429bf44.js"><link rel="prefetch" href="/assets/js/334.b2a7e8ba.js"><link rel="prefetch" href="/assets/js/335.9ccd01c3.js"><link rel="prefetch" href="/assets/js/336.28855abb.js"><link rel="prefetch" href="/assets/js/337.d8c89bfd.js"><link rel="prefetch" href="/assets/js/338.3a36004a.js"><link rel="prefetch" href="/assets/js/339.4fe018ee.js"><link rel="prefetch" href="/assets/js/34.eef1148f.js"><link rel="prefetch" href="/assets/js/340.8273d77e.js"><link rel="prefetch" href="/assets/js/341.819ac7d5.js"><link rel="prefetch" href="/assets/js/342.afe5ac20.js"><link rel="prefetch" href="/assets/js/343.2fd610ab.js"><link rel="prefetch" href="/assets/js/344.a97b9d3e.js"><link rel="prefetch" href="/assets/js/345.71647353.js"><link rel="prefetch" href="/assets/js/346.40865977.js"><link rel="prefetch" href="/assets/js/347.d9ccd442.js"><link rel="prefetch" href="/assets/js/348.a016cf84.js"><link rel="prefetch" href="/assets/js/349.e44e64c4.js"><link rel="prefetch" href="/assets/js/35.e986be0f.js"><link rel="prefetch" href="/assets/js/350.8137f53d.js"><link rel="prefetch" href="/assets/js/351.886a9b8e.js"><link rel="prefetch" href="/assets/js/352.704ea6ca.js"><link rel="prefetch" href="/assets/js/353.32c58280.js"><link rel="prefetch" href="/assets/js/354.bfc9dd65.js"><link rel="prefetch" href="/assets/js/355.5bc9089b.js"><link rel="prefetch" href="/assets/js/356.f52e875f.js"><link rel="prefetch" href="/assets/js/357.06d64f35.js"><link rel="prefetch" href="/assets/js/358.66630336.js"><link rel="prefetch" href="/assets/js/359.ca4ed060.js"><link rel="prefetch" href="/assets/js/36.923b32a3.js"><link rel="prefetch" href="/assets/js/360.808cc488.js"><link rel="prefetch" href="/assets/js/361.9bee250d.js"><link rel="prefetch" href="/assets/js/362.39c4e32c.js"><link rel="prefetch" href="/assets/js/363.8e700058.js"><link rel="prefetch" href="/assets/js/364.6738d9e3.js"><link rel="prefetch" href="/assets/js/365.bd8fd93c.js"><link rel="prefetch" href="/assets/js/366.31e636bb.js"><link rel="prefetch" href="/assets/js/367.0375ee63.js"><link rel="prefetch" href="/assets/js/368.4485cddf.js"><link rel="prefetch" href="/assets/js/369.39eba468.js"><link rel="prefetch" href="/assets/js/37.e34f1764.js"><link rel="prefetch" href="/assets/js/370.280471eb.js"><link rel="prefetch" href="/assets/js/371.fbff096f.js"><link rel="prefetch" href="/assets/js/372.919d0719.js"><link rel="prefetch" href="/assets/js/373.a53e20f2.js"><link rel="prefetch" href="/assets/js/374.4b5a210f.js"><link rel="prefetch" href="/assets/js/375.87f282f7.js"><link rel="prefetch" href="/assets/js/376.b05439b4.js"><link rel="prefetch" href="/assets/js/377.b76dd99d.js"><link rel="prefetch" href="/assets/js/378.80d11377.js"><link rel="prefetch" href="/assets/js/379.1aed519d.js"><link rel="prefetch" href="/assets/js/38.16cd7130.js"><link rel="prefetch" href="/assets/js/380.d6392167.js"><link rel="prefetch" href="/assets/js/381.291a3656.js"><link rel="prefetch" href="/assets/js/382.c0701f72.js"><link rel="prefetch" href="/assets/js/383.a72531d3.js"><link rel="prefetch" href="/assets/js/384.53539ebf.js"><link rel="prefetch" href="/assets/js/385.c6933ae6.js"><link rel="prefetch" href="/assets/js/386.3c33d1bf.js"><link rel="prefetch" href="/assets/js/387.528b4cf9.js"><link rel="prefetch" href="/assets/js/388.1bb75f5b.js"><link rel="prefetch" href="/assets/js/389.ce3197a5.js"><link rel="prefetch" href="/assets/js/39.24f48184.js"><link rel="prefetch" href="/assets/js/390.dbb5baf3.js"><link rel="prefetch" href="/assets/js/391.91597a15.js"><link rel="prefetch" href="/assets/js/392.3bd73c78.js"><link rel="prefetch" href="/assets/js/393.acb78541.js"><link rel="prefetch" href="/assets/js/394.b4596543.js"><link rel="prefetch" href="/assets/js/395.f820112e.js"><link rel="prefetch" href="/assets/js/396.efadc8d6.js"><link rel="prefetch" href="/assets/js/397.82a47f4f.js"><link rel="prefetch" href="/assets/js/398.4bf54428.js"><link rel="prefetch" href="/assets/js/399.98357c79.js"><link rel="prefetch" href="/assets/js/4.30877887.js"><link rel="prefetch" href="/assets/js/40.30e202cc.js"><link rel="prefetch" href="/assets/js/400.44525c06.js"><link rel="prefetch" href="/assets/js/401.4efde0de.js"><link rel="prefetch" href="/assets/js/402.f7049a4a.js"><link rel="prefetch" href="/assets/js/403.bef6fd53.js"><link rel="prefetch" href="/assets/js/404.eebebb78.js"><link rel="prefetch" href="/assets/js/405.dda704a5.js"><link rel="prefetch" href="/assets/js/406.e5025c40.js"><link rel="prefetch" href="/assets/js/407.7ca5134b.js"><link rel="prefetch" href="/assets/js/408.ba961bee.js"><link rel="prefetch" href="/assets/js/409.bc1d9d2e.js"><link rel="prefetch" href="/assets/js/41.f5006020.js"><link rel="prefetch" href="/assets/js/410.e3ccdcb5.js"><link rel="prefetch" href="/assets/js/411.53aef9e8.js"><link rel="prefetch" href="/assets/js/412.f5a8f540.js"><link rel="prefetch" href="/assets/js/413.88a4aad8.js"><link rel="prefetch" href="/assets/js/414.bd6832a7.js"><link rel="prefetch" href="/assets/js/415.62d594f7.js"><link rel="prefetch" href="/assets/js/416.eb123513.js"><link rel="prefetch" href="/assets/js/417.74aabea2.js"><link rel="prefetch" href="/assets/js/418.32e4732c.js"><link rel="prefetch" href="/assets/js/419.03387f6f.js"><link rel="prefetch" href="/assets/js/42.250644cd.js"><link rel="prefetch" href="/assets/js/420.c26dfb44.js"><link rel="prefetch" href="/assets/js/421.c1928513.js"><link rel="prefetch" href="/assets/js/422.742e625b.js"><link rel="prefetch" href="/assets/js/423.ee211e8c.js"><link rel="prefetch" href="/assets/js/424.6651ccf7.js"><link rel="prefetch" href="/assets/js/425.54a51c34.js"><link rel="prefetch" href="/assets/js/426.386773b4.js"><link rel="prefetch" href="/assets/js/427.865dc5a1.js"><link rel="prefetch" href="/assets/js/428.f07b95f5.js"><link rel="prefetch" href="/assets/js/429.54665e90.js"><link rel="prefetch" href="/assets/js/43.a231db21.js"><link rel="prefetch" href="/assets/js/430.2df0ba58.js"><link rel="prefetch" href="/assets/js/431.2cdaa134.js"><link rel="prefetch" href="/assets/js/432.7817d8a1.js"><link rel="prefetch" href="/assets/js/433.609a5cbb.js"><link rel="prefetch" href="/assets/js/434.8e644fd0.js"><link rel="prefetch" href="/assets/js/435.4d90cba8.js"><link rel="prefetch" href="/assets/js/436.c7ce2d13.js"><link rel="prefetch" href="/assets/js/437.0db3be32.js"><link rel="prefetch" href="/assets/js/438.74095160.js"><link rel="prefetch" href="/assets/js/439.be1052c1.js"><link rel="prefetch" href="/assets/js/44.67ad4c6f.js"><link rel="prefetch" href="/assets/js/440.634360be.js"><link rel="prefetch" href="/assets/js/441.b06bb870.js"><link rel="prefetch" href="/assets/js/442.f3dd45e8.js"><link rel="prefetch" href="/assets/js/443.362d1066.js"><link rel="prefetch" href="/assets/js/444.2548d15f.js"><link rel="prefetch" href="/assets/js/445.ca0074e5.js"><link rel="prefetch" href="/assets/js/446.ee2f1e48.js"><link rel="prefetch" href="/assets/js/447.1ebb1e29.js"><link rel="prefetch" href="/assets/js/448.f01b3cb8.js"><link rel="prefetch" href="/assets/js/449.623ecbc0.js"><link rel="prefetch" href="/assets/js/45.1f1b18a2.js"><link rel="prefetch" href="/assets/js/450.0bffc69a.js"><link rel="prefetch" href="/assets/js/451.f5688547.js"><link rel="prefetch" href="/assets/js/452.33ca49e1.js"><link rel="prefetch" href="/assets/js/453.047f285b.js"><link rel="prefetch" href="/assets/js/454.5a7cc297.js"><link rel="prefetch" href="/assets/js/455.b83de8b2.js"><link rel="prefetch" href="/assets/js/456.f3d5074b.js"><link rel="prefetch" href="/assets/js/457.50c86d20.js"><link rel="prefetch" href="/assets/js/458.a9bf79d6.js"><link rel="prefetch" href="/assets/js/459.b5417c01.js"><link rel="prefetch" href="/assets/js/46.7b1a97e1.js"><link rel="prefetch" href="/assets/js/460.78f0f3b2.js"><link rel="prefetch" href="/assets/js/461.15d008a0.js"><link rel="prefetch" href="/assets/js/462.a229d2fc.js"><link rel="prefetch" href="/assets/js/463.e39c7fa4.js"><link rel="prefetch" href="/assets/js/464.c6316b97.js"><link rel="prefetch" href="/assets/js/465.1f1cb467.js"><link rel="prefetch" href="/assets/js/466.010151f0.js"><link rel="prefetch" href="/assets/js/467.dfa1e6ee.js"><link rel="prefetch" href="/assets/js/468.c76fb6df.js"><link rel="prefetch" href="/assets/js/469.496e9bd1.js"><link rel="prefetch" href="/assets/js/47.ec779a73.js"><link rel="prefetch" href="/assets/js/470.4d407af8.js"><link rel="prefetch" href="/assets/js/471.ebc01f71.js"><link rel="prefetch" href="/assets/js/472.8ea6baea.js"><link rel="prefetch" href="/assets/js/473.4b01bfbf.js"><link rel="prefetch" href="/assets/js/474.6c0d982b.js"><link rel="prefetch" href="/assets/js/475.7659c5cb.js"><link rel="prefetch" href="/assets/js/476.0f71ac7c.js"><link rel="prefetch" href="/assets/js/477.b467e805.js"><link rel="prefetch" href="/assets/js/478.f3406c71.js"><link rel="prefetch" href="/assets/js/479.b38b1df1.js"><link rel="prefetch" href="/assets/js/48.1908c364.js"><link rel="prefetch" href="/assets/js/480.11e463b0.js"><link rel="prefetch" href="/assets/js/481.c69ce55a.js"><link rel="prefetch" href="/assets/js/482.ff477b05.js"><link rel="prefetch" href="/assets/js/483.099502c4.js"><link rel="prefetch" href="/assets/js/484.32e6e06d.js"><link rel="prefetch" href="/assets/js/485.79846b19.js"><link rel="prefetch" href="/assets/js/486.4af99d73.js"><link rel="prefetch" href="/assets/js/487.54e3663c.js"><link rel="prefetch" href="/assets/js/488.5e9aee6b.js"><link rel="prefetch" href="/assets/js/489.9d70d0c4.js"><link rel="prefetch" href="/assets/js/49.b8a578c8.js"><link rel="prefetch" href="/assets/js/490.100e7f93.js"><link rel="prefetch" href="/assets/js/491.f89a3d63.js"><link rel="prefetch" href="/assets/js/492.28e66334.js"><link rel="prefetch" href="/assets/js/493.7fca489f.js"><link rel="prefetch" href="/assets/js/494.05b8d5a0.js"><link rel="prefetch" href="/assets/js/495.96acd034.js"><link rel="prefetch" href="/assets/js/496.26ffc8e9.js"><link rel="prefetch" href="/assets/js/497.064a4b6b.js"><link rel="prefetch" href="/assets/js/498.7d7b5a0d.js"><link rel="prefetch" href="/assets/js/499.6f62b64a.js"><link rel="prefetch" href="/assets/js/5.316e4b97.js"><link rel="prefetch" href="/assets/js/50.5f6b1d33.js"><link rel="prefetch" href="/assets/js/500.1cdb0059.js"><link rel="prefetch" href="/assets/js/501.4abb9f27.js"><link rel="prefetch" href="/assets/js/502.5a91e3bb.js"><link rel="prefetch" href="/assets/js/503.1677d928.js"><link rel="prefetch" href="/assets/js/504.5c6ed713.js"><link rel="prefetch" href="/assets/js/505.4a7a7e2b.js"><link rel="prefetch" href="/assets/js/506.0fba25eb.js"><link rel="prefetch" href="/assets/js/507.b5987332.js"><link rel="prefetch" href="/assets/js/508.681edc92.js"><link rel="prefetch" href="/assets/js/509.0681afaa.js"><link rel="prefetch" href="/assets/js/51.cb0f125f.js"><link rel="prefetch" href="/assets/js/510.5995f183.js"><link rel="prefetch" href="/assets/js/511.e5a55a36.js"><link rel="prefetch" href="/assets/js/512.98765ab9.js"><link rel="prefetch" href="/assets/js/513.566815b5.js"><link rel="prefetch" href="/assets/js/514.ee4e5f2e.js"><link rel="prefetch" href="/assets/js/515.41f5f5fa.js"><link rel="prefetch" href="/assets/js/516.de2bac1b.js"><link rel="prefetch" href="/assets/js/517.5bb935b0.js"><link rel="prefetch" href="/assets/js/518.e66227e5.js"><link rel="prefetch" href="/assets/js/519.671ddeae.js"><link rel="prefetch" href="/assets/js/52.989b3116.js"><link rel="prefetch" href="/assets/js/520.d04ccce8.js"><link rel="prefetch" href="/assets/js/521.59601b13.js"><link rel="prefetch" href="/assets/js/522.a7f72af3.js"><link rel="prefetch" href="/assets/js/523.68c20409.js"><link rel="prefetch" href="/assets/js/524.c974d7d6.js"><link rel="prefetch" href="/assets/js/525.732a0c84.js"><link rel="prefetch" href="/assets/js/526.2b100f0e.js"><link rel="prefetch" href="/assets/js/527.53b5651d.js"><link rel="prefetch" href="/assets/js/528.1b230049.js"><link rel="prefetch" href="/assets/js/529.faa22941.js"><link rel="prefetch" href="/assets/js/53.f4152613.js"><link rel="prefetch" href="/assets/js/530.93bc7f03.js"><link rel="prefetch" href="/assets/js/531.b243df9b.js"><link rel="prefetch" href="/assets/js/532.d441f8ed.js"><link rel="prefetch" href="/assets/js/533.b099c881.js"><link rel="prefetch" href="/assets/js/534.24b6e45b.js"><link rel="prefetch" href="/assets/js/535.b8d91336.js"><link rel="prefetch" href="/assets/js/536.0890bad5.js"><link rel="prefetch" href="/assets/js/537.66e1d379.js"><link rel="prefetch" href="/assets/js/538.e23d8ced.js"><link rel="prefetch" href="/assets/js/539.6f320787.js"><link rel="prefetch" href="/assets/js/54.5da910a5.js"><link rel="prefetch" href="/assets/js/540.a3bcb01a.js"><link rel="prefetch" href="/assets/js/541.ccd52d3b.js"><link rel="prefetch" href="/assets/js/542.342c9dce.js"><link rel="prefetch" href="/assets/js/543.55c53f27.js"><link rel="prefetch" href="/assets/js/544.28ae6af1.js"><link rel="prefetch" href="/assets/js/545.8f6b7dcf.js"><link rel="prefetch" href="/assets/js/546.08a55b0a.js"><link rel="prefetch" href="/assets/js/547.9f00abbe.js"><link rel="prefetch" href="/assets/js/548.812ec54d.js"><link rel="prefetch" href="/assets/js/549.ce147fd4.js"><link rel="prefetch" href="/assets/js/55.656b70fd.js"><link rel="prefetch" href="/assets/js/550.26ec7a64.js"><link rel="prefetch" href="/assets/js/551.da47c7b4.js"><link rel="prefetch" href="/assets/js/552.59f8e4d9.js"><link rel="prefetch" href="/assets/js/553.95c0c6bd.js"><link rel="prefetch" href="/assets/js/554.5aba59bf.js"><link rel="prefetch" href="/assets/js/555.a8eabd01.js"><link rel="prefetch" href="/assets/js/556.0281ff68.js"><link rel="prefetch" href="/assets/js/557.2b552f7e.js"><link rel="prefetch" href="/assets/js/558.f699e776.js"><link rel="prefetch" href="/assets/js/559.3c445181.js"><link rel="prefetch" href="/assets/js/56.017a1559.js"><link rel="prefetch" href="/assets/js/560.9b1fd250.js"><link rel="prefetch" href="/assets/js/561.61fc7f6c.js"><link rel="prefetch" href="/assets/js/562.f321a012.js"><link rel="prefetch" href="/assets/js/563.2db58f8b.js"><link rel="prefetch" href="/assets/js/564.f43a44a5.js"><link rel="prefetch" href="/assets/js/565.61ec4af3.js"><link rel="prefetch" href="/assets/js/566.b564b837.js"><link rel="prefetch" href="/assets/js/567.0221730c.js"><link rel="prefetch" href="/assets/js/568.44c98d06.js"><link rel="prefetch" href="/assets/js/569.c6136011.js"><link rel="prefetch" href="/assets/js/57.c01f8995.js"><link rel="prefetch" href="/assets/js/570.5da6a5ef.js"><link rel="prefetch" href="/assets/js/571.4adfdf9e.js"><link rel="prefetch" href="/assets/js/572.07cea4c6.js"><link rel="prefetch" href="/assets/js/573.a3e59408.js"><link rel="prefetch" href="/assets/js/574.27d448cc.js"><link rel="prefetch" href="/assets/js/575.ad85f9eb.js"><link rel="prefetch" href="/assets/js/576.a2f50e3d.js"><link rel="prefetch" href="/assets/js/577.09f9dd28.js"><link rel="prefetch" href="/assets/js/578.488b7200.js"><link rel="prefetch" href="/assets/js/579.08a26dc0.js"><link rel="prefetch" href="/assets/js/58.8a8d4d8c.js"><link rel="prefetch" href="/assets/js/580.4e33ccf4.js"><link rel="prefetch" href="/assets/js/581.1a222ef3.js"><link rel="prefetch" href="/assets/js/582.42c6e44e.js"><link rel="prefetch" href="/assets/js/583.314edd81.js"><link rel="prefetch" href="/assets/js/584.41254370.js"><link rel="prefetch" href="/assets/js/585.6792eaec.js"><link rel="prefetch" href="/assets/js/586.fdca9ff2.js"><link rel="prefetch" href="/assets/js/587.a4372ffd.js"><link rel="prefetch" href="/assets/js/588.1b05a617.js"><link rel="prefetch" href="/assets/js/589.d2531512.js"><link rel="prefetch" href="/assets/js/59.7fa7f950.js"><link rel="prefetch" href="/assets/js/590.9d270cff.js"><link rel="prefetch" href="/assets/js/591.e3550b3e.js"><link rel="prefetch" href="/assets/js/592.9332efdb.js"><link rel="prefetch" href="/assets/js/593.0b78b038.js"><link rel="prefetch" href="/assets/js/594.6c290e10.js"><link rel="prefetch" href="/assets/js/595.18caddf4.js"><link rel="prefetch" href="/assets/js/596.fd193b33.js"><link rel="prefetch" href="/assets/js/597.67deb144.js"><link rel="prefetch" href="/assets/js/598.3e18effc.js"><link rel="prefetch" href="/assets/js/599.41385e80.js"><link rel="prefetch" href="/assets/js/6.991c7ff5.js"><link rel="prefetch" href="/assets/js/60.c409109b.js"><link rel="prefetch" href="/assets/js/600.fcff769c.js"><link rel="prefetch" href="/assets/js/601.9c541fac.js"><link rel="prefetch" href="/assets/js/602.e4beb6cf.js"><link rel="prefetch" href="/assets/js/603.9e58bb47.js"><link rel="prefetch" href="/assets/js/604.40bf05f4.js"><link rel="prefetch" href="/assets/js/605.5ad04884.js"><link rel="prefetch" href="/assets/js/606.99a83121.js"><link rel="prefetch" href="/assets/js/607.0f66ea70.js"><link rel="prefetch" href="/assets/js/608.7fdf123d.js"><link rel="prefetch" href="/assets/js/609.dc9e8fb8.js"><link rel="prefetch" href="/assets/js/61.39bd14bc.js"><link rel="prefetch" href="/assets/js/610.ea22ca7b.js"><link rel="prefetch" href="/assets/js/611.6eb72c48.js"><link rel="prefetch" href="/assets/js/612.38204de1.js"><link rel="prefetch" href="/assets/js/613.74efad7b.js"><link rel="prefetch" href="/assets/js/614.be37e06d.js"><link rel="prefetch" href="/assets/js/615.3768eaec.js"><link rel="prefetch" href="/assets/js/616.6789e85c.js"><link rel="prefetch" href="/assets/js/617.5819dfb9.js"><link rel="prefetch" href="/assets/js/618.29486a70.js"><link rel="prefetch" href="/assets/js/619.740a50f0.js"><link rel="prefetch" href="/assets/js/62.02a00770.js"><link rel="prefetch" href="/assets/js/620.61eccdc2.js"><link rel="prefetch" href="/assets/js/621.d6beab6d.js"><link rel="prefetch" href="/assets/js/622.c553fd0d.js"><link rel="prefetch" href="/assets/js/623.ef18afc5.js"><link rel="prefetch" href="/assets/js/624.834100bf.js"><link rel="prefetch" href="/assets/js/625.280b29f4.js"><link rel="prefetch" href="/assets/js/626.c608ada6.js"><link rel="prefetch" href="/assets/js/627.601d0c03.js"><link rel="prefetch" href="/assets/js/628.06ed0423.js"><link rel="prefetch" href="/assets/js/629.61cf9f39.js"><link rel="prefetch" href="/assets/js/63.8a986460.js"><link rel="prefetch" href="/assets/js/630.af8f2c80.js"><link rel="prefetch" href="/assets/js/631.519ce7b3.js"><link rel="prefetch" href="/assets/js/632.80260ea2.js"><link rel="prefetch" href="/assets/js/633.12e4f848.js"><link rel="prefetch" href="/assets/js/634.5dff9629.js"><link rel="prefetch" href="/assets/js/635.3180b6c6.js"><link rel="prefetch" href="/assets/js/636.e415f0ff.js"><link rel="prefetch" href="/assets/js/637.ef6864e7.js"><link rel="prefetch" href="/assets/js/638.ae8a35c2.js"><link rel="prefetch" href="/assets/js/639.87c8f353.js"><link rel="prefetch" href="/assets/js/64.0b86543f.js"><link rel="prefetch" href="/assets/js/640.0512f89b.js"><link rel="prefetch" href="/assets/js/641.6ac339a1.js"><link rel="prefetch" href="/assets/js/642.ef68c76c.js"><link rel="prefetch" href="/assets/js/643.6a983a5c.js"><link rel="prefetch" href="/assets/js/644.38bb34bf.js"><link rel="prefetch" href="/assets/js/645.13c5ed46.js"><link rel="prefetch" href="/assets/js/646.c7fb6374.js"><link rel="prefetch" href="/assets/js/647.f0249e54.js"><link rel="prefetch" href="/assets/js/648.735de108.js"><link rel="prefetch" href="/assets/js/649.70987deb.js"><link rel="prefetch" href="/assets/js/65.578b2d6c.js"><link rel="prefetch" href="/assets/js/650.0d5bde13.js"><link rel="prefetch" href="/assets/js/651.3bb1b877.js"><link rel="prefetch" href="/assets/js/652.3ed724f4.js"><link rel="prefetch" href="/assets/js/653.e9b79f3e.js"><link rel="prefetch" href="/assets/js/654.492bf3a3.js"><link rel="prefetch" href="/assets/js/655.98e8737b.js"><link rel="prefetch" href="/assets/js/656.20b5060e.js"><link rel="prefetch" href="/assets/js/657.7a79e87e.js"><link rel="prefetch" href="/assets/js/658.3b58b83a.js"><link rel="prefetch" href="/assets/js/659.7724e984.js"><link rel="prefetch" href="/assets/js/66.4ffaf0c0.js"><link rel="prefetch" href="/assets/js/660.e6fdd66e.js"><link rel="prefetch" href="/assets/js/661.c25fe617.js"><link rel="prefetch" href="/assets/js/662.df60f147.js"><link rel="prefetch" href="/assets/js/663.ad9f5ad1.js"><link rel="prefetch" href="/assets/js/664.ebc71a0e.js"><link rel="prefetch" href="/assets/js/665.cc27a4f2.js"><link rel="prefetch" href="/assets/js/666.271754d3.js"><link rel="prefetch" href="/assets/js/667.c6dc5d11.js"><link rel="prefetch" href="/assets/js/668.9039219a.js"><link rel="prefetch" href="/assets/js/669.3a4c79e6.js"><link rel="prefetch" href="/assets/js/67.6c167a0e.js"><link rel="prefetch" href="/assets/js/670.6cffd2e2.js"><link rel="prefetch" href="/assets/js/671.98309d48.js"><link rel="prefetch" href="/assets/js/672.3a155e58.js"><link rel="prefetch" href="/assets/js/673.a28023fc.js"><link rel="prefetch" href="/assets/js/674.9be4db9b.js"><link rel="prefetch" href="/assets/js/675.da4a8768.js"><link rel="prefetch" href="/assets/js/676.dc96ca09.js"><link rel="prefetch" href="/assets/js/677.97a0ec19.js"><link rel="prefetch" href="/assets/js/678.10b36590.js"><link rel="prefetch" href="/assets/js/679.975fce13.js"><link rel="prefetch" href="/assets/js/68.2205277d.js"><link rel="prefetch" href="/assets/js/680.cfceff98.js"><link rel="prefetch" href="/assets/js/681.2d713fa3.js"><link rel="prefetch" href="/assets/js/682.cb7025ee.js"><link rel="prefetch" href="/assets/js/683.88040a63.js"><link rel="prefetch" href="/assets/js/684.abdf1b6d.js"><link rel="prefetch" href="/assets/js/685.46af8879.js"><link rel="prefetch" href="/assets/js/686.c3d5cd89.js"><link rel="prefetch" href="/assets/js/687.cd37eb8e.js"><link rel="prefetch" href="/assets/js/688.8d16149f.js"><link rel="prefetch" href="/assets/js/689.c8cab4b0.js"><link rel="prefetch" href="/assets/js/69.2ab52aba.js"><link rel="prefetch" href="/assets/js/690.c95e494d.js"><link rel="prefetch" href="/assets/js/691.2351d864.js"><link rel="prefetch" href="/assets/js/692.cd4ab8ec.js"><link rel="prefetch" href="/assets/js/693.470c2969.js"><link rel="prefetch" href="/assets/js/694.825c6b38.js"><link rel="prefetch" href="/assets/js/695.070dd68d.js"><link rel="prefetch" href="/assets/js/696.5fc3b9a4.js"><link rel="prefetch" href="/assets/js/697.962b5403.js"><link rel="prefetch" href="/assets/js/698.f6154167.js"><link rel="prefetch" href="/assets/js/699.812f06ba.js"><link rel="prefetch" href="/assets/js/7.f43d5bda.js"><link rel="prefetch" href="/assets/js/70.e0b31279.js"><link rel="prefetch" href="/assets/js/700.d03a89af.js"><link rel="prefetch" href="/assets/js/701.97892d1b.js"><link rel="prefetch" href="/assets/js/702.5295bee7.js"><link rel="prefetch" href="/assets/js/703.6501366c.js"><link rel="prefetch" href="/assets/js/704.5e81cb81.js"><link rel="prefetch" href="/assets/js/705.785b7a49.js"><link rel="prefetch" href="/assets/js/706.79a54cb8.js"><link rel="prefetch" href="/assets/js/707.e92e66b9.js"><link rel="prefetch" href="/assets/js/708.c33ceeda.js"><link rel="prefetch" href="/assets/js/709.5a3f2281.js"><link rel="prefetch" href="/assets/js/71.c9ca0a10.js"><link rel="prefetch" href="/assets/js/710.b3ca1fec.js"><link rel="prefetch" href="/assets/js/711.fea1964e.js"><link rel="prefetch" href="/assets/js/712.32915617.js"><link rel="prefetch" href="/assets/js/713.adbc7d5c.js"><link rel="prefetch" href="/assets/js/714.4b63d6dd.js"><link rel="prefetch" href="/assets/js/715.066cc962.js"><link rel="prefetch" href="/assets/js/716.aa9a39fb.js"><link rel="prefetch" href="/assets/js/717.7fdfd6a3.js"><link rel="prefetch" href="/assets/js/718.1f88671c.js"><link rel="prefetch" href="/assets/js/719.abdde58c.js"><link rel="prefetch" href="/assets/js/72.3b5d92b3.js"><link rel="prefetch" href="/assets/js/720.932e5f42.js"><link rel="prefetch" href="/assets/js/721.459de065.js"><link rel="prefetch" href="/assets/js/722.02dc46b2.js"><link rel="prefetch" href="/assets/js/723.7eea54a9.js"><link rel="prefetch" href="/assets/js/724.c5fb2768.js"><link rel="prefetch" href="/assets/js/725.f201666e.js"><link rel="prefetch" href="/assets/js/726.29223095.js"><link rel="prefetch" href="/assets/js/727.20fa4c1b.js"><link rel="prefetch" href="/assets/js/728.43a4fc60.js"><link rel="prefetch" href="/assets/js/729.599724d8.js"><link rel="prefetch" href="/assets/js/73.9094bd40.js"><link rel="prefetch" href="/assets/js/730.0d36d36c.js"><link rel="prefetch" href="/assets/js/731.7daf8775.js"><link rel="prefetch" href="/assets/js/732.b6963550.js"><link rel="prefetch" href="/assets/js/733.f95999e0.js"><link rel="prefetch" href="/assets/js/734.d2559ec2.js"><link rel="prefetch" href="/assets/js/735.cd07ac1f.js"><link rel="prefetch" href="/assets/js/736.b9d607f4.js"><link rel="prefetch" href="/assets/js/737.89422cac.js"><link rel="prefetch" href="/assets/js/738.11646fdd.js"><link rel="prefetch" href="/assets/js/739.cd90ef98.js"><link rel="prefetch" href="/assets/js/74.6be653b8.js"><link rel="prefetch" href="/assets/js/740.7490d438.js"><link rel="prefetch" href="/assets/js/741.e9a710f9.js"><link rel="prefetch" href="/assets/js/742.8c0e70d2.js"><link rel="prefetch" href="/assets/js/743.ddffec06.js"><link rel="prefetch" href="/assets/js/744.386c96ea.js"><link rel="prefetch" href="/assets/js/745.730057f2.js"><link rel="prefetch" href="/assets/js/746.0b215976.js"><link rel="prefetch" href="/assets/js/747.a6132d48.js"><link rel="prefetch" href="/assets/js/748.f84bb69e.js"><link rel="prefetch" href="/assets/js/749.17507b31.js"><link rel="prefetch" href="/assets/js/75.d0c5f76d.js"><link rel="prefetch" href="/assets/js/750.33581e4b.js"><link rel="prefetch" href="/assets/js/751.35d0e24b.js"><link rel="prefetch" href="/assets/js/752.f1192039.js"><link rel="prefetch" href="/assets/js/753.92e63705.js"><link rel="prefetch" href="/assets/js/755.e7ca1e84.js"><link rel="prefetch" href="/assets/js/756.062ffd43.js"><link rel="prefetch" href="/assets/js/757.15cd56ed.js"><link rel="prefetch" href="/assets/js/758.01498010.js"><link rel="prefetch" href="/assets/js/759.c02a5e9d.js"><link rel="prefetch" href="/assets/js/76.a154d8ae.js"><link rel="prefetch" href="/assets/js/760.a7fae9e4.js"><link rel="prefetch" href="/assets/js/761.bfffdcf4.js"><link rel="prefetch" href="/assets/js/762.999b914d.js"><link rel="prefetch" href="/assets/js/763.a672d341.js"><link rel="prefetch" href="/assets/js/764.ecd76b2a.js"><link rel="prefetch" href="/assets/js/765.679b66b4.js"><link rel="prefetch" href="/assets/js/766.99db62f5.js"><link rel="prefetch" href="/assets/js/767.d6be41b2.js"><link rel="prefetch" href="/assets/js/768.172e3ea5.js"><link rel="prefetch" href="/assets/js/769.c78e39da.js"><link rel="prefetch" href="/assets/js/77.1bc27160.js"><link rel="prefetch" href="/assets/js/770.9294204b.js"><link rel="prefetch" href="/assets/js/771.270d95d2.js"><link rel="prefetch" href="/assets/js/772.ae0832a2.js"><link rel="prefetch" href="/assets/js/773.8d3d208c.js"><link rel="prefetch" href="/assets/js/774.40a04895.js"><link rel="prefetch" href="/assets/js/775.f512bb4d.js"><link rel="prefetch" href="/assets/js/776.2a4be43a.js"><link rel="prefetch" href="/assets/js/777.d717975d.js"><link rel="prefetch" href="/assets/js/778.e6906773.js"><link rel="prefetch" href="/assets/js/78.9ca68374.js"><link rel="prefetch" href="/assets/js/79.a944d0a1.js"><link rel="prefetch" href="/assets/js/8.a4e42641.js"><link rel="prefetch" href="/assets/js/80.c133a12a.js"><link rel="prefetch" href="/assets/js/81.f9275294.js"><link rel="prefetch" href="/assets/js/82.0c4386cc.js"><link rel="prefetch" href="/assets/js/83.fb4eeb1d.js"><link rel="prefetch" href="/assets/js/84.ce4b0fba.js"><link rel="prefetch" href="/assets/js/85.6f341e9e.js"><link rel="prefetch" href="/assets/js/86.a325be80.js"><link rel="prefetch" href="/assets/js/87.a4f53d18.js"><link rel="prefetch" href="/assets/js/88.c0be5425.js"><link rel="prefetch" href="/assets/js/89.0be7b1ec.js"><link rel="prefetch" href="/assets/js/9.cbf2e373.js"><link rel="prefetch" href="/assets/js/90.040896ba.js"><link rel="prefetch" href="/assets/js/91.fd019c50.js"><link rel="prefetch" href="/assets/js/92.217678d2.js"><link rel="prefetch" href="/assets/js/93.ec22b9b1.js"><link rel="prefetch" href="/assets/js/94.c4035a75.js"><link rel="prefetch" href="/assets/js/95.546c4735.js"><link rel="prefetch" href="/assets/js/96.5b6d9f1d.js"><link rel="prefetch" href="/assets/js/97.bf539646.js"><link rel="prefetch" href="/assets/js/98.44781d1f.js"><link rel="prefetch" href="/assets/js/99.6c68fdae.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.6ece31e0.css">
+  </head>
+  <body class="theme-mode-light">
+    <div id="app" data-server-rendered="true"><div class="theme-container sidebar-open have-rightmenu"><header class="navbar blur"><div title="目录" class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/img/logo.png" alt="Fanx 知识库" class="logo"> <span class="site-name can-hide">Fanx 知识库</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Java" class="dropdown-title"><!----> <span class="title" style="display:;">Java</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/779590/" class="nav-link">Java基础</a></li><li class="dropdown-item"><!----> <a href="/pages/dc7834/" class="nav-link">Java集合框架</a></li><li class="dropdown-item"><!----> <a href="/pages/f2d7db/" class="nav-link">Java多线程并发</a></li><li class="dropdown-item"><!----> <a href="/pages/dbec4d/" class="nav-link">JavaIo&amp;NIO&amp;AIO</a></li><li class="dropdown-item"><!----> <a href="/pages/b908ce/" class="nav-link">JDK相关特性</a></li><li class="dropdown-item"><!----> <a href="/pages/e59bea/" class="nav-link">JVM相关</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="数据库" class="dropdown-title"><!----> <span class="title" style="display:;">数据库</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/f8c059/" class="nav-link">数据库基础知识</a></li><li class="dropdown-item"><!----> <a href="/pages/d192fd/" class="nav-link">Mysql</a></li><li class="dropdown-item"><!----> <a href="/pages/8aa877/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/pages/077e7c/" class="nav-link">MogoDb</a></li><li class="dropdown-item"><!----> <a href="/pages/68281b/" class="nav-link">ElasticSearch</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用框架" class="dropdown-title"><!----> <span class="title" style="display:;">常用框架</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/8f6500/" class="nav-link">Spring Framework(V5.3)</a></li><li class="dropdown-item"><!----> <a href="/pages/7c08d4/" class="nav-link">SpringBoot(V2.5)</a></li><li class="dropdown-item"><!----> <a href="/commonFrameworks/mybatis/" class="nav-link">mybatis</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="源代码学习" class="dropdown-title"><!----> <span class="title" style="display:;">源代码学习</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/23a632/" class="nav-link">mybatis源码学习</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/java/" class="nav-link">java源代码</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/spring/" class="nav-link">Spring源码</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="算法" class="dropdown-title"><!----> <span class="title" style="display:;">算法</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/caf303/" class="nav-link">数据结构基础</a></li><li class="dropdown-item"><!----> <a href="/pages/395e23/" class="nav-link">常见排序算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fa3dd3/" class="nav-link">算法思想</a></li><li class="dropdown-item"><!----> <a href="/pages/79d342/" class="nav-link">一些领域算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fdb54d/" class="nav-link">其它算法相关</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="架构设计" class="dropdown-title"><!----> <span class="title" style="display:;">架构设计</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/7fa7d9/" class="nav-link">数据结构基础</a></li><li class="dropdown-item"><!----> <a href="/pages/e9018d/" class="nav-link">分布式系统</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用的技术工具" class="dropdown-title"><!----> <span class="title" style="display:;">相关工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/ccd0e9/" class="nav-link">Linux</a></li><li class="dropdown-item"><!----> <a href="/pages/f6c112/" class="nav-link">Maven</a></li><li class="dropdown-item"><!----> <a href="/tool/git/" class="nav-link">Git</a></li><li class="dropdown-item"><!----> <a href="/pages/b37aeb/" class="nav-link">Docker</a></li><li class="dropdown-item"><!----> <a href="/pages/b25802/" class="nav-link">Nodejs</a></li><li class="dropdown-item"><!----> <a href="/pages/7f13e4/" class="nav-link">Arthas</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其它语言" class="dropdown-title"><!----> <span class="title" style="display:;">其它语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/fc414d/" class="nav-link">Python基础</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="问题总结" class="dropdown-title"><!----> <span class="title" style="display:;">问题总结</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/question/redis/" class="nav-link">redis</a></li><li class="dropdown-item"><!----> <a href="/pages/4d0fa7/" class="nav-link">团队相关</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="面试相关" class="dropdown-title"><!----> <span class="title" style="display:;">面试相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/5b56b4/" class="nav-link">Java 基础</a></li><li class="dropdown-item"><!----> <a href="/pages/ad2692/" class="nav-link">Spring 框架</a></li></ul></div></div> <a href="https://fanxgit.github.io/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar-hover-trigger"></div> <aside class="sidebar" style="display:none;"><!----> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Java" class="dropdown-title"><!----> <span class="title" style="display:;">Java</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/779590/" class="nav-link">Java基础</a></li><li class="dropdown-item"><!----> <a href="/pages/dc7834/" class="nav-link">Java集合框架</a></li><li class="dropdown-item"><!----> <a href="/pages/f2d7db/" class="nav-link">Java多线程并发</a></li><li class="dropdown-item"><!----> <a href="/pages/dbec4d/" class="nav-link">JavaIo&amp;NIO&amp;AIO</a></li><li class="dropdown-item"><!----> <a href="/pages/b908ce/" class="nav-link">JDK相关特性</a></li><li class="dropdown-item"><!----> <a href="/pages/e59bea/" class="nav-link">JVM相关</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="数据库" class="dropdown-title"><!----> <span class="title" style="display:;">数据库</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/f8c059/" class="nav-link">数据库基础知识</a></li><li class="dropdown-item"><!----> <a href="/pages/d192fd/" class="nav-link">Mysql</a></li><li class="dropdown-item"><!----> <a href="/pages/8aa877/" class="nav-link">Redis</a></li><li class="dropdown-item"><!----> <a href="/pages/077e7c/" class="nav-link">MogoDb</a></li><li class="dropdown-item"><!----> <a href="/pages/68281b/" class="nav-link">ElasticSearch</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用框架" class="dropdown-title"><!----> <span class="title" style="display:;">常用框架</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/8f6500/" class="nav-link">Spring Framework(V5.3)</a></li><li class="dropdown-item"><!----> <a href="/pages/7c08d4/" class="nav-link">SpringBoot(V2.5)</a></li><li class="dropdown-item"><!----> <a href="/commonFrameworks/mybatis/" class="nav-link">mybatis</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="源代码学习" class="dropdown-title"><!----> <span class="title" style="display:;">源代码学习</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/23a632/" class="nav-link">mybatis源码学习</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/java/" class="nav-link">java源代码</a></li><li class="dropdown-item"><!----> <a href="/sourceCode/spring/" class="nav-link">Spring源码</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="算法" class="dropdown-title"><!----> <span class="title" style="display:;">算法</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/caf303/" class="nav-link">数据结构基础</a></li><li class="dropdown-item"><!----> <a href="/pages/395e23/" class="nav-link">常见排序算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fa3dd3/" class="nav-link">算法思想</a></li><li class="dropdown-item"><!----> <a href="/pages/79d342/" class="nav-link">一些领域算法</a></li><li class="dropdown-item"><!----> <a href="/pages/fdb54d/" class="nav-link">其它算法相关</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="架构设计" class="dropdown-title"><!----> <span class="title" style="display:;">架构设计</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/7fa7d9/" class="nav-link">数据结构基础</a></li><li class="dropdown-item"><!----> <a href="/pages/e9018d/" class="nav-link">分布式系统</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用的技术工具" class="dropdown-title"><!----> <span class="title" style="display:;">相关工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/ccd0e9/" class="nav-link">Linux</a></li><li class="dropdown-item"><!----> <a href="/pages/f6c112/" class="nav-link">Maven</a></li><li class="dropdown-item"><!----> <a href="/tool/git/" class="nav-link">Git</a></li><li class="dropdown-item"><!----> <a href="/pages/b37aeb/" class="nav-link">Docker</a></li><li class="dropdown-item"><!----> <a href="/pages/b25802/" class="nav-link">Nodejs</a></li><li class="dropdown-item"><!----> <a href="/pages/7f13e4/" class="nav-link">Arthas</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其它语言" class="dropdown-title"><!----> <span class="title" style="display:;">其它语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/fc414d/" class="nav-link">Python基础</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="问题总结" class="dropdown-title"><!----> <span class="title" style="display:;">问题总结</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/question/redis/" class="nav-link">redis</a></li><li class="dropdown-item"><!----> <a href="/pages/4d0fa7/" class="nav-link">团队相关</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="面试相关" class="dropdown-title"><!----> <span class="title" style="display:;">面试相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/5b56b4/" class="nav-link">Java 基础</a></li><li class="dropdown-item"><!----> <a href="/pages/ad2692/" class="nav-link">Spring 框架</a></li></ul></div></div> <a href="https://fanxgit.github.io/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Web容器 - Tomcat知识体系详解</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>ORM框架 - MyBatis知识体系详解</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/pages/c46ba2/" class="sidebar-link">♥MyBatis知识体系详解♥</a></li><li><a href="/pages/d87838/" class="sidebar-link">MyBatis详解 - 总体框架设计</a></li><li><a href="/pages/4c0510/" class="sidebar-link">MyBatis详解 - 初始化基本过程</a></li><li><a href="/pages/bab0e9/" aria-current="page" class="active sidebar-link">MyBatis详解 - 配置解析过程</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/pages/2a3116/" class="sidebar-link">MyBatis详解 - 官网配置清单</a></li><li><a href="/pages/0767c2/" class="sidebar-link">MyBatis详解 - Mapper映射文件配置</a></li><li><a href="/pages/d7a044/" class="sidebar-link">MyBatis详解 - sqlSession执行流程</a></li><li><a href="/pages/b20670/" class="sidebar-link">MyBatis详解 - 动态SQL使用与原理</a></li><li><a href="/pages/6bf99e/" class="sidebar-link">MyBatis详解 - 插件机制</a></li><li><a href="/pages/052ff5/" class="sidebar-link">MyBatis详解 - 插件之分页机制</a></li><li><a href="/pages/a1af44/" class="sidebar-link">MyBatis详解 - 数据源与连接池</a></li><li><a href="/pages/f7dbad/" class="sidebar-link">MyBatis详解 - 事务管理机制</a></li><li><a href="/pages/e1272e/" class="sidebar-link">MyBatis详解 - 一级缓存实现机制</a></li><li><a href="/pages/fb8e79/" class="sidebar-link">MyBatis详解 - 二级缓存实现机制</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>分表分库 - ShardingSphere详解</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>调试源代码常用快捷键</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Mybatis</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Spring源代码</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>开源代码集合</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <div><main class="page"><div class="theme-vdoing-wrapper "><div class="articleInfo-wrap" data-v-06225672><div class="articleInfo" data-v-06225672><ul class="breadcrumbs" data-v-06225672><li data-v-06225672><a href="/" title="首页" class="iconfont icon-home router-link-active" data-v-06225672></a></li> <li data-v-06225672><a href="/categories/?category=%E6%BA%90%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0" title="分类" data-v-06225672>源代码学习</a></li><li data-v-06225672><a href="/categories/?category=ORM%E6%A1%86%E6%9E%B6%20-%20MyBatis%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E8%AF%A6%E8%A7%A3" title="分类" data-v-06225672>ORM框架 - MyBatis知识体系详解</a></li></ul> <div class="info" data-v-06225672><div title="作者" class="author iconfont icon-touxiang" data-v-06225672><a href="https://github.com/FanXGit" target="_blank" title="作者" class="beLink" data-v-06225672>fanx</a></div> <div title="创建时间" class="date iconfont icon-riqi" data-v-06225672><a href="javascript:;" data-v-06225672>2023-08-07</a></div> <!----></div></div></div> <!----> <div class="content-wrapper"><div class="right-menu-wrapper"><div class="right-menu-margin"><div class="right-menu-title">目录</div> <div class="right-menu-content"></div></div></div> <h1><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAABGpJREFUSA3tVVtoXFUU3fvOI53UlmCaKIFmwEhsE7QK0ipFEdHEKpXaZGrp15SINsXUWvBDpBgQRKi0+KKoFeJHfZA+ED9KKoIU2gYD9UejTW4rVIzm0VSTziPzuNu1z507dibTTjL4U/DAzLn3nL3X2o91ziX6f9wMFdh6Jvbm9nNSV0msViVO6tN1Rm7NMu2OpeJ9lWBUTDxrJbYTS0hInuwciu9eLHlFxCLCZEk3MegsJmZ5K/JD6t7FkFdEvGUo1g7qJoG3MHImqRIn8/nzY1K9UPKKiJmtnUqHVE3Gbuay6vJE/N2FEmuxFjW2nUuE0yQXRRxLiTUAzs36zhZvOXJPdX850EVnnLZkB8prodQoM5JGj7Xk2mvC7JB8tG04Ef5PiXtG0UtxupRQSfTnBoCy554x18yJHI6I+G5Eru4LHmPJZEQsrvPUbMiA8G/WgMK7w7I+ez7++o2ANfbrjvaOl1tFMs+htG3IrZH9/hDX1Pr8Tc0UvH8tcX29KzAgIGcEkINyW5BF9x891hw6VYqgJHEk0huccS7vh3C6gTiODL+26huuBtbct8eZnqLML8PkxGYpuPZBqtqwkSjgc4mB5gbgig5i+y0UDK35LMxXisn9xQtK+nd26gTIHsHe/oblK/b29fUmN/8Y+9jAQrnBp56m1LcDlDp9irKTExSKduXJVWSqdBMA08pEJnEIOB3FPPMybu/oeV8zFeYN3xx576Q6RH+VmplE4ncQV5v+5rzSoyOU7PuEAg8g803PwBJ0CExno/jcMbN8tONYeOmHiuUNryvm3fRUy4tMPVLdAGkUhNWuggGrJcXPv+ouCjz0MKUHz1J2/E8IC9nqTabcxgaBYM0hPhD5Y65FsbxRQKxCQrDjDctW7PUM3HuZunFyifSAqEfuzCp48Il24luWUWZoyJCaPR82jE0+kFA643wRFVni4RYSq3ohJO2pZ7B5dO4xkDWbEpossJPLSrPjYID8rS2UHTlvyNxqIGsg674XJJ7vnh5L7PNwC4hh2sjCI96mzszOTpxLF0T7l88Yz7lAuK6OnL8gXLOnTvpzSb22YG8W7us3jSebFHeeqnXRG1vt+MoUM84LQIBmMsCTAcOauTh0T0l0neQK7m2bLMt2mGxU3HYssS0J2cdv5wljlPsrIuZLAG/2DOZIXgCYT8uMGZN+e2kSirfxZOPCsC0f24nTZzspnVn9VePS1Z5vubmAGGXG8ZFno9Hel0yfA5ZPhF7Dh972BQJ2qCpgH67lmWtBYbvk6sz02wjky2vXyz0XErP/kFB619js1BtwfOV4OPRqOQBjy3Qbk18vigUPPSD5ceHnwck7W9bhAqZdd7SuG7w4/P2F/GaJh8c7e9qgow+Q7cGBo+98WsLkuktFqiZabtXuQTu/Y5ETbR0v7tNSFnvrmu6pjdoan2KjMu8q/Hmj1EfCO2ZGfEIbIXKUlw8qaX9/b2oeSJmFksSeT/Fn0V3nSypChh4Gjh74ybO9aeZ/AN2dwciu2/MhAAAAAElFTkSuQmCC">MyBatis详解 - 配置解析过程<!----></h1> <!----> <div class="theme-vdoing-content content__default"><h1 id="mybatis详解-配置解析过程"><a href="#mybatis详解-配置解析过程" class="header-anchor">#</a> MyBatis详解 - 配置解析过程</h1> <p>=========================================</p> <blockquote><p>【本文为中优先级】通过上文我们知道MyBatis初始化过程中会解析配置，那具体是如何解析的呢？@pdai</p></blockquote> <ul><li><a href="#mybatis%E8%AF%A6%E8%A7%A3---%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B">MyBatis详解 - 配置解析过程</a> <ul><li><a href="#%E5%9B%9E%E9%A1%BE%E4%B8%8A%E6%96%87%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90%E6%96%B9%E6%B3%95">回顾上文配置解析方法</a></li> <li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%83%E7%B4%A0">配置文件元素</a> <ul><li><a href="#%E5%85%83%E7%B4%A01properties">元素1：properties</a></li> <li><a href="#%E5%85%83%E7%B4%A02envirements">元素2：envirements</a></li> <li><a href="#%E8%A7%A3%E6%9E%90%E6%96%B9%E6%B3%95propertieselementenvironmentselement">解析方法：propertiesElement、environmentsElement</a></li> <li><a href="#%E5%85%83%E7%B4%A03typealiases">元素3：typeAliases</a></li> <li><a href="#%E8%A7%A3%E6%9E%90%E6%96%B9%E6%B3%95typealiaseselement">解析方法：typeAliasesElement</a></li> <li><a href="#%E5%85%83%E7%B4%A04typehandler">元素4：TypeHandler</a></li> <li><a href="#%E8%A7%A3%E6%9E%90%E6%96%B9%E6%B3%95typehandlerelement">解析方法：typeHandlerElement</a></li> <li><a href="#%E5%85%83%E7%B4%A05objectfactory">元素5：objectFactory</a></li> <li><a href="#%E5%85%83%E7%B4%A06plugins">元素6：plugins</a></li> <li><a href="#%E5%85%83%E7%B4%A07mappers">元素7：mappers</a></li> <li><a href="#%E8%A7%A3%E6%9E%90%E6%96%B9%E6%B3%95objectfactoryelementpluginelementmapperelement">解析方法：objectFactoryElement、pluginElement、mapperElement</a></li> <li><a href="#%E5%85%83%E7%B4%A08settings">元素8：settings</a></li> <li><a href="#%E8%A7%A3%E6%9E%90%E6%96%B9%E6%B3%95settingselement">解析方法：settingsElement</a></li></ul></li></ul></li></ul> <h1 id="回顾上文配置解析方法"><a href="#回顾上文配置解析方法" class="header-anchor">#</a> 回顾上文配置解析方法</h1> <hr> <p>上文配置解析中，我们看到如下的主体方法：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>public Configuration parse() {  
+    if (parsed) {  
+        throw new BuilderException(&quot;Each XMLConfigBuilder can only be used once.&quot;);  
+    }  
+    parsed = true;  
+    //源码中没有这一句，只有 parseConfiguration(parser.evalNode(&quot;/configuration&quot;));  
+    //为了让读者看得更明晰，源码拆分为以下两句  
+    XNode configurationNode = parser.evalNode(&quot;/configuration&quot;);  
+    parseConfiguration(configurationNode);  
+    return configuration;  
+}  
+/** 
+ * 解析 &quot;/configuration&quot;节点下的子节点信息，然后将解析的结果设置到Configuration对象中 
+ */  
+private void parseConfiguration(XNode root) {  
+    try {  
+        //1.首先处理properties 节点     
+        propertiesElement(root.evalNode(&quot;properties&quot;)); //issue #117 read properties first  
+        //2.处理typeAliases  
+        typeAliasesElement(root.evalNode(&quot;typeAliases&quot;));  
+        //3.处理插件  
+        pluginElement(root.evalNode(&quot;plugins&quot;));  
+        //4.处理objectFactory  
+        objectFactoryElement(root.evalNode(&quot;objectFactory&quot;));  
+        //5.objectWrapperFactory  
+        objectWrapperFactoryElement(root.evalNode(&quot;objectWrapperFactory&quot;));  
+        //6.settings  
+        settingsElement(root.evalNode(&quot;settings&quot;));  
+        //7.处理environments  
+        environmentsElement(root.evalNode(&quot;environments&quot;)); // read it after objectFactory and objectWrapperFactory issue #631  
+        //8.database  
+        databaseIdProviderElement(root.evalNode(&quot;databaseIdProvider&quot;));  
+        //9.typeHandlers  
+        typeHandlerElement(root.evalNode(&quot;typeHandlers&quot;));  
+        //10.mappers  
+        mapperElement(root.evalNode(&quot;mappers&quot;));  
+    } catch (Exception e) {  
+        throw new BuilderException(&quot;Error parsing SQL Mapper Configuration. Cause: &quot; + e, e);  
+    }  
+} 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br></div></div><p>通过以上源码，我们就能看出，在mybatis的配置文件中：</p> <ul><li>configuration节点为根节点。</li> <li>在configuration节点之下，我们可以配置10个子节点， 分别为：properties、typeAliases、plugins、objectFactory、objectWrapperFactory、settings、environments、databaseIdProvider、typeHandlers、mappers。</li></ul> <h1 id="配置文件元素"><a href="#配置文件元素" class="header-anchor">#</a> 配置文件元素</h1> <hr> <h3 id="元素1-properties"><a href="#元素1-properties" class="header-anchor">#</a> 元素1：properties</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;configuration&gt;
+    &lt;!-- 方法一： 从外部指定properties配置文件, 除了使用resource属性指定外，还可通过url属性指定url  
+        &lt;properties resource=&quot;dbConfig.properties&quot;&gt;&lt;/properties&gt; 
+    --&gt;
+    &lt;!-- 方法二： 直接配置为xml --&gt;
+    &lt;properties&gt;
+        &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/test1&quot;/&gt;
+        &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+        &lt;property name=&quot;password&quot; value=&quot;root&quot;/&gt;
+    &lt;/properties&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><p>那么，我要是两种方法都同时配置了，那么最终会采用什么样的配置呢？</p> <p>首先会加载文件中的xml配置，其次是加载外部指定的properties，最后加载Java Configuration的配置。因为配置存放在Properties，它继承自HashTable类，当依次将上述几种配置源put进去时，后加载的配置会覆盖先加载的配置。所以，最终应用配置时Configuration配置优先级最高，其次是外部的properties配置文件，最后是当前xml中的配置。具体可以参考接下来的源码分析。</p> <h3 id="元素2-envirements"><a href="#元素2-envirements" class="header-anchor">#</a> 元素2：envirements</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;environments default=&quot;development&quot;&gt;
+    &lt;environment id=&quot;development&quot;&gt;
+        &lt;!-- 
+        JDBC–这个配置直接简单使用了JDBC的提交和回滚设置。它依赖于从数据源得到的连接来管理事务范围。
+        MANAGED–这个配置几乎没做什么。它从来不提交或回滚一个连接。而它会让容器来管理事务的整个生命周期（比如Spring或JEE应用服务器的上下文）。
+        --&gt;
+        &lt;transactionManager type=&quot;JDBC&quot;/&gt;
+        &lt;!--
+        UNPOOLED–这个数据源的实现是每次被请求时简单打开和关闭连接
+        POOLED–mybatis实现的简单的数据库连接池类型，它使得数据库连接可被复用，不必在每次请求时都去创建一个物理的连接。
+        JNDI – 通过jndi从tomcat之类的容器里获取数据源。
+        --&gt;
+        &lt;dataSource type=&quot;POOLED&quot;&gt;
+            &lt;!--
+            如果上面没有指定数据库配置的properties文件，那么此处可以这样直接配置 
+            &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+            &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/test1&quot;/&gt;
+            &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+            &lt;property name=&quot;password&quot; value=&quot;root&quot;/&gt;
+            --&gt;
+         
+            &lt;!-- 上面指定了数据库配置文件， 配置文件里面也是对应的这四个属性 --&gt;
+            &lt;property name=&quot;driver&quot; value=&quot;${driver}&quot;/&gt;
+            &lt;property name=&quot;url&quot; value=&quot;${url}&quot;/&gt;
+            &lt;property name=&quot;username&quot; value=&quot;${username}&quot;/&gt;
+            &lt;property name=&quot;password&quot; value=&quot;${password}&quot;/&gt;  
+        &lt;/dataSource&gt;
+    &lt;/environment&gt;
+    
+    &lt;!-- 我再指定一个environment --&gt;
+    &lt;environment id=&quot;test&quot;&gt;
+        &lt;transactionManager type=&quot;JDBC&quot;/&gt;
+        &lt;dataSource type=&quot;POOLED&quot;&gt;
+            &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+            &lt;!-- 与上面的url不一样 --&gt;
+            &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/demo&quot;/&gt;
+            &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+            &lt;property name=&quot;password&quot; value=&quot;root&quot;/&gt;
+        &lt;/dataSource&gt;
+    &lt;/environment&gt;
+&lt;/environments&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br></div></div><p>environments元素节点可以配置多个environment子节点， 怎么理解呢？</p> <p>假如我们系统的开发环境和正式环境所用的数据库不一样（这是肯定的）， 那么可以设置两个environment, 两个id分别对应开发环境（dev）和正式环境（final），那么通过配置environments的default属性就能选择对应的environment了， 例如，我将environments的deault属性的值配置为dev, 那么就会选择dev的environment。 至于这个是怎么实现的，下面源码就会讲。</p> <h3 id="解析方法-propertieselement、environmentselement"><a href="#解析方法-propertieselement、environmentselement" class="header-anchor">#</a> 解析方法：propertiesElement、environmentsElement</h3> <p>好啦，上面简单给大家介绍了一下properties 和 environments 的配置， 接下来就正式开始看源码了： 上次我们说过mybatis 是通过XMLConfigBuilder这个类在解析mybatis配置文件的，那么本次就接着看看XMLConfigBuilder对于properties和environments的解析：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>public class XMLConfigBuilder extends BaseBuilder {
+
+    private boolean parsed;
+    // xml解析器
+    private XPathParser parser;
+    private String environment;
+  
+    // 上次说到这个方法是在解析mybatis配置文件中能配置的元素节点
+    // 今天首先要看的就是properties节点和environments节点
+    private void parseConfiguration(XNode root) {
+        try {
+            // 解析properties元素
+            propertiesElement(root.evalNode(&quot;properties&quot;)); //issue #117 read properties first
+            typeAliasesElement(root.evalNode(&quot;typeAliases&quot;));
+            pluginElement(root.evalNode(&quot;plugins&quot;));
+            objectFactoryElement(root.evalNode(&quot;objectFactory&quot;));
+            objectWrapperFactoryElement(root.evalNode(&quot;objectWrapperFactory&quot;));
+            settingsElement(root.evalNode(&quot;settings&quot;));
+            // 解析environments元素
+            environmentsElement(root.evalNode(&quot;environments&quot;)); // read it after objectFactory and objectWrapperFactory issue #631
+            databaseIdProviderElement(root.evalNode(&quot;databaseIdProvider&quot;));
+            typeHandlerElement(root.evalNode(&quot;typeHandlers&quot;));
+            mapperElement(root.evalNode(&quot;mappers&quot;));
+        } catch (Exception e) {
+            throw new BuilderException(&quot;Error parsing SQL Mapper Configuration. Cause: &quot; + e, e);
+        }
+    }
+  
+    
+    //下面就看看解析properties的具体方法
+    private void propertiesElement(XNode context) throws Exception {
+        if (context != null) {
+            // 将子节点的 name 以及value属性set进properties对象
+            Properties defaults = context.getChildrenAsProperties();
+            // 获取properties节点上 resource属性的值
+            String resource = context.getStringAttribute(&quot;resource&quot;);
+            // 获取properties节点上 url属性的值, resource和url不能同时配置
+            String url = context.getStringAttribute(&quot;url&quot;);
+            if (resource != null &amp;&amp; url != null) {
+                throw new BuilderException(&quot;The properties element cannot specify both a URL and a resource based property file reference.  Please specify one or the other.&quot;);
+            }
+            // 把解析出的properties文件set进Properties对象
+            if (resource != null) {
+                defaults.putAll(Resources.getResourceAsProperties(resource));
+            } else if (url != null) {
+                defaults.putAll(Resources.getUrlAsProperties(url));
+            }
+            // 将configuration对象中已配置的Properties属性与刚刚解析的融合
+            // configuration这个对象会装载所解析mybatis配置文件的所有节点元素，以后也会频频提到这个对象
+            // 既然configuration对象用有一系列的get/set方法， 那是否就标志着我们可以使用java代码直接配置？ 
+            // 答案是肯定的， 不过使用配置文件进行配置，优势不言而喻
+            Properties vars = configuration.getVariables();
+            if (vars != null) {
+                defaults.putAll(vars);
+            }
+            // 把装有解析配置propertis对象set进解析器， 因为后面可能会用到
+            parser.setVariables(defaults);
+            // set进configuration对象
+            configuration.setVariables(defaults);
+        }
+    }
+    
+    //下面再看看解析enviroments元素节点的方法
+    private void environmentsElement(XNode context) throws Exception {
+        if (context != null) {
+            if (environment == null) {
+                //解析environments节点的default属性的值
+                //例如: &lt;environments default=&quot;development&quot;&gt;
+                environment = context.getStringAttribute(&quot;default&quot;);
+            }
+            //递归解析environments子节点
+            for (XNode child : context.getChildren()) {
+                //&lt;environment id=&quot;development&quot;&gt;, 只有enviroment节点有id属性，那么这个属性有何作用？
+                //environments 节点下可以拥有多个 environment子节点
+                //类似于这样： &lt;environments default=&quot;development&quot;&gt;&lt;environment id=&quot;development&quot;&gt;...&lt;/environment&gt;&lt;environment id=&quot;test&quot;&gt;...&lt;/environments&gt;
+                //意思就是我们可以对应多个环境，比如开发环境，测试环境等， 由environments的default属性去选择对应的enviroment
+                String id = child.getStringAttribute(&quot;id&quot;);
+                //isSpecial就是根据由environments的default属性去选择对应的enviroment
+                if (isSpecifiedEnvironment(id)) {
+                    //事务， mybatis有两种：JDBC 和 MANAGED, 配置为JDBC则直接使用JDBC的事务，配置为MANAGED则是将事务托管给容器， 
+                    TransactionFactory txFactory = transactionManagerElement(child.evalNode(&quot;transactionManager&quot;));
+                    //enviroment节点下面就是dataSource节点了，解析dataSource节点（下面会贴出解析dataSource的具体方法）
+                    DataSourceFactory dsFactory = dataSourceElement(child.evalNode(&quot;dataSource&quot;));
+                    DataSource dataSource = dsFactory.getDataSource();
+                    Environment.Builder environmentBuilder = new Environment.Builder(id)
+                          .transactionFactory(txFactory)
+                          .dataSource(dataSource);
+                    //老规矩，会将dataSource设置进configuration对象
+                    configuration.setEnvironment(environmentBuilder.build());
+                }
+            }
+        }
+    }
+    
+    //下面看看dataSource的解析方法
+    private DataSourceFactory dataSourceElement(XNode context) throws Exception {
+        if (context != null) {
+            //dataSource的连接池
+            String type = context.getStringAttribute(&quot;type&quot;);
+            //子节点 name, value属性set进一个properties对象
+            Properties props = context.getChildrenAsProperties();
+            //创建dataSourceFactory
+            DataSourceFactory factory = (DataSourceFactory) resolveClass(type).newInstance();
+            factory.setProperties(props);
+            return factory;
+        }
+        throw new BuilderException(&quot;Environment declaration requires a DataSourceFactory.&quot;);
+    } 
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br></div></div><p>通过以上对mybatis源码的解读，相信大家对mybatis的配置又有了一个深入的认识。还有一个问题， 上面我们看到，在配置dataSource的时候使用了 ${driver} 这种表达式， 这种形式是怎么解析的？其实，是通过PropertyParser这个类解析：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>/**
+ * 这个类解析${}这种形式的表达式
+ */
+public class PropertyParser {
+
+    public static String parse(String string, Properties variables) {
+        VariableTokenHandler handler = new VariableTokenHandler(variables);
+        GenericTokenParser parser = new GenericTokenParser(&quot;${&quot;, &quot;}&quot;, handler);
+        return parser.parse(string);
+    }
+
+    private static class VariableTokenHandler implements TokenHandler {
+        private Properties variables;
+
+        public VariableTokenHandler(Properties variables) {
+            this.variables = variables;
+        }
+
+        public String handleToken(String content) {
+            if (variables != null &amp;&amp; variables.containsKey(content)) {
+                return variables.getProperty(content);
+            }
+            return &quot;${&quot; + content + &quot;}&quot;;
+        }
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br></div></div><p>以上就是对于properties 和 environments元素节点的分析，比较重要的都在对于源码的注释中标出。</p> <h3 id="元素3-typealiases"><a href="#元素3-typealiases" class="header-anchor">#</a> 元素3：typeAliases</h3> <p>typeAliases节点主要用来设置别名，其实这是挺好用的一个功能， 通过配置别名，我们不用再指定完整的包名，并且还能取别名。</p> <p>例如： 我们在使用 com.demo.entity. UserEntity 的时候，我们可以直接配置一个别名user, 这样以后在配置文件中要使用到com.demo.entity.UserEntity的时候，直接使用User即可。</p> <p>就以上例为例，我们来实现一下，看看typeAliases的配置方法：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;configuration&gt;
+    &lt;typeAliases&gt;
+        &lt;!--
+        通过package, 可以直接指定package的名字， mybatis会自动扫描你指定包下面的javabean,
+        并且默认设置一个别名，默认的名字为： javabean 的首字母小写的非限定类名来作为它的别名。
+        也可在javabean 加上注解@Alias 来自定义别名， 例如： @Alias(user) 
+        &lt;package name=&quot;com.dy.entity&quot;/&gt;
+        --&gt;
+        &lt;typeAlias alias=&quot;UserEntity&quot; type=&quot;com.dy.entity.User&quot;/&gt;
+    &lt;/typeAliases&gt;
+  
+    ......
+  
+&lt;/configuration&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><p>再写一段测试代码，看看有没生效：（我只写一段伪代码）</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>Configuration con = sqlSessionFactory.getConfiguration();
+Map&lt;String, Class&lt;?&gt;&gt; typeMap = con.getTypeAliasRegistry().getTypeAliases();
+for(Entry&lt;String, Class&lt;?&gt;&gt; entry: typeMap.entrySet()) {
+    System.out.println(entry.getKey() + &quot; ================&gt; &quot; + entry.getValue().getSimpleName());
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><h3 id="解析方法-typealiaseselement"><a href="#解析方法-typealiaseselement" class="header-anchor">#</a> 解析方法：typeAliasesElement</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>/**
+ * 解析typeAliases节点
+ */
+private void typeAliasesElement(XNode parent) {
+    if (parent != null) {
+        for (XNode child : parent.getChildren()) {
+            //如果子节点是package, 那么就获取package节点的name属性， mybatis会扫描指定的package
+            if (&quot;package&quot;.equals(child.getName())) {
+                String typeAliasPackage = child.getStringAttribute(&quot;name&quot;);
+                //TypeAliasRegistry 负责管理别名， 这儿就是通过TypeAliasRegistry 进行别名注册， 下面就会看看TypeAliasRegistry源码
+                configuration.getTypeAliasRegistry().registerAliases(typeAliasPackage);
+            } else {
+                //如果子节点是typeAlias节点，那么就获取alias属性和type的属性值
+                String alias = child.getStringAttribute(&quot;alias&quot;);
+                String type = child.getStringAttribute(&quot;type&quot;);
+                try {
+                    Class&lt;?&gt; clazz = Resources.classForName(type);
+                    if (alias == null) {
+                        typeAliasRegistry.registerAlias(clazz);
+                    } else {
+                        typeAliasRegistry.registerAlias(alias, clazz);
+                    }
+                } catch (ClassNotFoundException e) {
+                    throw new BuilderException(&quot;Error registering typeAlias for '&quot; + alias + &quot;'. Cause: &quot; + e, e);
+                }
+            }
+        }
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br></div></div><p>重要的源码在这儿：TypeAliasRegistry.java</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>public class TypeAliasRegistry {
+  
+  //这就是核心所在啊， 原来别名就仅仅通过一个HashMap来实现， key为别名， value就是别名对应的类型（class对象）
+  private final Map&lt;String, Class&lt;?&gt;&gt; TYPE_ALIASES = new HashMap&lt;String, Class&lt;?&gt;&gt;();
+
+  /**
+   * 以下就是mybatis默认为我们注册的别名
+   */
+  public TypeAliasRegistry() {
+    registerAlias(&quot;string&quot;, String.class);
+
+    registerAlias(&quot;byte&quot;, Byte.class);
+    registerAlias(&quot;long&quot;, Long.class);
+    registerAlias(&quot;short&quot;, Short.class);
+    registerAlias(&quot;int&quot;, Integer.class);
+    registerAlias(&quot;integer&quot;, Integer.class);
+    registerAlias(&quot;double&quot;, Double.class);
+    registerAlias(&quot;float&quot;, Float.class);
+    registerAlias(&quot;boolean&quot;, Boolean.class);
+
+    registerAlias(&quot;byte[]&quot;, Byte[].class);
+    registerAlias(&quot;long[]&quot;, Long[].class);
+    registerAlias(&quot;short[]&quot;, Short[].class);
+    registerAlias(&quot;int[]&quot;, Integer[].class);
+    registerAlias(&quot;integer[]&quot;, Integer[].class);
+    registerAlias(&quot;double[]&quot;, Double[].class);
+    registerAlias(&quot;float[]&quot;, Float[].class);
+    registerAlias(&quot;boolean[]&quot;, Boolean[].class);
+
+    registerAlias(&quot;_byte&quot;, byte.class);
+    registerAlias(&quot;_long&quot;, long.class);
+    registerAlias(&quot;_short&quot;, short.class);
+    registerAlias(&quot;_int&quot;, int.class);
+    registerAlias(&quot;_integer&quot;, int.class);
+    registerAlias(&quot;_double&quot;, double.class);
+    registerAlias(&quot;_float&quot;, float.class);
+    registerAlias(&quot;_boolean&quot;, boolean.class);
+
+    registerAlias(&quot;_byte[]&quot;, byte[].class);
+    registerAlias(&quot;_long[]&quot;, long[].class);
+    registerAlias(&quot;_short[]&quot;, short[].class);
+    registerAlias(&quot;_int[]&quot;, int[].class);
+    registerAlias(&quot;_integer[]&quot;, int[].class);
+    registerAlias(&quot;_double[]&quot;, double[].class);
+    registerAlias(&quot;_float[]&quot;, float[].class);
+    registerAlias(&quot;_boolean[]&quot;, boolean[].class);
+
+    registerAlias(&quot;date&quot;, Date.class);
+    registerAlias(&quot;decimal&quot;, BigDecimal.class);
+    registerAlias(&quot;bigdecimal&quot;, BigDecimal.class);
+    registerAlias(&quot;biginteger&quot;, BigInteger.class);
+    registerAlias(&quot;object&quot;, Object.class);
+
+    registerAlias(&quot;date[]&quot;, Date[].class);
+    registerAlias(&quot;decimal[]&quot;, BigDecimal[].class);
+    registerAlias(&quot;bigdecimal[]&quot;, BigDecimal[].class);
+    registerAlias(&quot;biginteger[]&quot;, BigInteger[].class);
+    registerAlias(&quot;object[]&quot;, Object[].class);
+
+    registerAlias(&quot;map&quot;, Map.class);
+    registerAlias(&quot;hashmap&quot;, HashMap.class);
+    registerAlias(&quot;list&quot;, List.class);
+    registerAlias(&quot;arraylist&quot;, ArrayList.class);
+    registerAlias(&quot;collection&quot;, Collection.class);
+    registerAlias(&quot;iterator&quot;, Iterator.class);
+
+    registerAlias(&quot;ResultSet&quot;, ResultSet.class);
+  }
+
+  
+  /**
+   * 处理别名， 直接从保存有别名的hashMap中取出即可
+   */
+  @SuppressWarnings(&quot;unchecked&quot;)
+  public &lt;T&gt; Class&lt;T&gt; resolveAlias(String string) {
+    try {
+      if (string == null) return null;
+      String key = string.toLowerCase(Locale.ENGLISH); // issue #748
+      Class&lt;T&gt; value;
+      if (TYPE_ALIASES.containsKey(key)) {
+        value = (Class&lt;T&gt;) TYPE_ALIASES.get(key);
+      } else {
+        value = (Class&lt;T&gt;) Resources.classForName(string);
+      }
+      return value;
+    } catch (ClassNotFoundException e) {
+      throw new TypeException(&quot;Could not resolve type alias '&quot; + string + &quot;'.  Cause: &quot; + e, e);
+    }
+  }
+  
+  /**
+   * 配置文件中配置为package的时候， 会调用此方法，根据配置的报名去扫描javabean ，然后自动注册别名
+   * 默认会使用 Bean 的首字母小写的非限定类名来作为它的别名
+   * 也可在javabean 加上注解@Alias 来自定义别名， 例如： @Alias(user)
+   */
+  public void registerAliases(String packageName){
+    registerAliases(packageName, Object.class);
+  }
+
+  public void registerAliases(String packageName, Class&lt;?&gt; superType){
+    ResolverUtil&lt;Class&lt;?&gt;&gt; resolverUtil = new ResolverUtil&lt;Class&lt;?&gt;&gt;();
+    resolverUtil.find(new ResolverUtil.IsA(superType), packageName);
+    Set&lt;Class&lt;? extends Class&lt;?&gt;&gt;&gt; typeSet = resolverUtil.getClasses();
+    for(Class&lt;?&gt; type : typeSet){
+      // Ignore inner classes and interfaces (including package-info.java)
+      // Skip also inner classes. See issue #6
+      if (!type.isAnonymousClass() &amp;&amp; !type.isInterface() &amp;&amp; !type.isMemberClass()) {
+        registerAlias(type);
+      }
+    }
+  }
+
+  public void registerAlias(Class&lt;?&gt; type) {
+    String alias = type.getSimpleName();
+    Alias aliasAnnotation = type.getAnnotation(Alias.class);
+    if (aliasAnnotation != null) {
+      alias = aliasAnnotation.value();
+    } 
+    registerAlias(alias, type);
+  }
+
+  //这就是注册别名的本质方法， 其实就是向保存别名的hashMap新增值而已， 呵呵， 别名的实现太简单了，对吧
+  public void registerAlias(String alias, Class&lt;?&gt; value) {
+    if (alias == null) throw new TypeException(&quot;The parameter alias cannot be null&quot;);
+    String key = alias.toLowerCase(Locale.ENGLISH); // issue #748
+    if (TYPE_ALIASES.containsKey(key) &amp;&amp; TYPE_ALIASES.get(key) != null &amp;&amp; !TYPE_ALIASES.get(key).equals(value)) {
+      throw new TypeException(&quot;The alias '&quot; + alias + &quot;' is already mapped to the value '&quot; + TYPE_ALIASES.get(key).getName() + &quot;'.&quot;);
+    }
+    TYPE_ALIASES.put(key, value);
+  }
+
+  public void registerAlias(String alias, String value) {
+    try {
+      registerAlias(alias, Resources.classForName(value));
+    } catch (ClassNotFoundException e) {
+      throw new TypeException(&quot;Error registering type alias &quot;+alias+&quot; for &quot;+value+&quot;. Cause: &quot; + e, e);
+    }
+  }
+  
+  /**
+   * 获取保存别名的HashMap, Configuration对象持有对TypeAliasRegistry的引用，因此，如果需要，我们可以通过Configuration对象获取
+   */
+  public Map&lt;String, Class&lt;?&gt;&gt; getTypeAliases() {
+    return Collections.unmodifiableMap(TYPE_ALIASES);
+  }
+
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br></div></div><p>由源码可见，设置别名的原理就这么简单，Mybatis默认给我们设置了不少别名，在上面代码中都可以见到。</p> <h3 id="元素4-typehandler"><a href="#元素4-typehandler" class="header-anchor">#</a> 元素4：TypeHandler</h3> <blockquote><p>Mybatis中的TypeHandler是什么？</p></blockquote> <p>无论是 MyBatis 在预处理语句（PreparedStatement）中设置一个参数时，还是从结果集中取出一个值时，都会用类型处理器将获取的值以合适的方式转换成 Java 类型。Mybatis默认为我们实现了许多TypeHandler, 当我们没有配置指定TypeHandler时，Mybatis会根据参数或者返回结果的不同，默认为我们选择合适的TypeHandler处理。</p> <p>那么，Mybatis为我们实现了哪些TypeHandler呢? 我们怎么自定义实现一个TypeHandler ? 这些都会在接下来的mybatis的源码中看到。在看源码之前，还是像之前一样，先看看怎么配置吧？</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;configuration&gt;
+    &lt;typeHandlers&gt;
+      &lt;!-- 
+          当配置package的时候，mybatis会去配置的package扫描TypeHandler
+          &lt;package name=&quot;com.dy.demo&quot;/&gt;
+       --&gt;
+      
+      &lt;!-- handler属性直接配置我们要指定的TypeHandler --&gt;
+      &lt;typeHandler handler=&quot;&quot;/&gt;
+      
+      &lt;!-- javaType 配置java类型，例如String, 如果配上javaType, 那么指定的typeHandler就只作用于指定的类型 --&gt;
+      &lt;typeHandler javaType=&quot;&quot; handler=&quot;&quot;/&gt;
+      
+      &lt;!-- jdbcType 配置数据库基本数据类型，例如varchar, 如果配上jdbcType, 那么指定的typeHandler就只作用于指定的类型  --&gt;
+      &lt;typeHandler jdbcType=&quot;&quot; handler=&quot;&quot;/&gt;
+      
+      &lt;!-- 也可两者都配置 --&gt;
+      &lt;typeHandler javaType=&quot;&quot; jdbcType=&quot;&quot; handler=&quot;&quot;/&gt;
+      
+  &lt;/typeHandlers&gt;
+  
+  ......
+  
+&lt;/configuration&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br></div></div><h3 id="解析方法-typehandlerelement"><a href="#解析方法-typehandlerelement" class="header-anchor">#</a> 解析方法：typeHandlerElement</h3> <p>上面简单介绍了一下TypeHandler, 下面就看看mybatis中TypeHandler的源码了。老规矩，先从对xml的解析讲起：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>/**
+ * 解析typeHandlers节点
+ */
+private void typeHandlerElement(XNode parent) throws Exception {
+    if (parent != null) {
+      for (XNode child : parent.getChildren()) {
+        //子节点为package时，获取其name属性的值，然后自动扫描package下的自定义typeHandler
+        if (&quot;package&quot;.equals(child.getName())) {
+          String typeHandlerPackage = child.getStringAttribute(&quot;name&quot;);
+          typeHandlerRegistry.register(typeHandlerPackage);
+        } else {
+          //子节点为typeHandler时， 可以指定javaType属性， 也可以指定jdbcType, 也可两者都指定
+          //javaType 是指定java类型
+          //jdbcType 是指定jdbc类型（数据库类型： 如varchar）
+          String javaTypeName = child.getStringAttribute(&quot;javaType&quot;);
+          String jdbcTypeName = child.getStringAttribute(&quot;jdbcType&quot;);
+          //handler就是我们配置的typeHandler
+          String handlerTypeName = child.getStringAttribute(&quot;handler&quot;);
+          //resolveClass方法就是我们上篇文章所讲的TypeAliasRegistry里面处理别名的方法
+          Class&lt;?&gt; javaTypeClass = resolveClass(javaTypeName);
+          //JdbcType是一个枚举类型，resolveJdbcType方法是在获取枚举类型的值
+          JdbcType jdbcType = resolveJdbcType(jdbcTypeName);
+          Class&lt;?&gt; typeHandlerClass = resolveClass(handlerTypeName);
+          //注册typeHandler, typeHandler通过TypeHandlerRegistry这个类管理
+          if (javaTypeClass != null) {
+            if (jdbcType == null) {
+              typeHandlerRegistry.register(javaTypeClass, typeHandlerClass);
+            } else {
+              typeHandlerRegistry.register(javaTypeClass, jdbcType, typeHandlerClass);
+            }
+          } else {
+            typeHandlerRegistry.register(typeHandlerClass);
+          }
+        }
+      }
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br></div></div><p>接下来看看TypeHandler的管理注册类：TypeHandlerRegistry.java</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>/**
+ * typeHandler注册管理类
+ */
+public final class TypeHandlerRegistry {
+
+  //源码一上来，二话不说，几个大大的HashMap就出现，这不又跟上次讲的typeAliases的注册类似么
+
+  //基本数据类型与其包装类
+  private static final Map&lt;Class&lt;?&gt;, Class&lt;?&gt;&gt; reversePrimitiveMap = new HashMap&lt;Class&lt;?&gt;, Class&lt;?&gt;&gt;() {
+    private static final long serialVersionUID = 1L;
+    {
+      put(Byte.class, byte.class);
+      put(Short.class, short.class);
+      put(Integer.class, int.class);
+      put(Long.class, long.class);
+      put(Float.class, float.class);
+      put(Double.class, double.class);
+      put(Boolean.class, boolean.class);
+      put(Character.class, char.class);
+    }
+  };
+
+  //这几个MAP不用说就知道存的是什么东西吧，命名的好处
+  private final Map&lt;JdbcType, TypeHandler&lt;?&gt;&gt; JDBC_TYPE_HANDLER_MAP = new EnumMap&lt;JdbcType, TypeHandler&lt;?&gt;&gt;(JdbcType.class);
+  private final Map&lt;Type, Map&lt;JdbcType, TypeHandler&lt;?&gt;&gt;&gt; TYPE_HANDLER_MAP = new HashMap&lt;Type, Map&lt;JdbcType, TypeHandler&lt;?&gt;&gt;&gt;();
+  private final TypeHandler&lt;Object&gt; UNKNOWN_TYPE_HANDLER = new UnknownTypeHandler(this);
+  private final Map&lt;Class&lt;?&gt;, TypeHandler&lt;?&gt;&gt; ALL_TYPE_HANDLERS_MAP = new HashMap&lt;Class&lt;?&gt;, TypeHandler&lt;?&gt;&gt;();
+
+  //就像上篇文章讲的typeAliases一样，mybatis也默认给我们注册了不少的typeHandler
+  //具体如下
+  public TypeHandlerRegistry() {
+    register(Boolean.class, new BooleanTypeHandler());
+    register(boolean.class, new BooleanTypeHandler());
+    register(JdbcType.BOOLEAN, new BooleanTypeHandler());
+    register(JdbcType.BIT, new BooleanTypeHandler());
+
+    register(Byte.class, new ByteTypeHandler());
+    register(byte.class, new ByteTypeHandler());
+    register(JdbcType.TINYINT, new ByteTypeHandler());
+
+    register(Short.class, new ShortTypeHandler());
+    register(short.class, new ShortTypeHandler());
+    register(JdbcType.SMALLINT, new ShortTypeHandler());
+
+    register(Integer.class, new IntegerTypeHandler());
+    register(int.class, new IntegerTypeHandler());
+    register(JdbcType.INTEGER, new IntegerTypeHandler());
+
+    register(Long.class, new LongTypeHandler());
+    register(long.class, new LongTypeHandler());
+
+    register(Float.class, new FloatTypeHandler());
+    register(float.class, new FloatTypeHandler());
+    register(JdbcType.FLOAT, new FloatTypeHandler());
+
+    register(Double.class, new DoubleTypeHandler());
+    register(double.class, new DoubleTypeHandler());
+    register(JdbcType.DOUBLE, new DoubleTypeHandler());
+
+    register(String.class, new StringTypeHandler());
+    register(String.class, JdbcType.CHAR, new StringTypeHandler());
+    register(String.class, JdbcType.CLOB, new ClobTypeHandler());
+    register(String.class, JdbcType.VARCHAR, new StringTypeHandler());
+    register(String.class, JdbcType.LONGVARCHAR, new ClobTypeHandler());
+    register(String.class, JdbcType.NVARCHAR, new NStringTypeHandler());
+    register(String.class, JdbcType.NCHAR, new NStringTypeHandler());
+    register(String.class, JdbcType.NCLOB, new NClobTypeHandler());
+    register(JdbcType.CHAR, new StringTypeHandler());
+    register(JdbcType.VARCHAR, new StringTypeHandler());
+    register(JdbcType.CLOB, new ClobTypeHandler());
+    register(JdbcType.LONGVARCHAR, new ClobTypeHandler());
+    register(JdbcType.NVARCHAR, new NStringTypeHandler());
+    register(JdbcType.NCHAR, new NStringTypeHandler());
+    register(JdbcType.NCLOB, new NClobTypeHandler());
+
+    register(Object.class, JdbcType.ARRAY, new ArrayTypeHandler());
+    register(JdbcType.ARRAY, new ArrayTypeHandler());
+
+    register(BigInteger.class, new BigIntegerTypeHandler());
+    register(JdbcType.BIGINT, new LongTypeHandler());
+
+    register(BigDecimal.class, new BigDecimalTypeHandler());
+    register(JdbcType.REAL, new BigDecimalTypeHandler());
+    register(JdbcType.DECIMAL, new BigDecimalTypeHandler());
+    register(JdbcType.NUMERIC, new BigDecimalTypeHandler());
+
+    register(Byte[].class, new ByteObjectArrayTypeHandler());
+    register(Byte[].class, JdbcType.BLOB, new BlobByteObjectArrayTypeHandler());
+    register(Byte[].class, JdbcType.LONGVARBINARY, new BlobByteObjectArrayTypeHandler());
+    register(byte[].class, new ByteArrayTypeHandler());
+    register(byte[].class, JdbcType.BLOB, new BlobTypeHandler());
+    register(byte[].class, JdbcType.LONGVARBINARY, new BlobTypeHandler());
+    register(JdbcType.LONGVARBINARY, new BlobTypeHandler());
+    register(JdbcType.BLOB, new BlobTypeHandler());
+
+    register(Object.class, UNKNOWN_TYPE_HANDLER);
+    register(Object.class, JdbcType.OTHER, UNKNOWN_TYPE_HANDLER);
+    register(JdbcType.OTHER, UNKNOWN_TYPE_HANDLER);
+
+    register(Date.class, new DateTypeHandler());
+    register(Date.class, JdbcType.DATE, new DateOnlyTypeHandler());
+    register(Date.class, JdbcType.TIME, new TimeOnlyTypeHandler());
+    register(JdbcType.TIMESTAMP, new DateTypeHandler());
+    register(JdbcType.DATE, new DateOnlyTypeHandler());
+    register(JdbcType.TIME, new TimeOnlyTypeHandler());
+
+    register(java.sql.Date.class, new SqlDateTypeHandler());
+    register(java.sql.Time.class, new SqlTimeTypeHandler());
+    register(java.sql.Timestamp.class, new SqlTimestampTypeHandler());
+
+    // issue #273
+    register(Character.class, new CharacterTypeHandler());
+    register(char.class, new CharacterTypeHandler());
+  }
+
+  public boolean hasTypeHandler(Class&lt;?&gt; javaType) {
+    return hasTypeHandler(javaType, null);
+  }
+
+  public boolean hasTypeHandler(TypeReference&lt;?&gt; javaTypeReference) {
+    return hasTypeHandler(javaTypeReference, null);
+  }
+
+  public boolean hasTypeHandler(Class&lt;?&gt; javaType, JdbcType jdbcType) {
+    return javaType != null &amp;&amp; getTypeHandler((Type) javaType, jdbcType) != null;
+  }
+
+  public boolean hasTypeHandler(TypeReference&lt;?&gt; javaTypeReference, JdbcType jdbcType) {
+    return javaTypeReference != null &amp;&amp; getTypeHandler(javaTypeReference, jdbcType) != null;
+  }
+
+  public TypeHandler&lt;?&gt; getMappingTypeHandler(Class&lt;? extends TypeHandler&lt;?&gt;&gt; handlerType) {
+    return ALL_TYPE_HANDLERS_MAP.get(handlerType);
+  }
+
+  public &lt;T&gt; TypeHandler&lt;T&gt; getTypeHandler(Class&lt;T&gt; type) {
+    return getTypeHandler((Type) type, null);
+  }
+
+  public &lt;T&gt; TypeHandler&lt;T&gt; getTypeHandler(TypeReference&lt;T&gt; javaTypeReference) {
+    return getTypeHandler(javaTypeReference, null);
+  }
+
+  public TypeHandler&lt;?&gt; getTypeHandler(JdbcType jdbcType) {
+    return JDBC_TYPE_HANDLER_MAP.get(jdbcType);
+  }
+
+  public &lt;T&gt; TypeHandler&lt;T&gt; getTypeHandler(Class&lt;T&gt; type, JdbcType jdbcType) {
+    return getTypeHandler((Type) type, jdbcType);
+  }
+
+  public &lt;T&gt; TypeHandler&lt;T&gt; getTypeHandler(TypeReference&lt;T&gt; javaTypeReference, JdbcType jdbcType) {
+    return getTypeHandler(javaTypeReference.getRawType(), jdbcType);
+  }
+
+  private &lt;T&gt; TypeHandler&lt;T&gt; getTypeHandler(Type type, JdbcType jdbcType) {
+    Map&lt;JdbcType, TypeHandler&lt;?&gt;&gt; jdbcHandlerMap = TYPE_HANDLER_MAP.get(type);
+    TypeHandler&lt;?&gt; handler = null;
+    if (jdbcHandlerMap != null) {
+      handler = jdbcHandlerMap.get(jdbcType);
+      if (handler == null) {
+        handler = jdbcHandlerMap.get(null);
+      }
+    }
+    if (handler == null &amp;&amp; type != null &amp;&amp; type instanceof Class &amp;&amp; Enum.class.isAssignableFrom((Class&lt;?&gt;) type)) {
+      handler = new EnumTypeHandler((Class&lt;?&gt;) type);
+    }
+    @SuppressWarnings(&quot;unchecked&quot;)
+    // type drives generics here
+    TypeHandler&lt;T&gt; returned = (TypeHandler&lt;T&gt;) handler;
+    return returned;
+  }
+
+  public TypeHandler&lt;Object&gt; getUnknownTypeHandler() {
+    return UNKNOWN_TYPE_HANDLER;
+  }
+
+  public void register(JdbcType jdbcType, TypeHandler&lt;?&gt; handler) {
+    JDBC_TYPE_HANDLER_MAP.put(jdbcType, handler);
+  }
+
+  //
+  // REGISTER INSTANCE
+  //
+
+  /**
+   * 只配置了typeHandler, 没有配置jdbcType 或者javaType
+   */
+  @SuppressWarnings(&quot;unchecked&quot;)
+  public &lt;T&gt; void register(TypeHandler&lt;T&gt; typeHandler) {
+    boolean mappedTypeFound = false;
+    //在自定义typeHandler的时候，可以加上注解MappedTypes 去指定关联的javaType
+    //因此，此处需要扫描MappedTypes注解
+    MappedTypes mappedTypes = typeHandler.getClass().getAnnotation(MappedTypes.class);
+    if (mappedTypes != null) {
+      for (Class&lt;?&gt; handledType : mappedTypes.value()) {
+        register(handledType, typeHandler);
+        mappedTypeFound = true;
+      }
+    }
+    // @since 3.1.0 - try to auto-discover the mapped type
+    if (!mappedTypeFound &amp;&amp; typeHandler instanceof TypeReference) {
+      try {
+        TypeReference&lt;T&gt; typeReference = (TypeReference&lt;T&gt;) typeHandler;
+        register(typeReference.getRawType(), typeHandler);
+        mappedTypeFound = true;
+      } catch (Throwable t) {
+        // maybe users define the TypeReference with a different type and are not assignable, so just ignore it
+      }
+    }
+    if (!mappedTypeFound) {
+      register((Class&lt;T&gt;) null, typeHandler);
+    }
+  }
+
+  /**
+   * 配置了typeHandlerhe和javaType
+   */
+  public &lt;T&gt; void register(Class&lt;T&gt; javaType, TypeHandler&lt;? extends T&gt; typeHandler) {
+    register((Type) javaType, typeHandler);
+  }
+
+  private &lt;T&gt; void register(Type javaType, TypeHandler&lt;? extends T&gt; typeHandler) {
+    //扫描注解MappedJdbcTypes
+    MappedJdbcTypes mappedJdbcTypes = typeHandler.getClass().getAnnotation(MappedJdbcTypes.class);
+    if (mappedJdbcTypes != null) {
+      for (JdbcType handledJdbcType : mappedJdbcTypes.value()) {
+        register(javaType, handledJdbcType, typeHandler);
+      }
+      if (mappedJdbcTypes.includeNullJdbcType()) {
+        register(javaType, null, typeHandler);
+      }
+    } else {
+      register(javaType, null, typeHandler);
+    }
+  }
+
+  public &lt;T&gt; void register(TypeReference&lt;T&gt; javaTypeReference, TypeHandler&lt;? extends T&gt; handler) {
+    register(javaTypeReference.getRawType(), handler);
+  }
+
+  /**
+   * typeHandlerhe、javaType、jdbcType都配置了
+   */
+  public &lt;T&gt; void register(Class&lt;T&gt; type, JdbcType jdbcType, TypeHandler&lt;? extends T&gt; handler) {
+    register((Type) type, jdbcType, handler);
+  }
+
+  /**
+   * 注册typeHandler的核心方法
+   * 就是向Map新增数据而已
+   */
+  private void register(Type javaType, JdbcType jdbcType, TypeHandler&lt;?&gt; handler) {
+    if (javaType != null) {
+      Map&lt;JdbcType, TypeHandler&lt;?&gt;&gt; map = TYPE_HANDLER_MAP.get(javaType);
+      if (map == null) {
+        map = new HashMap&lt;JdbcType, TypeHandler&lt;?&gt;&gt;();
+        TYPE_HANDLER_MAP.put(javaType, map);
+      }
+      map.put(jdbcType, handler);
+      if (reversePrimitiveMap.containsKey(javaType)) {
+        register(reversePrimitiveMap.get(javaType), jdbcType, handler);
+      }
+    }
+    ALL_TYPE_HANDLERS_MAP.put(handler.getClass(), handler);
+  }
+
+  //
+  // REGISTER CLASS
+  //
+
+  // Only handler type
+
+  public void register(Class&lt;?&gt; typeHandlerClass) {
+    boolean mappedTypeFound = false;
+    MappedTypes mappedTypes = typeHandlerClass.getAnnotation(MappedTypes.class);
+    if (mappedTypes != null) {
+      for (Class&lt;?&gt; javaTypeClass : mappedTypes.value()) {
+        register(javaTypeClass, typeHandlerClass);
+        mappedTypeFound = true;
+      }
+    }
+    if (!mappedTypeFound) {
+      register(getInstance(null, typeHandlerClass));
+    }
+  }
+
+  // java type + handler type
+
+  public void register(Class&lt;?&gt; javaTypeClass, Class&lt;?&gt; typeHandlerClass) {
+    register(javaTypeClass, getInstance(javaTypeClass, typeHandlerClass));
+  }
+
+  // java type + jdbc type + handler type
+
+  public void register(Class&lt;?&gt; javaTypeClass, JdbcType jdbcType, Class&lt;?&gt; typeHandlerClass) {
+    register(javaTypeClass, jdbcType, getInstance(javaTypeClass, typeHandlerClass));
+  }
+
+  // Construct a handler (used also from Builders)
+
+  @SuppressWarnings(&quot;unchecked&quot;)
+  public &lt;T&gt; TypeHandler&lt;T&gt; getInstance(Class&lt;?&gt; javaTypeClass, Class&lt;?&gt; typeHandlerClass) {
+    if (javaTypeClass != null) {
+      try {
+        Constructor&lt;?&gt; c = typeHandlerClass.getConstructor(Class.class);
+        return (TypeHandler&lt;T&gt;) c.newInstance(javaTypeClass);
+      } catch (NoSuchMethodException ignored) {
+        // ignored
+      } catch (Exception e) {
+        throw new TypeException(&quot;Failed invoking constructor for handler &quot; + typeHandlerClass, e);
+      }
+    }
+    try {
+      Constructor&lt;?&gt; c = typeHandlerClass.getConstructor();
+      return (TypeHandler&lt;T&gt;) c.newInstance();
+    } catch (Exception e) {
+      throw new TypeException(&quot;Unable to find a usable constructor for &quot; + typeHandlerClass, e);
+    }
+  }
+
+ 
+  /**
+   * 根据指定的pacakge去扫描自定义的typeHander，然后注册
+   */
+  public void register(String packageName) {
+    ResolverUtil&lt;Class&lt;?&gt;&gt; resolverUtil = new ResolverUtil&lt;Class&lt;?&gt;&gt;();
+    resolverUtil.find(new ResolverUtil.IsA(TypeHandler.class), packageName);
+    Set&lt;Class&lt;? extends Class&lt;?&gt;&gt;&gt; handlerSet = resolverUtil.getClasses();
+    for (Class&lt;?&gt; type : handlerSet) {
+      //Ignore inner classes and interfaces (including package-info.java) and abstract classes
+      if (!type.isAnonymousClass() &amp;&amp; !type.isInterface() &amp;&amp; !Modifier.isAbstract(type.getModifiers())) {
+        register(type);
+      }
+    }
+  }
+  
+  // get information
+  
+  /**
+   * 通过configuration对象可以获取已注册的所有typeHandler
+   */
+  public Collection&lt;TypeHandler&lt;?&gt;&gt; getTypeHandlers() {
+    return Collections.unmodifiableCollection(ALL_TYPE_HANDLERS_MAP.values());
+  }
+  
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br><span class="line-number">148</span><br><span class="line-number">149</span><br><span class="line-number">150</span><br><span class="line-number">151</span><br><span class="line-number">152</span><br><span class="line-number">153</span><br><span class="line-number">154</span><br><span class="line-number">155</span><br><span class="line-number">156</span><br><span class="line-number">157</span><br><span class="line-number">158</span><br><span class="line-number">159</span><br><span class="line-number">160</span><br><span class="line-number">161</span><br><span class="line-number">162</span><br><span class="line-number">163</span><br><span class="line-number">164</span><br><span class="line-number">165</span><br><span class="line-number">166</span><br><span class="line-number">167</span><br><span class="line-number">168</span><br><span class="line-number">169</span><br><span class="line-number">170</span><br><span class="line-number">171</span><br><span class="line-number">172</span><br><span class="line-number">173</span><br><span class="line-number">174</span><br><span class="line-number">175</span><br><span class="line-number">176</span><br><span class="line-number">177</span><br><span class="line-number">178</span><br><span class="line-number">179</span><br><span class="line-number">180</span><br><span class="line-number">181</span><br><span class="line-number">182</span><br><span class="line-number">183</span><br><span class="line-number">184</span><br><span class="line-number">185</span><br><span class="line-number">186</span><br><span class="line-number">187</span><br><span class="line-number">188</span><br><span class="line-number">189</span><br><span class="line-number">190</span><br><span class="line-number">191</span><br><span class="line-number">192</span><br><span class="line-number">193</span><br><span class="line-number">194</span><br><span class="line-number">195</span><br><span class="line-number">196</span><br><span class="line-number">197</span><br><span class="line-number">198</span><br><span class="line-number">199</span><br><span class="line-number">200</span><br><span class="line-number">201</span><br><span class="line-number">202</span><br><span class="line-number">203</span><br><span class="line-number">204</span><br><span class="line-number">205</span><br><span class="line-number">206</span><br><span class="line-number">207</span><br><span class="line-number">208</span><br><span class="line-number">209</span><br><span class="line-number">210</span><br><span class="line-number">211</span><br><span class="line-number">212</span><br><span class="line-number">213</span><br><span class="line-number">214</span><br><span class="line-number">215</span><br><span class="line-number">216</span><br><span class="line-number">217</span><br><span class="line-number">218</span><br><span class="line-number">219</span><br><span class="line-number">220</span><br><span class="line-number">221</span><br><span class="line-number">222</span><br><span class="line-number">223</span><br><span class="line-number">224</span><br><span class="line-number">225</span><br><span class="line-number">226</span><br><span class="line-number">227</span><br><span class="line-number">228</span><br><span class="line-number">229</span><br><span class="line-number">230</span><br><span class="line-number">231</span><br><span class="line-number">232</span><br><span class="line-number">233</span><br><span class="line-number">234</span><br><span class="line-number">235</span><br><span class="line-number">236</span><br><span class="line-number">237</span><br><span class="line-number">238</span><br><span class="line-number">239</span><br><span class="line-number">240</span><br><span class="line-number">241</span><br><span class="line-number">242</span><br><span class="line-number">243</span><br><span class="line-number">244</span><br><span class="line-number">245</span><br><span class="line-number">246</span><br><span class="line-number">247</span><br><span class="line-number">248</span><br><span class="line-number">249</span><br><span class="line-number">250</span><br><span class="line-number">251</span><br><span class="line-number">252</span><br><span class="line-number">253</span><br><span class="line-number">254</span><br><span class="line-number">255</span><br><span class="line-number">256</span><br><span class="line-number">257</span><br><span class="line-number">258</span><br><span class="line-number">259</span><br><span class="line-number">260</span><br><span class="line-number">261</span><br><span class="line-number">262</span><br><span class="line-number">263</span><br><span class="line-number">264</span><br><span class="line-number">265</span><br><span class="line-number">266</span><br><span class="line-number">267</span><br><span class="line-number">268</span><br><span class="line-number">269</span><br><span class="line-number">270</span><br><span class="line-number">271</span><br><span class="line-number">272</span><br><span class="line-number">273</span><br><span class="line-number">274</span><br><span class="line-number">275</span><br><span class="line-number">276</span><br><span class="line-number">277</span><br><span class="line-number">278</span><br><span class="line-number">279</span><br><span class="line-number">280</span><br><span class="line-number">281</span><br><span class="line-number">282</span><br><span class="line-number">283</span><br><span class="line-number">284</span><br><span class="line-number">285</span><br><span class="line-number">286</span><br><span class="line-number">287</span><br><span class="line-number">288</span><br><span class="line-number">289</span><br><span class="line-number">290</span><br><span class="line-number">291</span><br><span class="line-number">292</span><br><span class="line-number">293</span><br><span class="line-number">294</span><br><span class="line-number">295</span><br><span class="line-number">296</span><br><span class="line-number">297</span><br><span class="line-number">298</span><br><span class="line-number">299</span><br><span class="line-number">300</span><br><span class="line-number">301</span><br><span class="line-number">302</span><br><span class="line-number">303</span><br><span class="line-number">304</span><br><span class="line-number">305</span><br><span class="line-number">306</span><br><span class="line-number">307</span><br><span class="line-number">308</span><br><span class="line-number">309</span><br><span class="line-number">310</span><br><span class="line-number">311</span><br><span class="line-number">312</span><br><span class="line-number">313</span><br><span class="line-number">314</span><br><span class="line-number">315</span><br><span class="line-number">316</span><br><span class="line-number">317</span><br><span class="line-number">318</span><br><span class="line-number">319</span><br><span class="line-number">320</span><br><span class="line-number">321</span><br><span class="line-number">322</span><br><span class="line-number">323</span><br><span class="line-number">324</span><br><span class="line-number">325</span><br><span class="line-number">326</span><br><span class="line-number">327</span><br><span class="line-number">328</span><br><span class="line-number">329</span><br><span class="line-number">330</span><br><span class="line-number">331</span><br><span class="line-number">332</span><br><span class="line-number">333</span><br><span class="line-number">334</span><br><span class="line-number">335</span><br><span class="line-number">336</span><br><span class="line-number">337</span><br><span class="line-number">338</span><br><span class="line-number">339</span><br><span class="line-number">340</span><br><span class="line-number">341</span><br><span class="line-number">342</span><br><span class="line-number">343</span><br><span class="line-number">344</span><br><span class="line-number">345</span><br><span class="line-number">346</span><br><span class="line-number">347</span><br></div></div><p>由源码可以看到， mybatis为我们实现了那么多TypeHandler, 随便打开一个TypeHandler，看其源码，都可以看到，它继承自一个抽象类：BaseTypeHandler， 那么我们是不是也能通过继承BaseTypeHandler，从而实现自定义的TypeHandler ? 答案是肯定的， 那么现在下面就为大家演示一下自定义TypeHandler。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>@MappedJdbcTypes(JdbcType.VARCHAR)  
+//此处如果不用注解指定jdbcType, 那么，就可以在配置文件中通过&quot;jdbcType&quot;属性指定， 同理， javaType 也可通过 @MappedTypes指定
+public class ExampleTypeHandler extends BaseTypeHandler&lt;String&gt; {
+
+  @Override
+  public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType) throws SQLException {
+    ps.setString(i, parameter);
+  }
+
+  @Override
+  public String getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    return rs.getString(columnName);
+  }
+
+  @Override
+  public String getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    return rs.getString(columnIndex);
+  }
+
+  @Override
+  public String getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    return cs.getString(columnIndex);
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br></div></div><p>然后，就该配置我们的自定义TypeHandler了：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;configuration&gt;
+  &lt;typeHandlers&gt;
+      &lt;!-- 由于自定义的TypeHandler在定义时已经通过注解指定了jdbcType, 所以此处不用再配置jdbcType --&gt;
+      &lt;typeHandler handler=&quot;ExampleTypeHandler&quot;/&gt;
+  &lt;/typeHandlers&gt;
+  
+  ......
+  
+&lt;/configuration&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><p>也就是说，我们在自定义TypeHandler的时候，可以在TypeHandler通过@MappedJdbcTypes指定jdbcType, 通过 @MappedTypes 指定javaType, 如果没有使用注解指定，那么我们就需要在配置文件中配置。详细使用，请参见Mybatis类型转换介绍。</p> <h3 id="元素5-objectfactory"><a href="#元素5-objectfactory" class="header-anchor">#</a> 元素5：objectFactory</h3> <blockquote><p>objectFactory是干什么的？ 需要配置吗？</p></blockquote> <p>MyBatis 每次创建结果对象的新实例时，它都会使用一个对象工厂（ObjectFactory）实例来完成。默认的对象工厂需要做的仅仅是实例化目标类，要么通过默认构造方法，要么在参数映射存在的时候通过参数构造方法来实例化。默认情况下，我们不需要配置，mybatis会调用默认实现的objectFactory。 除非我们要自定义ObjectFactory的实现， 那么我们才需要去手动配置。</p> <p>那么怎么自定义实现ObjectFactory？ 怎么配置呢？自定义ObjectFactory只需要去继承DefaultObjectFactory（是ObjectFactory接口的实现类），并重写其方法即可。具体的，本处不多说，后面再具体讲解。</p> <p>写好了ObjectFactory, 仅需做如下配置：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;configuration&gt;
+    ......
+    &lt;objectFactory type=&quot;org.mybatis.example.ExampleObjectFactory&quot;&gt;
+        &lt;property name=&quot;someProperty&quot; value=&quot;100&quot;/&gt;
+    &lt;/objectFactory&gt;
+    ......
+&lt;/configuration&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><h3 id="元素6-plugins"><a href="#元素6-plugins" class="header-anchor">#</a> 元素6：plugins</h3> <blockquote><p>plugin有何作用？ 需要配置吗？</p></blockquote> <p>plugins 是一个可选配置。mybatis中的plugin其实就是个interceptor， 它可以拦截Executor 、ParameterHandler 、ResultSetHandler 、StatementHandler 的部分方法，处理我们自己的逻辑。Executor就是真正执行sql语句的东西， ParameterHandler 是处理我们传入参数的，还记得前面讲TypeHandler的时候提到过，mybatis默认帮我们实现了不少的typeHandler, 当我们不显示配置typeHandler的时候，mybatis会根据参数类型自动选择合适的typeHandler执行，其实就是ParameterHandler 在选择。ResultSetHandler 就是处理返回结果的。</p> <p>怎么自定义plugin ? 怎么配置？要自定义一个plugin, 需要去实现Interceptor接口，这儿不细说，后面实战部分会详细讲解。定义好之后，配置如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;configuration&gt;
+    ......
+    &lt;plugins&gt;
+      &lt;plugin interceptor=&quot;org.mybatis.example.ExamplePlugin&quot;&gt;
+        &lt;property name=&quot;someProperty&quot; value=&quot;100&quot;/&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+    ......
+&lt;/configuration&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><h3 id="元素7-mappers"><a href="#元素7-mappers" class="header-anchor">#</a> 元素7：mappers</h3> <blockquote><p>mappers, 这下引出mybatis的核心之一了，mappers作用 ? 需要配置吗？</p></blockquote> <p>mappers 节点下，配置我们的mapper映射文件， 所谓的mapper映射文件，就是让mybatis 用来建立数据表和javabean映射的一个桥梁。在我们实际开发中，通常一个mapper文件对应一个dao接口， 这个mapper可以看做是dao的实现。所以,mappers必须配置。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;configuration&gt;
+    ......
+    &lt;mappers&gt;
+        &lt;!-- 第一种方式：通过resource指定 --&gt;
+        &lt;mapper resource=&quot;com/dy/dao/userDao.xml&quot;/&gt;
+    
+        &lt;!-- 第二种方式， 通过class指定接口，进而将接口与对应的xml文件形成映射关系
+             不过，使用这种方式必须保证 接口与mapper文件同名(不区分大小写)， 
+             我这儿接口是UserDao,那么意味着mapper文件为UserDao.xml 
+        &lt;mapper class=&quot;com.dy.dao.UserDao&quot;/&gt;
+        --&gt;
+      
+        &lt;!-- 第三种方式，直接指定包，自动扫描，与方法二同理 
+        &lt;package name=&quot;com.dy.dao&quot;/&gt;
+        --&gt;
+        &lt;!-- 第四种方式：通过url指定mapper文件位置
+        &lt;mapper url=&quot;file://........&quot;/&gt;
+        --&gt;
+    &lt;/mappers&gt;
+    ......
+&lt;/configuration&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><p>本篇仅作简单介绍，更高级的使用以及其实现原理，会在后面的实战部分进行详细讲解。</p> <h3 id="解析方法-objectfactoryelement、pluginelement、mapperelement"><a href="#解析方法-objectfactoryelement、pluginelement、mapperelement" class="header-anchor">#</a> 解析方法：objectFactoryElement、pluginElement、mapperElement</h3> <p>以上几个节点的解析源码，与之前提到的那些节点的解析类似，故此处不再讲。 我将源码折叠， 需要的可以打开看看。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>/**
+ * objectFactory 节点解析
+ */
+private void objectFactoryElement(XNode context) throws Exception {
+    if (context != null) {
+      //读取type属性的值， 接下来进行实例化ObjectFactory, 并set进 configuration
+      //到此，简单讲一下configuration这个对象，其实它里面主要保存的都是mybatis的配置
+      String type = context.getStringAttribute(&quot;type&quot;);
+      //读取propertie的值， 根据需要可以配置， mybatis默认实现的objectFactory没有使用properties
+      Properties properties = context.getChildrenAsProperties();
+      
+      ObjectFactory factory = (ObjectFactory) resolveClass(type).newInstance();
+      factory.setProperties(properties);
+      configuration.setObjectFactory(factory);
+    }
+ }
+ 
+  
+  /**
+   * plugins 节点解析
+   */
+  private void pluginElement(XNode parent) throws Exception {
+    if (parent != null) {
+      for (XNode child : parent.getChildren()) {
+        String interceptor = child.getStringAttribute(&quot;interceptor&quot;);
+        Properties properties = child.getChildrenAsProperties();
+        //由此可见，我们在定义一个interceptor的时候，需要去实现Interceptor, 这儿先不具体讲，以后会详细讲解
+        Interceptor interceptorInstance = (Interceptor) resolveClass(interceptor).newInstance();
+        interceptorInstance.setProperties(properties);
+        configuration.addInterceptor(interceptorInstance);
+      }
+    }
+  }
+  
+  /**
+   * mappers 节点解析
+   * 这是mybatis的核心之一，这儿先简单介绍，在接下来的文章会对它进行分析
+   */
+  private void mapperElement(XNode parent) throws Exception {
+    if (parent != null) {
+      for (XNode child : parent.getChildren()) {
+        if (&quot;package&quot;.equals(child.getName())) {
+          //如果mappers节点的子节点是package, 那么就扫描package下的文件, 注入进configuration
+          String mapperPackage = child.getStringAttribute(&quot;name&quot;);
+          configuration.addMappers(mapperPackage);
+        } else {
+          String resource = child.getStringAttribute(&quot;resource&quot;);
+          String url = child.getStringAttribute(&quot;url&quot;);
+          String mapperClass = child.getStringAttribute(&quot;class&quot;);
+          //resource, url, class 三选一
+          
+          if (resource != null &amp;&amp; url == null &amp;&amp; mapperClass == null) {
+            ErrorContext.instance().resource(resource);
+            InputStream inputStream = Resources.getResourceAsStream(resource);
+            //mapper映射文件都是通过XMLMapperBuilder解析
+            XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, resource, configuration.getSqlFragments());
+            mapperParser.parse();
+          } else if (resource == null &amp;&amp; url != null &amp;&amp; mapperClass == null) {
+            ErrorContext.instance().resource(url);
+            InputStream inputStream = Resources.getUrlAsStream(url);
+            XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, url, configuration.getSqlFragments());
+            mapperParser.parse();
+          } else if (resource == null &amp;&amp; url == null &amp;&amp; mapperClass != null) {
+            Class&lt;?&gt; mapperInterface = Resources.classForName(mapperClass);
+            configuration.addMapper(mapperInterface);
+          } else {
+            throw new BuilderException(&quot;A mapper element may only specify a url, resource or class, but not more than one.&quot;);
+          }
+        }
+      }
+    }
+  }
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br></div></div><h3 id="元素8-settings"><a href="#元素8-settings" class="header-anchor">#</a> 元素8：settings</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;settings&gt; 
+    &lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot;/&gt; 
+    &lt;setting name=&quot;lazyLoadingEnabled&quot; value=&quot;true&quot;/&gt; 
+    &lt;setting name=&quot;multipleResultSetsEnabled&quot; value=&quot;true&quot;/&gt; 
+    &lt;setting name=&quot;useColumnLabel&quot; value=&quot;true&quot;/&gt; 
+    &lt;setting name=&quot;useGeneratedKeys&quot; value=&quot;false&quot;/&gt; 
+    &lt;setting name=&quot;enhancementEnabled&quot; value=&quot;false&quot;/&gt; 
+    &lt;setting name=&quot;defaultExecutorType&quot; value=&quot;SIMPLE&quot;/&gt; 
+    &lt;setting name=&quot;defaultStatementTimeout&quot; value=&quot;25000&quot;/&gt; 
+&lt;/settings&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><p>setting节点里配置的值会直接改写Configuration对应的变量值，这些变量描述的是Mybatis的全局运行方式，如果对这些属性的含义不熟悉的话建议不要配置，使用默认值即可。</p> <p>具体可以参考【官网的配置清单】，详解后文。</p> <h3 id="解析方法-settingselement"><a href="#解析方法-settingselement" class="header-anchor">#</a> 解析方法：settingsElement</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>private void settingsElement(XNode context) throws Exception {
+    if (context != null) {
+      Properties props = context.getChildrenAsProperties();
+      // Check that all settings are known to the configuration class
+      MetaClass metaConfig = MetaClass.forClass(Configuration.class);
+      for (Object key : props.keySet()) {
+        if (!metaConfig.hasSetter(String.valueOf(key))) {
+          throw new BuilderException(&quot;The setting &quot; + key + &quot; is not known.  Make sure you spelled it correctly (case sensitive).&quot;);
+        }
+      }
+      configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(props.getProperty(&quot;autoMappingBehavior&quot;, &quot;PARTIAL&quot;)));
+      configuration.setCacheEnabled(booleanValueOf(props.getProperty(&quot;cacheEnabled&quot;), true));
+      configuration.setProxyFactory((ProxyFactory) createInstance(props.getProperty(&quot;proxyFactory&quot;)));
+      configuration.setLazyLoadingEnabled(booleanValueOf(props.getProperty(&quot;lazyLoadingEnabled&quot;), false));
+      configuration.setAggressiveLazyLoading(booleanValueOf(props.getProperty(&quot;aggressiveLazyLoading&quot;), true));
+      configuration.setMultipleResultSetsEnabled(booleanValueOf(props.getProperty(&quot;multipleResultSetsEnabled&quot;), true));
+      configuration.setUseColumnLabel(booleanValueOf(props.getProperty(&quot;useColumnLabel&quot;), true));
+      configuration.setUseGeneratedKeys(booleanValueOf(props.getProperty(&quot;useGeneratedKeys&quot;), false));
+      configuration.setDefaultExecutorType(ExecutorType.valueOf(props.getProperty(&quot;defaultExecutorType&quot;, &quot;SIMPLE&quot;)));
+      configuration.setDefaultStatementTimeout(integerValueOf(props.getProperty(&quot;defaultStatementTimeout&quot;), null));
+      configuration.setMapUnderscoreToCamelCase(booleanValueOf(props.getProperty(&quot;mapUnderscoreToCamelCase&quot;), false));
+      configuration.setSafeRowBoundsEnabled(booleanValueOf(props.getProperty(&quot;safeRowBoundsEnabled&quot;), false));
+      configuration.setLocalCacheScope(LocalCacheScope.valueOf(props.getProperty(&quot;localCacheScope&quot;, &quot;SESSION&quot;)));
+      configuration.setJdbcTypeForNull(JdbcType.valueOf(props.getProperty(&quot;jdbcTypeForNull&quot;, &quot;OTHER&quot;)));
+      configuration.setLazyLoadTriggerMethods(stringSetValueOf(props.getProperty(&quot;lazyLoadTriggerMethods&quot;), &quot;equals,clone,hashCode,toString&quot;));
+      configuration.setSafeResultHandlerEnabled(booleanValueOf(props.getProperty(&quot;safeResultHandlerEnabled&quot;), true));
+      configuration.setDefaultScriptingLanguage(resolveClass(props.getProperty(&quot;defaultScriptingLanguage&quot;)));
+      configuration.setCallSettersOnNulls(booleanValueOf(props.getProperty(&quot;callSettersOnNulls&quot;), false));
+      configuration.setLogPrefix(props.getProperty(&quot;logPrefix&quot;));
+      configuration.setLogImpl(resolveClass(props.getProperty(&quot;logImpl&quot;)));
+      configuration.setConfigurationFactory(resolveClass(props.getProperty(&quot;configurationFactory&quot;)));
+    }
+}
+```)</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br></div></div></div></div> <!----> <div class="page-edit"><div class="edit-link"><a href="https://fanxgit.github.io/edit/master/docs/源代码学习/02.ORM框架 - MyBatis知识体系详解/04.MyBatis详解 - 配置解析过程.md" target="_blank" rel="noopener noreferrer">编辑</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">8/17/2023, 5:04:28 PM</span></div></div> <div class="page-nav-wapper"><div class="page-nav-centre-wrap"><a href="/pages/4c0510/" class="page-nav-centre page-nav-centre-prev"><div class="tooltip">MyBatis详解 - 初始化基本过程</div></a> <a href="/pages/2a3116/" class="page-nav-centre page-nav-centre-next"><div class="tooltip">MyBatis详解 - 官网配置清单</div></a></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/pages/4c0510/" class="prev">MyBatis详解 - 初始化基本过程</a></span> <span class="next"><a href="/pages/2a3116/">MyBatis详解 - 官网配置清单</a>→
+      </span></p></div></div></div> <div class="article-list"><div class="article-title"><a href="/archives/" class="iconfont icon-bi">最近更新</a></div> <div class="article-wrapper"><dl><dd>01</dd> <dt><a href="/pages/f7cef5/"><div>
+            SpringCloud - 常见问题与解决方案
+            <!----></div></a> <span class="date">04-14</span></dt></dl><dl><dd>02</dd> <dt><a href="/pages/f2b427/"><div>
+            SpringCloud - 最佳实践
+            <!----></div></a> <span class="date">04-14</span></dt></dl><dl><dd>03</dd> <dt><a href="/pages/b2a350/"><div>
+            SpringCloud - 实战项目
+            <!----></div></a> <span class="date">04-14</span></dt></dl> <dl><dd></dd> <dt><a href="/archives/" class="more">更多文章&gt;</a></dt></dl></div></div></main></div> <div class="footer"><!----> 
+  Theme by
+  <a href="https://github.com/xugaoyi/vuepress-theme-vdoing" target="_blank" title="本站主题">Vdoing</a> <!----></div> <div class="buttons"><div title="返回顶部" class="button blur go-to-top iconfont icon-fanhuidingbu" style="display:none;"></div> <div title="去评论" class="button blur go-to-comment iconfont icon-pinglun" style="display:none;"></div> <div title="主题模式" class="button blur theme-mode-but iconfont icon-zhuti"><ul class="select-box" style="display:none;"><li class="iconfont icon-zidong">
+          跟随系统
+        </li><li class="iconfont icon-rijianmoshi">
+          浅色模式
+        </li><li class="iconfont icon-yejianmoshi">
+          深色模式
+        </li><li class="iconfont icon-yuedu">
+          阅读模式
+        </li></ul></div></div> <!----> <!----> <!----></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.8bade7c0.js" defer></script><script src="/assets/js/3.b586265f.js" defer></script><script src="/assets/js/754.bdb6aedc.js" defer></script>
+  </body>
+</html>
